@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController _controller;
     private Vector3 _velocity;
+    private Animator _animator;
     private bool _isGrounded = true;
     private float _turnVelocity;
     private bool _inWater = false;
@@ -45,6 +46,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _controller = GetComponent<CharacterController>();
+        _animator = gameObject.GetComponentInChildren<Animator>();
         _collected = 0;
         _reset = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         SetScore();
@@ -66,7 +68,8 @@ public class PlayerController : MonoBehaviour
 
         // walking
         Vector3 move = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical")).normalized;
-        if (move.magnitude >= 0.1f)
+        bool isWalking = !Mathf.Approximately(move.sqrMagnitude, 0f);
+        if (isWalking)
         {
             float turnAngle = Mathf.Atan2(move.x, move.z) * Mathf.Rad2Deg + Camera.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, turnAngle, ref _turnVelocity, TurnTime);
@@ -75,6 +78,9 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             _controller.Move(move.normalized * Time.deltaTime * Speed);
         }
+        _animator.SetBool("IsWalking", isWalking);
+
+        // camera
         VirtualCamera.m_XAxis.Value = -Input.GetAxis("CamHorizontal");
 
         // jumping
@@ -193,7 +199,6 @@ I Want a rematch.
         int level = 0;
         foreach (Transform child in Evils.transform)
         {
-            Debug.Log(level);
             if (level != _level)
             {
                 child.gameObject.SetActive(false);
