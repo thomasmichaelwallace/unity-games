@@ -1,13 +1,5 @@
 ﻿using Cinemachine;
-using Cinemachine.Utility;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.ComTypes;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -22,12 +14,14 @@ public class PlayerController : MonoBehaviour
     public float CoyoteTime = 0.1f;
     public Transform Camera;
     public Text Score;
-    public int MaxScore = 10;
+    public int MaxScore = 24;
     public Text MessageText;
     public CanvasGroup Fader;
     public float FadeDuration = 1f;
     public float WaitDuration = 1f;
     public GameObject Evils;
+
+    // public GameObject EvilMessage;
     public CinemachineFreeLook VirtualCamera;
 
     private CharacterController _controller;
@@ -42,8 +36,9 @@ public class PlayerController : MonoBehaviour
     private bool _showMessage;
     private Vector3 _reset;
     private int _level = 0;
+    private bool _win = false;
 
-    void Start()
+    private void Start()
     {
         _controller = GetComponent<CharacterController>();
         _animator = gameObject.GetComponentInChildren<Animator>();
@@ -51,18 +46,16 @@ public class PlayerController : MonoBehaviour
         _reset = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         SetScore();
         Reset();
+        // EvilMessage.SetActive(false);
     }
 
-    void Update()
+    private void Update()
     {
-        
-
         if (_showMessage)
         {
             ShowMessage();
             return;
         }
-
 
         _isGrounded = _controller.isGrounded;
 
@@ -81,7 +74,7 @@ public class PlayerController : MonoBehaviour
         _animator.SetBool("IsWalking", isWalking);
 
         // camera
-        VirtualCamera.m_XAxis.Value = -Input.GetAxis("CamHorizontal");
+        // VirtualCamera.m_XAxis.Value = -Input.GetAxis("CamHorizontal");
 
         // jumping
         if (_isGrounded && _velocity.y < 0) _velocity.y = 0f;
@@ -93,7 +86,7 @@ public class PlayerController : MonoBehaviour
         {
             _coyoteTime -= Time.deltaTime;
         }
-        if (Input.GetButtonDown("Fire1") && _coyoteTime > 0)
+        if (Input.GetButtonDown("Jump") && _coyoteTime > 0)
         {
             _velocity.y += Mathf.Sqrt(JumpHeight * -2f * Gravity);
             _coyoteTime = 0;
@@ -140,6 +133,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Catch"))
         {
             other.isTrigger = false;
+            other.gameObject.SetActive(false);
             DoCatch();
         }
     }
@@ -161,12 +155,40 @@ public class PlayerController : MonoBehaviour
     private void DoCatch()
     {
         _showMessage = true;
-        MessageText.text = @"
+        _level += 1;
+        if (_level >= Evils.transform.childCount)
+        {
+            if (_collected < MaxScore)
+            {
+                MessageText.text = @"
+You found me!
+EVERY TIME!
+Looks like you win for now...
+But I've still got enough gold to come back!
+";
+                MessageText.color = new Color(4911683f, 0.6698113f, 0.36966f);
+            }
+            else
+            {
+                MessageText.text = @"
+You found me! Every time!!
+AND YOU FOUND ALL MY GOLD?!!
+You win.
+With the secret ending!
+";
+                MessageText.color = new Color(1, 0, 0.4102478f);
+            }
+
+            _win = true;
+        }
+        else
+        {
+            MessageText.text = @"
 You found me!
 No Fair!
-I Want a rematch.
+I Want a do over.
 ";
-        _level += 1;
+        }
     }
 
     private void SetScore()
@@ -184,10 +206,13 @@ I Want a rematch.
             || (_fader > FadeDuration + WaitDuration)
             )
         {
-            Reset();
-            _showMessage = false;
-            Fader.alpha = 0;
-            _fader = 0;
+            if (!_win)
+            {
+                Reset();
+                _showMessage = false;
+                Fader.alpha = 0;
+                _fader = 0;
+            }
         }
     }
 
@@ -196,18 +221,18 @@ I Want a rematch.
         transform.position = _reset;
         _velocity = new Vector3();
 
-        int level = 0;
-        foreach (Transform child in Evils.transform)
-        {
-            if (level != _level)
-            {
-                child.gameObject.SetActive(false);
-            }
-            else
-            {
-                child.gameObject.SetActive(true);
-            }
-            level += 1;
-        }
+        //int level = 0;
+        //foreach (Transform child in Evils.transform)
+        //{
+        //    if (level != _level)
+        //    {
+        //        child.gameObject.SetActive(false);
+        //    }
+        //    else
+        //    {
+        //        child.gameObject.SetActive(true);
+        //    }
+        //    level += 1;
+        //}
     }
 }
