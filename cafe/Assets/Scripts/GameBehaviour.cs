@@ -11,6 +11,7 @@ public class GameBehaviour : MonoBehaviour
     public Text Prompt;
     public Light[] SpotLights;
     public float MinAngle = 30f;
+    public AudioSource Audio;
     public Animator Player;
 
     private bool _isUp = true;
@@ -19,6 +20,8 @@ public class GameBehaviour : MonoBehaviour
     private int _index = 0;
     private float _maxAngle = 0f;
     private float _spotAngle = 0f;
+    private float _maxVolume = 0f;
+    private float _deltaVolume = 0f;
 
     private readonly string[] _text =
     {
@@ -51,6 +54,7 @@ public class GameBehaviour : MonoBehaviour
         {
             light.spotAngle = _spotAngle;
         }
+        Audio.volume = (_spotAngle - MinAngle) / (_maxAngle - MinAngle);
     }
 
     private void Update()
