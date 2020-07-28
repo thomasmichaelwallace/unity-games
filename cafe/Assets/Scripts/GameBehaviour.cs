@@ -38,6 +38,7 @@ public class GameBehaviour : MonoBehaviour
         int index = _index;
         if (!_isUp) index += 4;
         Prompt.text = _text[index];
+        Player.SetInteger("Index", index);
     }
 
     private void SetLights(float delta)
@@ -70,7 +71,6 @@ public class GameBehaviour : MonoBehaviour
         if (inSync || inCoyote)
         {
             SetLights(Time.deltaTime * Speed * -1);
-            Player.SetBool("Inhaling", _isUp);
 
             _timer += Time.deltaTime;
             if (_timer > Cadence)
@@ -90,7 +90,6 @@ public class GameBehaviour : MonoBehaviour
         else
         {
             SetLights(Time.deltaTime * Speed);
-            Player.SetBool("Inhaling", false);
 
             _timer = 0;
             if (_index != 0)
