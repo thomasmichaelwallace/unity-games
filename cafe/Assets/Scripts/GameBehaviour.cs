@@ -7,12 +7,16 @@ public class GameBehaviour : MonoBehaviour
 {
     public float Cadence = 2f;
     public float Coyote = 1f;
+    public float Speed = 1f;
     public Text Prompt;
+    public Light SpotLight;
+    public float MinAngle = 30f;
 
     private bool _isUp = true;
     private float _coyote = 0f;
     private float _timer = 0f;
     private int _index = 0;
+    private float _maxAngle = 0f;
 
     private readonly string[] _text =
     {
@@ -23,6 +27,7 @@ public class GameBehaviour : MonoBehaviour
     private void Start()
     {
         SetText();
+        _maxAngle = SpotLight.spotAngle;
     }
 
     private void SetText()
@@ -49,6 +54,8 @@ public class GameBehaviour : MonoBehaviour
 
         if (inSync || inCoyote)
         {
+            if (SpotLight.spotAngle > MinAngle) SpotLight.spotAngle -= Time.deltaTime * Speed;
+
             _timer += Time.deltaTime;
             if (_timer > Cadence)
             {
@@ -66,6 +73,8 @@ public class GameBehaviour : MonoBehaviour
         }
         else
         {
+            if (SpotLight.spotAngle < _maxAngle) SpotLight.spotAngle += Time.deltaTime * Speed;
+
             _timer = 0;
             if (_index != 0)
             {
