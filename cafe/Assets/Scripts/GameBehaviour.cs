@@ -11,6 +11,7 @@ public class GameBehaviour : MonoBehaviour
     public Text Prompt;
     public Light[] SpotLights;
     public float MinAngle = 30f;
+    public Animator Player;
 
     private bool _isUp = true;
     private float _coyote = 0f;
@@ -69,6 +70,7 @@ public class GameBehaviour : MonoBehaviour
         if (inSync || inCoyote)
         {
             SetLights(Time.deltaTime * Speed * -1);
+            Player.SetBool("Inhaling", _isUp);
 
             _timer += Time.deltaTime;
             if (_timer > Cadence)
@@ -88,6 +90,7 @@ public class GameBehaviour : MonoBehaviour
         else
         {
             SetLights(Time.deltaTime * Speed);
+            Player.SetBool("Inhaling", false);
 
             _timer = 0;
             if (_index != 0)
