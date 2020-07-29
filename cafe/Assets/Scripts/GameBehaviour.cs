@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// TODO: end game (?)
+// TODO: return to idle if left.
+
 public class GameBehaviour : MonoBehaviour
 {
     public float Cadence = 2f;
@@ -20,8 +23,6 @@ public class GameBehaviour : MonoBehaviour
     private int _index = 0;
     private float _maxAngle = 0f;
     private float _spotAngle = 0f;
-    private float _maxVolume = 0f;
-    private float _deltaVolume = 0f;
 
     private readonly string[] _text =
     {
