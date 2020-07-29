@@ -1,10 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-
-// TODO: end game (?)
-// TODO: return to idle if left.
 
 public class GameBehaviour : MonoBehaviour
 {
@@ -23,6 +18,8 @@ public class GameBehaviour : MonoBehaviour
     private int _index = 0;
     private float _maxAngle = 0f;
     private float _spotAngle = 0f;
+    private bool _idle = true;
+    private float _idleTime = 1f;
 
     private readonly string[] _text =
     {
@@ -35,6 +32,7 @@ public class GameBehaviour : MonoBehaviour
         SetText();
         _maxAngle = SpotLights[0].spotAngle;
         _spotAngle = _maxAngle;
+        Player.SetBool("IsIdle", _idle);
     }
 
     private void SetText()
@@ -77,6 +75,13 @@ public class GameBehaviour : MonoBehaviour
         {
             SetLights(Time.deltaTime * Speed * -1);
 
+            _idleTime = 1f;
+            if (_idle)
+            {
+                _idle = false;
+                Player.SetBool("IsIdle", _idle);
+            }
+
             _timer += Time.deltaTime;
             if (_timer > Cadence)
             {
@@ -95,6 +100,16 @@ public class GameBehaviour : MonoBehaviour
         else
         {
             SetLights(Time.deltaTime * Speed);
+
+            if (!_idle)
+            {
+                _idleTime -= Time.deltaTime;
+                if (_idleTime < 0)
+                {
+                    _idle = true;
+                    Player.SetBool("IsIdle", _idle);
+                }
+            }
 
             _timer = 0;
             if (_index != 0)
