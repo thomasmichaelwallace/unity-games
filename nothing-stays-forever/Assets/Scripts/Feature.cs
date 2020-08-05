@@ -22,13 +22,18 @@ public class Feature : MonoBehaviour
 
     private void Start()
     {
-        drift = UnityEngine.Random.insideUnitSphere; // start by drifting in a random direction
-        drift.z = 0;
         isDragging = false;
         doLeftClick = false;
         meshRenderer = GetComponent<MeshRenderer>();
         meshFilter = GetComponent<MeshFilter>();
         meshCollider = GetComponent<MeshCollider>();
+        SetDrift();
+    }
+
+    private void SetDrift()
+    {
+        drift = UnityEngine.Random.insideUnitSphere; // start by drifting in a random direction
+        drift.z = 0;
     }
 
     private void OnMouseDown()
@@ -53,7 +58,6 @@ public class Feature : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            Debug.Log("Pressed right click.");
             materialIndex += 1;
             if (materialIndex >= Materials.Length) materialIndex = 0;
             meshRenderer.material = Materials[materialIndex];
@@ -63,8 +67,7 @@ public class Feature : MonoBehaviour
     private void OnMouseUp()
     {
         isDragging = false;
-        doLeftClick = dragTime < 0.5f;
-        Debug.Log(dragTime);
+        doLeftClick = dragTime < 0.4f;
     }
 
     private void Update()
@@ -76,8 +79,6 @@ public class Feature : MonoBehaviour
         if (doLeftClick)
         {
             doLeftClick = false;
-            // left-click
-            Debug.Log("left click");
             meshIndex += 1;
             if (meshIndex >= Meshes.Length) meshIndex = 0;
             meshFilter.mesh = Meshes[meshIndex];
