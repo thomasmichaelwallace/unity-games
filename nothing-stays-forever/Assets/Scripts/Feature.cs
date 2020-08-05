@@ -19,6 +19,13 @@ public class Feature : MonoBehaviour
     private MeshCollider meshCollider;
     private int meshIndex;
     private bool doLeftClick;
+    private Vector3 initialPosition;
+
+    private float speed = 0.25f;
+
+    public float Distance { get; private set; }
+    public bool CorrectShape { get; private set; }
+    public bool CorrectMaterial { get; private set; }
 
     private void Start()
     {
@@ -28,12 +35,19 @@ public class Feature : MonoBehaviour
         meshFilter = GetComponent<MeshFilter>();
         meshCollider = GetComponent<MeshCollider>();
         SetDrift();
+
+        initialPosition = transform.position;
+        CorrectMaterial = true;
+        CorrectShape = true;
     }
 
     private void SetDrift()
     {
         drift = UnityEngine.Random.insideUnitSphere; // start by drifting in a random direction
         drift.z = 0;
+        Distance = 0f;
+        CorrectShape = true;
+        CorrectMaterial = false;
     }
 
     private void OnMouseDown()
@@ -61,6 +75,7 @@ public class Feature : MonoBehaviour
             materialIndex += 1;
             if (materialIndex >= Materials.Length) materialIndex = 0;
             meshRenderer.material = Materials[materialIndex];
+            CorrectMaterial = materialIndex == 0;
         }
     }
 
@@ -83,11 +98,12 @@ public class Feature : MonoBehaviour
             if (meshIndex >= Meshes.Length) meshIndex = 0;
             meshFilter.mesh = Meshes[meshIndex];
             meshCollider.sharedMesh = meshFilter.sharedMesh;
+            CorrectShape = meshIndex == 0;
         }
 
         if (!isDragging)
         {
-            transform.position += drift * Time.deltaTime;
+            transform.position += drift * Time.deltaTime * speed;
 
             // spin
             if (drift.x == 0)
@@ -114,5 +130,7 @@ public class Feature : MonoBehaviour
                 drift.y = -drift.y;
             }
         }
+
+        Distance = (Camera.main.WorldToScreenPoint(transform.position) - Camera.main.WorldToScreenPoint(initialPosition)).magnitude;
     }
 }
