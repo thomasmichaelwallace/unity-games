@@ -47,8 +47,8 @@ public class Story : MonoBehaviour
         }
     }
 
-    public float AdvanceTime = 5f;
-    public float DegradeTime = 7f;
+    public float AdvanceTime = 8f;
+    public float DegradeTime = 10f;
     private readonly float speed = 0.10f;
 
     private readonly Sentence[] sentences = {

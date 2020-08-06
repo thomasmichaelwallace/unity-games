@@ -157,8 +157,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 25}
-  m_SizeDelta: {x: 800, y: 100}
+  m_AnchoredPosition: {x: 0, y: 75}
+  m_SizeDelta: {x: 800, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &375784150
 MonoBehaviour:
@@ -209,8 +209,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: John always liked to {{ word }} with me.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6fd16c8185722c545831a097b2bc80f8, type: 2}
+  m_sharedMaterial: {fileID: 4874551061203324395, guid: 6fd16c8185722c545831a097b2bc80f8,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -235,7 +236,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 46.2
+  m_fontSize: 41.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -673,6 +674,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 9382eccb14b668242a3aed77d6851340, type: 2}
   Meshes:
   - {fileID: -946093874511722013, guid: 2c12e212eaa65114db169b29da64fdd8, type: 3}
+  RightMaterial: 2
 --- !u!64 &1004965777
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -852,6 +854,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 9382eccb14b668242a3aed77d6851340, type: 2}
   Meshes:
   - {fileID: 2943395109716765318, guid: 071e118c9950d654693a43b2077f8de1, type: 3}
+  RightMaterial: 0
 --- !u!64 &1059846854
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -952,6 +955,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 9382eccb14b668242a3aed77d6851340, type: 2}
   Meshes:
   - {fileID: -8839368762345780380, guid: 0beaa4e8413e64146a14c0ba586b34e0, type: 3}
+  RightMaterial: 2
 --- !u!64 &1438580341
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1178,6 +1182,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 9382eccb14b668242a3aed77d6851340, type: 2}
   Meshes:
   - {fileID: 2943395109716765318, guid: 071e118c9950d654693a43b2077f8de1, type: 3}
+  RightMaterial: 0
 --- !u!64 &1957273831
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1292,6 +1297,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 9382eccb14b668242a3aed77d6851340, type: 2}
   Meshes:
   - {fileID: -3178576508544696699, guid: 9909d53d0480b74488d48946151fa5a9, type: 3}
+  RightMaterial: 1
 --- !u!64 &2071692229
 MeshCollider:
   m_ObjectHideFlags: 0
