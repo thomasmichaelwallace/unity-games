@@ -4,10 +4,12 @@ public class Feature : MonoBehaviour
 {
     public Material[] Materials;
     public Mesh[] Meshes;
+    public int RightMaterial;
 
     private readonly float speed = 0.25f;
-    private float countdown = 3f;
-    private readonly float cycleTime = 5f;
+    private float countdown = 17f;
+    private readonly float minCycleTime = 15f;
+    private readonly float addCycleTime = 20f;
     private float cycle;
 
     private Vector3 screenPoint;
@@ -17,7 +19,7 @@ public class Feature : MonoBehaviour
     private float dragTime;
     private MeshRenderer meshRenderer;
     private int materialIndex;
-    private int rightMaterial;
+
     private bool doLeftClick;
     private Vector3 initialPosition;
     private float maxDistance;
@@ -30,8 +32,7 @@ public class Feature : MonoBehaviour
         doLeftClick = false;
 
         meshRenderer = GetComponent<MeshRenderer>();
-        RandomMaterial();
-        rightMaterial = materialIndex;
+        materialIndex = RightMaterial;
         SetMaterial();
 
         initialPosition = transform.position;
@@ -40,7 +41,7 @@ public class Feature : MonoBehaviour
         maxDistance = Screen.width * 0.3f; // TODO: this better.
         Correctness = 1;
 
-        cycle = cycleTime;
+        cycle = minCycleTime + UnityEngine.Random.value * addCycleTime;
     }
 
     private void OnMouseDown()
@@ -65,7 +66,7 @@ public class Feature : MonoBehaviour
     private void OnMouseUp()
     {
         isDragging = false;
-        doLeftClick = dragTime < 0.4f;
+        doLeftClick = dragTime < 0.3f;
     }
 
     private void Update()
@@ -76,6 +77,7 @@ public class Feature : MonoBehaviour
         }
         if (doLeftClick)
         {
+            cycle = minCycleTime + UnityEngine.Random.value * addCycleTime;
             doLeftClick = false;
             NextMaterial();
         }
@@ -114,14 +116,14 @@ public class Feature : MonoBehaviour
             cycle -= Time.deltaTime;
             if (cycle <= 0)
             {
-                cycle = cycleTime;
+                cycle = minCycleTime + UnityEngine.Random.value * addCycleTime;
                 RandomMaterial();
             }
         }
 
         float distance = (Camera.main.WorldToScreenPoint(transform.position) - Camera.main.WorldToScreenPoint(initialPosition)).magnitude;
         float outness = 0.5f - (Mathf.Min(1f, distance / maxDistance) * 0.5f);
-        float materialness = materialIndex == rightMaterial ? 0.5f : 0;
+        float materialness = materialIndex == RightMaterial ? 0.5f : 0;
         Correctness = outness + materialness;
     }
 

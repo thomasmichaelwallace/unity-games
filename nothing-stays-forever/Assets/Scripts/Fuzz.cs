@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
 public class Fuzz : MonoBehaviour
@@ -40,12 +38,12 @@ public class Fuzz : MonoBehaviour
         }
         fuzz += TheStory.Correctness;
         fuzz /= (float)(features.Length + TheStory.Weight);
-        fuzz = 1f - fuzz;
+        fuzz = Mathf.Max(1f - fuzz, 0f);
 
-        bloom.intensity.value = fuzz * 15;
+        bloom.intensity.value = fuzz * 10;
         chrome.intensity.value = fuzz;
         grain.intensity.value = fuzz;
-        color.saturation.value = -85 * fuzz;
-        color.contrast.value = 85 * fuzz;
+        color.saturation.value = -50 * fuzz;
+        color.contrast.value = 50 * fuzz;
     }
 }

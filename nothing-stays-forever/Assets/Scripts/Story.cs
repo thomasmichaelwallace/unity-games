@@ -19,14 +19,14 @@ public class Story : MonoBehaviour
         private readonly int correctWord;
         private int colourIndex = 0;
 
-        public Sentence(string template, string[] words)
+        public Sentence(string template, string[] words, int offset)
         {
             Template = template;
             Words = words;
 
-            var random = new System.Random(); // can't access unity random from ctor.
-            wordIndex = random.Next(0, Words.Length);
-            correctWord = wordIndex;
+            wordIndex = offset - 1;
+            NextWord();
+            correctWord = offset;
         }
 
         public string NextWord()
@@ -52,8 +52,9 @@ public class Story : MonoBehaviour
     private readonly float speed = 0.10f;
 
     private readonly Sentence[] sentences = {
-        new Sentence("My best friend was called {{ word }}", new string[] { "John", "Jill", "James" }),
-        new Sentence("They loved {{ word }}", new string[] { "Dancing", "Walking", "Singing" }),
+        new Sentence("My best friend at school was called {{ word }}", new string[] { "Ellis", "Sasha", "Ray" }, 0),
+        new Sentence("They loved {{ word }}", new string[] { "football", "painting", "singing" }, 1),
+        new Sentence("We spent the summer {{ word }}", new string[] { "on the swings", "around the town", "in the woods" }, 2),
     };
 
     private TextMeshProUGUI text;
@@ -62,12 +63,13 @@ public class Story : MonoBehaviour
     private Vector3 drift;
     private bool isDegrading = false;
     private float degradeTime = 0f;
+    private readonly float proportion = 2.0f;
 
     public float Correctness { get; private set; }
 
     public float Weight
     {
-        get { return sentences.Length; }
+        get { return sentences.Length * proportion; }
     }
 
     private void Start()
@@ -118,18 +120,19 @@ public class Story : MonoBehaviour
             degradeTime += Time.deltaTime;
             if (degradeTime > DegradeTime)
             {
-                degradeTime = 0;
+                degradeTime = -UnityEngine.Random.value * DegradeTime;
                 sentences[sentenceIndex].NextWord();
                 SetText();
             }
         }
 
-        Correctness = sentences.Sum(s => s.Correct ? 1f : 0f);
+        Correctness = sentences.Sum(s => s.Correct ? proportion : 0f);
     }
 
     public void OnClick()
     {
         NextWord();
+        degradeTime = -UnityEngine.Random.value * DegradeTime;
     }
 
     private void SetDrift()
