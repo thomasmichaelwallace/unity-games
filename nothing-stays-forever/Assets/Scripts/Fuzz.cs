@@ -5,21 +5,26 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class Fuzz : MonoBehaviour
 {
-    public Feature[] Features;
+    public GameObject Features;
     public Story TheStory;
 
+    public Feature[] features;
     private Bloom bloom;
     private ChromaticAberration chrome;
     private Grain grain;
     private PostProcessVolume volume;
+    private ColorGrading color;
 
     private void Start()
     {
+        features = Features.GetComponentsInChildren<Feature>();
+
         volume = GetComponent<PostProcessVolume>();
 
-        volume.profile.TryGetSettings<Bloom>(out bloom);
-        volume.profile.TryGetSettings<ChromaticAberration>(out chrome);
-        volume.profile.TryGetSettings<Grain>(out grain);
+        volume.profile.TryGetSettings(out bloom);
+        volume.profile.TryGetSettings(out chrome);
+        volume.profile.TryGetSettings(out grain);
+        volume.profile.TryGetSettings(out color);
 
         bloom.intensity.value = 0;
         chrome.intensity.value = 0;
@@ -29,18 +34,18 @@ public class Fuzz : MonoBehaviour
     private void Update()
     {
         float fuzz = 0;
-        int parts = 0;
-        foreach (Feature feature in Features)
+        foreach (Feature feature in features)
         {
-            parts += 1;
-            fuzz += feature.CorrectMaterial ? 0 : 1;
-            fuzz += feature.CorrectShape ? 0 : 1;
-            fuzz += Mathf.Min(1f, feature.Distance / (Screen.height * 0.5f));
+            fuzz += feature.Correctness;
         }
+        fuzz += TheStory.Correctness;
+        fuzz /= (float)(features.Length + TheStory.Weight);
+        fuzz = 1f - fuzz;
 
-        fuzz /= (float)parts;
-        bloom.intensity.value = fuzz * 10;
+        bloom.intensity.value = fuzz * 15;
         chrome.intensity.value = fuzz;
         grain.intensity.value = fuzz;
+        color.saturation.value = -85 * fuzz;
+        color.contrast.value = 85 * fuzz;
     }
 }

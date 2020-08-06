@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Feature : MonoBehaviour
 {
     public Material[] Materials;
     public Mesh[] Meshes;
+
+    private readonly float speed = 0.25f;
+    private float countdown = 3f;
+    private readonly float cycleTime = 5f;
+    private float cycle;
 
     private Vector3 screenPoint;
     private Vector3 offset;
@@ -15,39 +17,30 @@ public class Feature : MonoBehaviour
     private float dragTime;
     private MeshRenderer meshRenderer;
     private int materialIndex;
-    private MeshFilter meshFilter;
-    private MeshCollider meshCollider;
-    private int meshIndex;
+    private int rightMaterial;
     private bool doLeftClick;
     private Vector3 initialPosition;
+    private float maxDistance;
 
-    private float speed = 0.25f;
-
-    public float Distance { get; private set; }
-    public bool CorrectShape { get; private set; }
-    public bool CorrectMaterial { get; private set; }
+    public float Correctness { get; private set; }
 
     private void Start()
     {
         isDragging = false;
         doLeftClick = false;
+
         meshRenderer = GetComponent<MeshRenderer>();
-        meshFilter = GetComponent<MeshFilter>();
-        meshCollider = GetComponent<MeshCollider>();
-        SetDrift();
+        RandomMaterial();
+        rightMaterial = materialIndex;
+        SetMaterial();
 
         initialPosition = transform.position;
-        CorrectMaterial = true;
-        CorrectShape = true;
-    }
+        RandomDrift();
 
-    private void SetDrift()
-    {
-        drift = UnityEngine.Random.insideUnitSphere; // start by drifting in a random direction
-        drift.z = 0;
-        Distance = 0f;
-        CorrectShape = true;
-        CorrectMaterial = false;
+        maxDistance = Screen.width * 0.3f; // TODO: this better.
+        Correctness = 1;
+
+        cycle = cycleTime;
     }
 
     private void OnMouseDown()
@@ -64,19 +57,9 @@ public class Feature : MonoBehaviour
         Vector3 cursorPosition = Camera.main.ScreenToWorldPoint(cursorPoint) + offset;
 
         drift = (cursorPosition - transform.position).normalized;
+        countdown = 0;
 
         transform.position = cursorPosition;
-    }
-
-    private void OnMouseOver()
-    {
-        if (Input.GetMouseButtonDown(1))
-        {
-            materialIndex += 1;
-            if (materialIndex >= Materials.Length) materialIndex = 0;
-            meshRenderer.material = Materials[materialIndex];
-            CorrectMaterial = materialIndex == 0;
-        }
     }
 
     private void OnMouseUp()
@@ -94,14 +77,11 @@ public class Feature : MonoBehaviour
         if (doLeftClick)
         {
             doLeftClick = false;
-            meshIndex += 1;
-            if (meshIndex >= Meshes.Length) meshIndex = 0;
-            meshFilter.mesh = Meshes[meshIndex];
-            meshCollider.sharedMesh = meshFilter.sharedMesh;
-            CorrectShape = meshIndex == 0;
+            NextMaterial();
         }
 
-        if (!isDragging)
+        if (countdown > 0) countdown -= Time.deltaTime;
+        if (!isDragging && countdown <= 0)
         {
             transform.position += drift * Time.deltaTime * speed;
 
@@ -129,8 +109,43 @@ public class Feature : MonoBehaviour
             {
                 drift.y = -drift.y;
             }
+
+            // switch
+            cycle -= Time.deltaTime;
+            if (cycle <= 0)
+            {
+                cycle = cycleTime;
+                RandomMaterial();
+            }
         }
 
-        Distance = (Camera.main.WorldToScreenPoint(transform.position) - Camera.main.WorldToScreenPoint(initialPosition)).magnitude;
+        float distance = (Camera.main.WorldToScreenPoint(transform.position) - Camera.main.WorldToScreenPoint(initialPosition)).magnitude;
+        float outness = 0.5f - (Mathf.Min(1f, distance / maxDistance) * 0.5f);
+        float materialness = materialIndex == rightMaterial ? 0.5f : 0;
+        Correctness = outness + materialness;
+    }
+
+    private void NextMaterial()
+    {
+        materialIndex += 1;
+        if (materialIndex >= Materials.Length) materialIndex = 0;
+        SetMaterial();
+    }
+
+    private void RandomMaterial()
+    {
+        materialIndex = Mathf.FloorToInt(UnityEngine.Random.value * (float)Materials.Length);
+        SetMaterial();
+    }
+
+    private void SetMaterial()
+    {
+        meshRenderer.material = Materials[materialIndex];
+    }
+
+    private void RandomDrift()
+    {
+        drift = UnityEngine.Random.insideUnitSphere; // start by drifting in a random direction
+        drift.z = 0;
     }
 }

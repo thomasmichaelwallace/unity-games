@@ -155,11 +155,11 @@ RectTransform:
   m_Father: {fileID: 1512053753}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 450, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 25}
+  m_SizeDelta: {x: 500, y: 50}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &375784150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,14 +235,14 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 25.95
+  m_fontSize: 28.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_textAlignment: 257
+  m_textAlignment: 258
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -474,14 +474,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 985d861284989dc4fbe054f54c8d43d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Features:
-  - {fileID: 1438580340}
-  - {fileID: 1957273830}
-  - {fileID: 1059846853}
-  - {fileID: 2071692228}
-  - {fileID: 1004965776}
-  TheStory: {fileID: 0}
-  Post: {fileID: 11400000, guid: 339492807e764b9488b1883019389f4f, type: 2}
+  Features: {fileID: 2102169938}
+  TheStory: {fileID: 375784153}
+  features: []
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
