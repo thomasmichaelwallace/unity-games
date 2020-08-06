@@ -8,7 +8,7 @@ public class Story : MonoBehaviour
     {
         public string Template;
         public string[] Words;
-        public string[] Colours = { "#ff0000", "#00ff00", "#0000ff" };
+        public string[] Colours = { "#f38181", "#95e1d3", "#fce38a" };
 
         public bool Correct
         {
