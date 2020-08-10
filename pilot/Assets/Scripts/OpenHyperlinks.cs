@@ -11,18 +11,13 @@ using TMPro;
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class OpenHyperlinks : MonoBehaviour, IPointerClickHandler
 {
-    public bool doesColorChangeOnHover = true;
-    public Color hoverColor = new Color(60f / 255f, 120f / 255f, 1f);
+    public DialogueSystem Manager;
+    public bool DoesColorChangeOnHover = true;
+    public Color HoverColor = new Color(60f / 255f, 120f / 255f, 1f);
 
     private TextMeshProUGUI pTextMeshPro;
     private Canvas pCanvas;
     private Camera pCamera;
-
-    private Dictionary<string, string> texts = new Dictionary<string, string>
-    {
-        { "left", "i went left, and it was good." },
-        { "right", "i went right and <link=\"end\">it was good</link>" },
-    };
 
     public bool isLinkHighlighted { get { return pCurrentLink != -1; } }
 
@@ -62,8 +57,8 @@ public class OpenHyperlinks : MonoBehaviour, IPointerClickHandler
         {
             // Debug.Log("New selection");
             pCurrentLink = linkIndex;
-            if (doesColorChangeOnHover)
-                pOriginalVertexColors = SetLinkToColor(linkIndex, (_linkIdx, _vertIdx) => hoverColor);
+            if (DoesColorChangeOnHover)
+                pOriginalVertexColors = SetLinkToColor(linkIndex, (_linkIdx, _vertIdx) => HoverColor);
         }
 
         // Debug.Log(string.Format("isHovering: {0}, link: {1}", isHoveringOver, linkIndex));
@@ -77,24 +72,8 @@ public class OpenHyperlinks : MonoBehaviour, IPointerClickHandler
         if (linkIndex != -1)
         { // was a link clicked?
             TMP_LinkInfo linkInfo = pTextMeshPro.textInfo.linkInfo[linkIndex];
-
-            // Debug.Log(string.Format("id: {0}, text: {1}", linkInfo.GetLinkID(), linkInfo.GetLinkText()));
-            // open the link id as a url, which is the metadata we added in the text field
             string id = linkInfo.GetLinkID();
-            if (id == "end")
-            {
-                Debug.Log("end of text.");
-            }
-            else
-            {
-                string text; //  = "bummer.";
-                if (!texts.TryGetValue(id, out text))
-                {
-                    text = "bummer";
-                }
-
-                pTextMeshPro.SetText(text);
-            }
+            Manager.SetPointer(id);
         }
     }
 
