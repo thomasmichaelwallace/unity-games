@@ -10,6 +10,7 @@ public class DialogueSystem : MonoBehaviour
     public string LinkColour;
     public TextMeshProUGUI DialogueText;
     public GameObject DialogueBox;
+    public Texture2D CursorTexture;
 
     private Dictionary<string, string> script = new Dictionary<string, string>();
     private string pointer = "_init_";
@@ -65,6 +66,12 @@ public class DialogueSystem : MonoBehaviour
         return stack;
     }
 
+    public void TriggerPointer(string id)
+    {
+        if (DialogueBox.activeSelf) return;
+        SetPointer(id);
+    }
+
     public void SetPointer(string id)
     {
         if (id == "_close_")
@@ -82,10 +89,5 @@ public class DialogueSystem : MonoBehaviour
             pointer = id;
             DialogueText.SetText(script[pointer]);
         }
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
     }
 }

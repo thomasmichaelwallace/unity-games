@@ -429,6 +429,7 @@ MonoBehaviour:
   LinkColour: yellow
   DialogueText: {fileID: 2132515037}
   DialogueBox: {fileID: 1985527060}
+  CursorTexture: {fileID: 2800000, guid: 0781e066f75aaa94095583eafdec5d8f, type: 3}
 --- !u!4 &547934334
 Transform:
   m_ObjectHideFlags: 0
@@ -790,7 +791,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.041960135, y: -0.011247153, z: 0.00047237804, w: 0.9990559}
-  m_LocalPosition: {x: -10.25, y: -0.59, z: -45}
+  m_LocalPosition: {x: -6.79, y: -0.59, z: -35.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1196,6 +1197,34 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1509186463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509186461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ffcc41a3e8d21d4eb620ba4ce6e84d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Pointer: the_sea
+  hotSpot: {x: 0, y: 0}
+--- !u!136 &1509186464
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509186461}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 3
+  m_Height: 30
+  m_Direction: 2
+  m_Center: {x: 0, y: -1, z: 0}
 --- !u!1 &1604185588
 GameObject:
   m_ObjectHideFlags: 0
@@ -1209,6 +1238,7 @@ GameObject:
   - component: {fileID: 1604185591}
   - component: {fileID: 1604185590}
   - component: {fileID: 1604185593}
+  - component: {fileID: 1604185594}
   m_Layer: 0
   m_Name: water
   m_TagString: Untagged
@@ -1309,6 +1339,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1604185594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604185588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ffcc41a3e8d21d4eb620ba4ce6e84d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Pointer: the_sea
+  hotSpot: {x: 0, y: 0}
 --- !u!1 &1985527060
 GameObject:
   m_ObjectHideFlags: 0
