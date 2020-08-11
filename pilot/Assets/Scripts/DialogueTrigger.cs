@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
@@ -9,10 +7,10 @@ public class DialogueTrigger : MonoBehaviour
     private Texture2D cursorTexture;
     public Vector2 hotSpot = Vector2.zero;
 
-    private CursorMode cursorMode = CursorMode.Auto;
+    private readonly CursorMode cursorMode = CursorMode.Auto;
     private DialogueSystem system;
     private MeshRenderer meshRenderer;
-    private Material material;
+    private Material[] materials;
 
     // Start is called before the first frame update
     private void Start()
@@ -20,7 +18,7 @@ public class DialogueTrigger : MonoBehaviour
         system = FindObjectOfType<DialogueSystem>();
         cursorTexture = system.CursorTexture;
         meshRenderer = GetComponent<MeshRenderer>();
-        material = meshRenderer.material;
+        materials = meshRenderer.materials;
     }
 
     private void OnMouseEnter()
@@ -28,14 +26,16 @@ public class DialogueTrigger : MonoBehaviour
         if (system.CanSelect)
         {
             Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
-            meshRenderer.material = system.HoverMaterial;
+            var hover = new Material[meshRenderer.materials.Length];
+            for (int i = 0; i < hover.Length; i++) hover[i] = system.HoverMaterial;
+            meshRenderer.materials = hover;
         }
     }
 
     private void OnMouseExit()
     {
         Cursor.SetCursor(null, Vector2.zero, cursorMode);
-        meshRenderer.material = material;
+        meshRenderer.materials = materials;
     }
 
     private void OnMouseDown()

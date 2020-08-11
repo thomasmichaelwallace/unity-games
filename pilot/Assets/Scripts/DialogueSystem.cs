@@ -1,11 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 
 public class DialogueSystem : MonoBehaviour
 {
+    public GameObject TitleBox;
+    public TextMeshProUGUI TitleText;
     public TextAsset Data;
     public string LinkColour;
     public TextMeshProUGUI DialogueText;
@@ -58,7 +59,6 @@ public class DialogueSystem : MonoBehaviour
 
                 string id = matches[0].Groups[2].Value;
                 if (id == "!") id = "_close_";
-                if (id == "*") id = "_end_";
 
                 value += $"\n<link=\"{id}\"><color=\"{LinkColour}\">{label}</color></link>";
             }
@@ -82,10 +82,11 @@ public class DialogueSystem : MonoBehaviour
         {
             DialogueBox.SetActive(false);
         }
-        else if (id == "_end_")
+        else if (id == "_win_" || id == "_lose_")
         {
-            DialogueBox.SetActive(true);
-            DialogueText.SetText("_you_win_");
+            TitleBox.SetActive(true);
+            TitleText.SetText(script[id]);
+            DialogueBox.SetActive(false);
         }
         else
         {

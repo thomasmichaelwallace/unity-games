@@ -435,6 +435,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1585d7d05eeda0643ba034f63ad7ec10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TitleBox: {fileID: 1431536309}
+  TitleText: {fileID: 1697436484}
   Data: {fileID: 4900000, guid: 6968d7a2143f0de42b4a8c2ffff5e352, type: 3}
   LinkColour: yellow
   DialogueText: {fileID: 2132515037}
@@ -1239,6 +1241,8 @@ GameObject:
   - component: {fileID: 1431536310}
   - component: {fileID: 1431536312}
   - component: {fileID: 1431536311}
+  - component: {fileID: 1431536313}
+  - component: {fileID: 1431536314}
   m_Layer: 5
   m_Name: Title Box
   m_TagString: Untagged
@@ -1279,7 +1283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 1}
+  m_Color: {r: 0.23529412, g: 0.17254902, b: 0.24313726, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1303,6 +1307,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1431536309}
   m_CullTransparentMesh: 0
+--- !u!225 &1431536313
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431536309}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
+--- !u!114 &1431536314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431536309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 644a3022dbf254d4fa0a11b5eea40d21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShouldRestart: 0
 --- !u!1 &1509186461 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8525d89bfa42c064cbe222e5deb6e001,
@@ -1441,6 +1470,40 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &1631070961 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3164bd8c9ff87434aaea1c84bf105bc8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1109179896}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1631070962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631070961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ffcc41a3e8d21d4eb620ba4ce6e84d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Pointer: pilot
+  hotSpot: {x: 0, y: 0}
+--- !u!64 &1631070965
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631070961}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6433138154138318648, guid: 3164bd8c9ff87434aaea1c84bf105bc8, type: 3}
 --- !u!1 &1697436482
 GameObject:
   m_ObjectHideFlags: 0
@@ -1497,9 +1560,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '<b>You got away.</b>
+  m_text: '<b>The Pilot<b>
 
-    But few things are ever that easy.'
+    <color=#ed6663><size=80%>A tale about getting away.</size></color>
+
+
+    <color=#59405c><size=80%>click
+    to start</size></color>'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8279f6581d6387644abeacbd67581233, type: 2}
   m_sharedMaterial: {fileID: -2327406215720420318, guid: 8279f6581d6387644abeacbd67581233,
@@ -1709,20 +1776,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'There was a plane.
-
-    You convinced the pilot to let you on.
-
-    What
-    a world we live in.
-
-    <link="do_something_interesting"><color="yellow">do
-    something interesting</link>
-
-    <link="left"><color="yellow">go left</link>
-
-    <link="right"><color="yellow">go
-    right</link>'
+  m_text: _text_
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8279f6581d6387644abeacbd67581233, type: 2}
   m_sharedMaterial: {fileID: -2327406215720420318, guid: 8279f6581d6387644abeacbd67581233,

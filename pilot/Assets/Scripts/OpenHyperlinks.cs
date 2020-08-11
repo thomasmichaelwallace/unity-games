@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using TMPro;
 
 // somewhat based upon the TextMesh Pro example script: TMP_TextSelector_B
 // and then somewhat based upon: https://gitlab.com/jonnohopkins/tmp-hyperlinks/-/blob/master/Assets/OpenHyperlinks.cs
@@ -19,7 +18,7 @@ public class OpenHyperlinks : MonoBehaviour, IPointerClickHandler
     private Canvas pCanvas;
     private Camera pCamera;
 
-    public bool isLinkHighlighted { get { return pCurrentLink != -1; } }
+    public bool IsLinkHighlighted { get { return pCurrentLink != -1; } }
 
     private int pCurrentLink = -1;
     private List<Color32[]> pOriginalVertexColors = new List<Color32[]>();
