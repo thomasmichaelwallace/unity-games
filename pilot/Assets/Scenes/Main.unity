@@ -430,6 +430,7 @@ MonoBehaviour:
   DialogueText: {fileID: 2132515037}
   DialogueBox: {fileID: 1985527060}
   CursorTexture: {fileID: 2800000, guid: 0781e066f75aaa94095583eafdec5d8f, type: 3}
+  HoverMaterial: {fileID: 2100000, guid: 4e50f8ecca2f63244a0dec2e2f5f80ce, type: 2}
 --- !u!4 &547934334
 Transform:
   m_ObjectHideFlags: 0
@@ -997,6 +998,40 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1109179896}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1109669607 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -5733317549336056563, guid: 8525d89bfa42c064cbe222e5deb6e001,
+    type: 3}
+  m_PrefabInstance: {fileID: 963978853}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1109669611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109669607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ffcc41a3e8d21d4eb620ba4ce6e84d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Pointer: wings
+  hotSpot: {x: 0, y: 0}
+--- !u!64 &1109669612
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109669607}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -781299741371417448, guid: 8525d89bfa42c064cbe222e5deb6e001, type: 3}
 --- !u!1 &1271157608
 GameObject:
   m_ObjectHideFlags: 0
@@ -1197,34 +1232,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1509186463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1509186461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ffcc41a3e8d21d4eb620ba4ce6e84d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Pointer: the_sea
-  hotSpot: {x: 0, y: 0}
---- !u!136 &1509186464
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1509186461}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 3
-  m_Height: 30
-  m_Direction: 2
-  m_Center: {x: 0, y: -1, z: 0}
 --- !u!1 &1604185588
 GameObject:
   m_ObjectHideFlags: 0
@@ -1238,7 +1245,6 @@ GameObject:
   - component: {fileID: 1604185591}
   - component: {fileID: 1604185590}
   - component: {fileID: 1604185593}
-  - component: {fileID: 1604185594}
   m_Layer: 0
   m_Name: water
   m_TagString: Untagged
@@ -1339,20 +1345,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1604185594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1604185588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ffcc41a3e8d21d4eb620ba4ce6e84d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Pointer: the_sea
-  hotSpot: {x: 0, y: 0}
 --- !u!1 &1985527060
 GameObject:
   m_ObjectHideFlags: 0
@@ -1590,4 +1582,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Manager: {fileID: 547934333}
   DoesColorChangeOnHover: 1
-  HoverColor: {r: 0.23529412, g: 0.47058824, b: 1, a: 1}
+  HoverColor: {r: 0.70980394, g: 0.16862746, b: 0.39607847, a: 1}

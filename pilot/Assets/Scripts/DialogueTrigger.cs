@@ -11,23 +11,31 @@ public class DialogueTrigger : MonoBehaviour
 
     private CursorMode cursorMode = CursorMode.Auto;
     private DialogueSystem system;
+    private MeshRenderer meshRenderer;
+    private Material material;
 
     // Start is called before the first frame update
     private void Start()
     {
         system = FindObjectOfType<DialogueSystem>();
         cursorTexture = system.CursorTexture;
+        meshRenderer = GetComponent<MeshRenderer>();
+        material = meshRenderer.material;
     }
 
-
-    void OnMouseEnter()
+    private void OnMouseEnter()
     {
-        Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
+        if (system.CanSelect)
+        {
+            Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
+            meshRenderer.material = system.HoverMaterial;
+        }
     }
 
-    void OnMouseExit()
+    private void OnMouseExit()
     {
         Cursor.SetCursor(null, Vector2.zero, cursorMode);
+        meshRenderer.material = material;
     }
 
     private void OnMouseDown()

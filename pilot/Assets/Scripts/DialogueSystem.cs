@@ -10,7 +10,11 @@ public class DialogueSystem : MonoBehaviour
     public string LinkColour;
     public TextMeshProUGUI DialogueText;
     public GameObject DialogueBox;
+
     public Texture2D CursorTexture;
+    public Material HoverMaterial;
+
+    public bool CanSelect => !DialogueBox.activeSelf;
 
     private Dictionary<string, string> script = new Dictionary<string, string>();
     private string pointer = "_init_";
