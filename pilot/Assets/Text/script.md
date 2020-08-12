@@ -15,7 +15,7 @@ We took a step back.
 Everything started **shaking**.
 
 [We shook](!)
-[We won.](_win_)
+[We won.](_win_!)
 
 # pilot
 Oh. The sea.
@@ -31,9 +31,9 @@ They certainly weren't gonna be the wind behind anyone soon.
 [I took another look](_init_)
 [I smashed them with a baseball bat](_close_)
 
-# _win_
+# _win_!
 You got away.
 Which was good.
 
-# _lose_
+# _lose_!
 The end. And death.

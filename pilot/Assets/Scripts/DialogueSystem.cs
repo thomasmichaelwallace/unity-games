@@ -82,10 +82,10 @@ public class DialogueSystem : MonoBehaviour
         {
             DialogueBox.SetActive(false);
         }
-        else if (id == "_win_" || id == "_lose_")
+        else if (id.EndsWith("!"))
         {
             TitleBox.SetActive(true);
-            TitleText.SetText(script[id]);
+            TitleText.SetText(script[id] + "\n\n<color=#59405c><size=80%>click to restart</size></color>");
             DialogueBox.SetActive(false);
         }
         else

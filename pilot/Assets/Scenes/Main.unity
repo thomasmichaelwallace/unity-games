@@ -1560,9 +1560,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '<b>The Pilot<b>
+  m_text: '<b>the pilot<b>
 
-    <color=#ed6663><size=80%>A tale about getting away.</size></color>
+    <color=#ed6663><size=80%>a tale about getting away.</size></color>
 
 
     <color=#59405c><size=80%>click
