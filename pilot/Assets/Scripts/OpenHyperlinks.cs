@@ -13,6 +13,8 @@ public class OpenHyperlinks : MonoBehaviour, IPointerClickHandler
     public DialogueSystem Manager;
     public bool DoesColorChangeOnHover = true;
     public Color HoverColor = new Color(60f / 255f, 120f / 255f, 1f);
+    public bool SkipOnce = false;
+    public int skipTimes = 0;
 
     private TextMeshProUGUI pTextMeshPro;
     private Canvas pCanvas;
@@ -35,8 +37,19 @@ public class OpenHyperlinks : MonoBehaviour, IPointerClickHandler
             pCamera = pCanvas.worldCamera;
     }
 
-    private void LateUpdate()
+    private void Update()
     {
+        if (SkipOnce)
+        {
+            skipTimes += 1;
+            if (skipTimes == 5)
+            {
+                SkipOnce = false;
+                skipTimes = 0;
+                pOriginalVertexColors.Clear();
+            }
+            return;
+        }
         // is the cursor in the correct region (above the text area) and furthermore, in the link region?
         var isHoveringOver = TMP_TextUtilities.IsIntersectingRectTransform(pTextMeshPro.rectTransform, Input.mousePosition, pCamera);
         int linkIndex = isHoveringOver ? TMP_TextUtilities.FindIntersectingLink(pTextMeshPro, Input.mousePosition, pCamera)
@@ -46,7 +59,11 @@ public class OpenHyperlinks : MonoBehaviour, IPointerClickHandler
         if (pCurrentLink != -1 && linkIndex != pCurrentLink)
         {
             // Debug.Log("Clear old selection");
-            SetLinkToColor(pCurrentLink, (linkIdx, vertIdx) => pOriginalVertexColors[linkIdx][vertIdx]);
+            try
+            {
+                SetLinkToColor(pCurrentLink, (linkIdx, vertIdx) => pOriginalVertexColors[linkIdx][vertIdx]);
+            }
+            catch (Exception e) { }
             pOriginalVertexColors.Clear();
             pCurrentLink = -1;
         }

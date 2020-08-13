@@ -19,10 +19,12 @@ public class DialogueSystem : MonoBehaviour
 
     private Dictionary<string, string> script = new Dictionary<string, string>();
     private string pointer = "_init_";
+    private OpenHyperlinks hyperlinks;
 
     private void Start()
     {
         script = ParseScript(Data.text);
+        hyperlinks = FindObjectOfType<OpenHyperlinks>();
         SetPointer("_init_");
     }
 
@@ -40,8 +42,8 @@ public class DialogueSystem : MonoBehaviour
             {
                 if (key.Length > 0)
                 {
-                    Regex.Replace(value, @"\*\*(.*)\*\*", "<b>$1</b>");
-                    Regex.Replace(value, @"\*(.*)\*", "<i>$1</i>");
+                    value = Regex.Replace(value, @"\*\*(.*)\*\*", "<b>$1</b>");
+                    value = Regex.Replace(value, @"\*(.*)\*", "<i>$1</i>");
                     stack[key] = value.Trim();
                 }
 
@@ -85,14 +87,19 @@ public class DialogueSystem : MonoBehaviour
         else if (id.EndsWith("!"))
         {
             TitleBox.SetActive(true);
-            TitleText.SetText(script[id] + "\n\n<color=#59405c><size=80%>click to restart</size></color>");
+            TitleText.text = script[id] + "\n\n<color=#59405c><size=80%>click to restart</size></color>";
+            TitleText.SetAllDirty();
+            TitleText.ForceMeshUpdate(true);
             DialogueBox.SetActive(false);
         }
         else
         {
             DialogueBox.SetActive(true);
             pointer = id;
-            DialogueText.SetText(script[pointer]);
+            DialogueText.text = script[pointer];
+            DialogueText.SetAllDirty();
+            DialogueText.ForceMeshUpdate(true);
+            hyperlinks.SkipOnce = true;
         }
     }
 }
