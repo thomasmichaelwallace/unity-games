@@ -20,11 +20,11 @@ the fuselage is covered in scratches and dents. this plane has seen better days.
 you can just about make out the name "hope flies eternal" in peeling letters on the side.
 
 [a few splotches of new paint are conspicuous against the general disrepair.](new_paint)
-[a mess of welds score a deep line along the keel.](weld)
+[a mess of welds scores a deep line along the keel.](weld)
 
 # new_paint
 
-the new paint is pretty cheap. you can see the ghost of what came before. a line down the middle separates two sets of mark of heights, and maybe even ages. you remember making similar marks on the kitchen door as a kid. you can just about make out the name on the left: "dave". the right, is lost to time.
+the new paint is pretty cheap. you can see the ghost of what came before. a line down the middle separates two sets of marks of heights, and maybe even ages. you remember making similar marks on the kitchen door as a kid. you can just about make out the name on the left: "dave".
 
 [!](!)
 
@@ -45,13 +45,13 @@ the fin is a different colour from the rest of the plane. in fact, it looks like
 
 # rock_fin
 
-this piece of junk is falling apart. but then, it's the last plane left. let's hope it makes it pass the second island to the right, and then straight 'til morning. makes the bunker sound like neverland...
+this piece of junk is falling apart. but then, it's the last plane left. let's hope it makes it pass the second island to the right, and then straight 'til morning. wow- that makes the bunker sound like neverland...
 
 [!](!)
 
 # bullet_hole
 
-you look through the hole and spy old george's junk heap. hard to imagine why *he'd* start shooting planes; not like he didn't have enough spare parts without making more of his own. but then, these aren't normal times...
+you look through the hole and spy old george's junk heap. hard to imagine why *he'd* start shooting planes; not like he didn't have enough spare parts without making more of them. but then, these aren't normal times...
 
 [!](!)
 
@@ -64,7 +64,7 @@ a few lines are notched along each propeller. you bet they make an impressive se
 
 # smiley
 
-the smiley face looks sinister; reflecting the light of the fire from the old geroge's shed. hard to know what started it, but i bet those cans of fuel will keep it burning long after we've gone.
+the smiley face looks sinister; reflecting the light of the fire from old geroge's shed. hard to know what started it, but those cans of fuel will keep it burning long after we've gone.
 
 [!](!)
 
@@ -90,7 +90,7 @@ you pull your hand back when you realise the sheen is mostly oil. there's a hast
 
 # boots
 
-fresh mud and wet sand. looks like this pilot's been for a run across the island. but then, anyone still alive now, must have ran...
+fresh mud and wet sand. looks like the pilot's been running across the island. but then, anyone still alive must have ran...
 
 [!](!)
 
@@ -109,7 +109,7 @@ hard to imagine why a pilot this reckless is still waiting...
 
 # replace
 
-looks like a recent repair job. hard to imagine old geroge would have give up any spare parts without demanding a ticket off this island... can't see him any where.
+looks like a recent repair job. hard to imagine old geroge would have given up any spare parts without demanding a ticket off this island... can't see him anywhere, though.
 
 [!](!)
 
@@ -118,7 +118,7 @@ looks like a recent repair job. hard to imagine old geroge would have give up an
 the pilot just stares at the island. serene. you could almost believe they didn't know what happened. *almost*.
 
 [you take a closer look at the plane.](!)
-[there's not much time. you start to bargain](start)
+[there's no time left. you strike up a conversation...](start)
 
 # start
 
@@ -147,8 +147,8 @@ the pilot just stares at the island. serene. you could almost believe they didn'
 
 **pilot**: "what do you know about it?"
 
-[your brother dave?](your_brother)
-[your son james?](your_brother_james)
+[your brother dave?](your_brother_dave)
+[your brother james?](your_brother_james)
 
 # your_brother
 
@@ -207,7 +207,7 @@ the pilot just stares at the island. serene. you could almost believe they didn'
 
 # jerry!
 
-the pilot nods are the shed. you turn to see it's ablaze.
+the pilot nods at the shed. you turn to see it's ablaze.
 
 **pilot**: "get out of here. i'm waiting for my brother."
 
@@ -241,14 +241,14 @@ the pilot nods are the shed. you turn to see it's ablaze.
 
 # shot_him!
 
-the pilot throws your a suspicious glance.
+the pilot throws you a suspicious glance.
 out of nowhere, the pilot shoots you too.
 
 # had_to_do
 
 **pilot**: "looks like i can trust you."
 
-[know where you're going? with your brother, i mean](where_to_go)
+[know where you're going? with your brother, i mean.](where_to_go)
 
 # where_to_go
 
@@ -300,7 +300,7 @@ the pilot shoots you.
 **pilot**: "he's not coming is he?"
 **you**: "i'm sorry"
 
-[but we can still get away](_win_!)
+[but *we* can still get away...](_win_!)
 
 # _win_!
 
