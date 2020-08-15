@@ -37,6 +37,11 @@ public class PlayerController : MonoBehaviour
             characterController.Move(movement * Time.deltaTime);
         }
 
+        if (!characterController.isGrounded)
+        {
+            characterController.Move(Vector3.down * 9 * Time.deltaTime);
+        }
+
         if (Input.GetButton("Fire1"))
         {
             foreach (MeshRenderer claw in Claws)
