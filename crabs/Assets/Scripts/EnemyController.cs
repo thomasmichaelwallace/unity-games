@@ -14,18 +14,39 @@ public class EnemyController : MonoBehaviour
     private Material[] defaultMaterials;
     private MeshRenderer[] meshRenderers;
     private NavMeshAgent agent;
+    private Rigidbody rb;
 
     private void Start()
     {
         meshRenderers = GetComponentsInChildren<MeshRenderer>();
         defaultMaterials = meshRenderers.Select(m => m.material).ToArray();
         agent = GetComponent<NavMeshAgent>();
+        agent.enabled = false;
+        rb = GetComponent<Rigidbody>();
+        rb.useGravity = true;
+        rb.isKinematic = false;
+        rb.velocity = Vector3.down;
+    }
+
+    private void FixedUpdate()
+    {
+        if (!agent.enabled)
+        {
+            if (Mathf.Approximately(rb.velocity.y, 0f))
+            {
+                rb.isKinematic = true;
+                rb.useGravity = false;
+                agent.enabled = true;
+            }
+        }
     }
 
     private void Update()
     {
-        agent.SetDestination(Player.position);
-
+        if (agent.isActiveAndEnabled)
+        {
+            agent.SetDestination(Player.position);
+        }
 
         if (tookDamage)
         {

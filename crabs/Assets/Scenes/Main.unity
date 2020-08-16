@@ -2690,7 +2690,7 @@ Camera:
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
-  m_FOVAxisMode: 0
+  m_FOVAxisMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
   m_FocalLength: 50
@@ -2702,7 +2702,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 90
+  field of view: 100.42609
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -2734,34 +2734,6 @@ Transform:
   m_Father: {fileID: 194191917}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1078054340 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3121137518910499939, guid: 02c72a944649f8442a8b08167b6671b6,
-    type: 3}
-  m_PrefabInstance: {fileID: 3121137517832446375}
-  m_PrefabAsset: {fileID: 0}
---- !u!195 &1078054345
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1078054340}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!4 &1242336832 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 633844221700871902, guid: 4a951b72bbc22424eaf0d79f9ba65d7f,
@@ -3207,6 +3179,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1078054345, guid: 02c72a944649f8442a8b08167b6671b6, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3121137518910499936, guid: 02c72a944649f8442a8b08167b6671b6,
         type: 3}
       propertyPath: Player
@@ -3220,7 +3196,7 @@ PrefabInstance:
     - target: {fileID: 3121137518910499938, guid: 02c72a944649f8442a8b08167b6671b6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.43
+      value: -0.9
       objectReference: {fileID: 0}
     - target: {fileID: 3121137518910499938, guid: 02c72a944649f8442a8b08167b6671b6,
         type: 3}
@@ -3271,11 +3247,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 3121137518910499951, guid: 02c72a944649f8442a8b08167b6671b6,
-        type: 3}
-      propertyPath: m_IsKinematic
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02c72a944649f8442a8b08167b6671b6, type: 3}
