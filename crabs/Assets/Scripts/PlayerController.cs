@@ -4,34 +4,31 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public MeshRenderer[] Claws;
-    public Material Hightlight;
-
-    private float speed = 10f;
-    private float lookSpeed = 20f;
-    private float attackDistance = 10f;
-    private float strength = 1f;
+    // TODO: make these feel more reactive
+    // OPTION: target velocity rather than speed
+    private readonly float speed = 10f;
+    private readonly float turnSpeed = 20f;
+    private readonly float gravity = 10f;
 
     private CharacterController characterController;
-    private Material clawMaterial;
 
     private void Start()
     {
         characterController = GetComponent<CharacterController>();
-        clawMaterial = Claws[0].material;
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (Input.GetButton("Fire2"))
         {
+            // rotating
             float hoizontal = Input.GetAxis("Horizontal");
-            Vector3 rotation = new Vector3(0, hoizontal, 0) * lookSpeed;
+            Vector3 rotation = new Vector3(0, hoizontal, 0) * turnSpeed;
             transform.eulerAngles += (rotation * Time.deltaTime);
         }
         else
         {
+            // walking
             float hoizontal = Input.GetAxis("Horizontal");
             Vector3 movement = transform.TransformDirection(Vector3.right) * hoizontal * speed;
             characterController.Move(movement * Time.deltaTime);
@@ -39,33 +36,8 @@ public class PlayerController : MonoBehaviour
 
         if (!characterController.isGrounded)
         {
-            characterController.Move(Vector3.down * 9 * Time.deltaTime);
-        }
-
-        if (Input.GetButton("Fire1"))
-        {
-            foreach (MeshRenderer claw in Claws)
-            {
-                claw.material = Hightlight;
-            }
-
-            // Debug.DrawLine(transform.position, transform.position + transform.TransformDirection(Vector3.forward) * attackDistance);
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, attackDistance))
-            {
-                var enemy = hit.transform.GetComponent<EnemyController>();
-                if (enemy)
-                {
-                    enemy.TakeDamage(strength);
-                }
-            }
-        }
-        else
-        {
-            foreach (MeshRenderer claw in Claws)
-            {
-                claw.material = clawMaterial;
-            }
+            // falling
+            characterController.Move(Vector3.down * gravity * Time.deltaTime);
         }
     }
 }
