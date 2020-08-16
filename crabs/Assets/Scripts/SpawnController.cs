@@ -9,9 +9,9 @@ public class SpawnController : MonoBehaviour
 
     private readonly float interval = 10f;
     private readonly float fieldSize = 25f;
-    private float timer = 0f;
-    
-    void Update()
+    private float timer = 5f;
+
+    private void Update()
     {
         timer -= Time.deltaTime;
 
