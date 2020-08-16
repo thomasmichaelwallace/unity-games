@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -8,13 +9,13 @@ public class EnemyController : MonoBehaviour
 
     private float health = 3f;
     private bool tookDamage = false;
-    private Material defaultMaterial;
-    private MeshRenderer meshRenderer;
+    private Material[] defaultMaterials;
+    private MeshRenderer[] meshRenderers;
 
     private void Start()
     {
-        meshRenderer = GetComponent<MeshRenderer>();
-        defaultMaterial = meshRenderer.material;
+        meshRenderers = GetComponentsInChildren<MeshRenderer>();
+        defaultMaterials = meshRenderers.Select(m => m.material).ToArray();
     }
 
     private void Update()
@@ -22,11 +23,17 @@ public class EnemyController : MonoBehaviour
         if (tookDamage)
         {
             tookDamage = false;
-            meshRenderer.material = Hightlight;
+            foreach (MeshRenderer meshRenderer in meshRenderers)
+            {
+                meshRenderer.material = Hightlight;
+            }
         }
         else
         {
-            meshRenderer.material = defaultMaterial;
+            for (int i = 0; i < meshRenderers.Length; i++)
+            {
+                meshRenderers[i].material = defaultMaterials[i];
+            }
         }
     }
 
