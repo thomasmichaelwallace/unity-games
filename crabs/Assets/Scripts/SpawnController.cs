@@ -9,7 +9,13 @@ public class SpawnController : MonoBehaviour
 
     private readonly float interval = 10f;
     private readonly float fieldSize = 25f;
-    private float timer = 5f;
+    private readonly float waitTime = 0f;
+    private float timer = 0f;
+
+    private void Start()
+    {
+        timer = waitTime;
+    }
 
     private void Update()
     {
@@ -18,7 +24,6 @@ public class SpawnController : MonoBehaviour
         if (timer <= 0)
         {
             timer = interval;
-            Debug.Log("spawning...");
             Vector3 position = UnityEngine.Random.insideUnitSphere * fieldSize;
             position.y = fieldSize;
             GameObject enemy = Instantiate(Prefab, position, Quaternion.identity);

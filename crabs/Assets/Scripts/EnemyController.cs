@@ -9,12 +9,18 @@ public class EnemyController : MonoBehaviour
     public Transform Player;
     public Material Hightlight;
 
+    private readonly float gravity = 10f;
+    private readonly float turnAllowance = 5f;
+    private readonly float turnSpeed = 1f;
+
     private float health = 3f;
-    private float gravity = 10f;
     private bool tookDamage = false;
     private Material[] defaultMaterials;
     private MeshRenderer[] meshRenderers;
     private NavMeshAgent agent;
+    private bool isTurning = false;
+    private Vector3 turnDirection;
+    private bool hasFallen = false;
 
     private void Start()
     {
@@ -28,21 +34,44 @@ public class EnemyController : MonoBehaviour
     {
         if (!agent.enabled)
         {
-            // fall
-            float distance = gravity * Time.deltaTime;
-            if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, distance))
+            if (!hasFallen)
             {
-                agent.enabled = true;
+                // fall
+                float distance = gravity * Time.deltaTime;
+                if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, distance))
+                {
+                    agent.enabled = true;
+                    hasFallen = true;
+                }
+                else
+                {
+                    transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - distance, transform.localPosition.z);
+                }
             }
-            else
+            else if (isTurning)
             {
-                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - distance, transform.localPosition.z);
+                Vector3 rotation = Vector3.RotateTowards(transform.forward, turnDirection, turnSpeed * Time.deltaTime, 0.0f);
+                transform.localRotation = Quaternion.LookRotation(rotation);
+                if (Vector3.Angle(transform.forward, agent.desiredVelocity) < turnAllowance)
+                {
+                    isTurning = false;
+                    agent.enabled = true;
+                }
             }
         }
-
-        if (agent.isActiveAndEnabled)
+        else
         {
-            agent.SetDestination(Player.position);
+            if (agent.isActiveAndEnabled)
+            {
+                agent.SetDestination(Player.position);
+
+                if (Vector3.Angle(transform.forward, agent.desiredVelocity) > turnAllowance)
+                {
+                    isTurning = true;
+                    turnDirection = agent.desiredVelocity;
+                    agent.enabled = false;
+                }
+            }
         }
 
         if (tookDamage)
