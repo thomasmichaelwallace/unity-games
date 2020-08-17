@@ -77,10 +77,9 @@ public class EnemyController : MonoBehaviour
                 }
                 else
                 {
-                    Die();
+                    Die(); // probably landed on a tree :/
                 }
 
-                // TODO: prevent stopping on vertical only
                 Vector3 targetAngle = new Vector3(agent.desiredVelocity.x, 0, agent.desiredVelocity.z);
                 if (Vector3.Angle(transform.forward, targetAngle) > turnAllowance)
                 {
