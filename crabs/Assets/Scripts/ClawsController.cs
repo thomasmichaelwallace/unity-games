@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ClawsController : MonoBehaviour
 {
-    private readonly float attackDistance = 1.5f;
+    private readonly float attackDistance = 2.0f;
     private readonly float attackRadius = 1f;
     private readonly float strength = 1f;
 
@@ -40,7 +40,7 @@ public class ClawsController : MonoBehaviour
         if (isAttacking)
         {
             Debug.DrawLine(transform.position, transform.position + transform.TransformDirection(Vector3.forward) * attackDistance);
-            Debug.DrawLine(transform.position + transform.TransformDirection(Vector3.left) * attackRadius, transform.position + transform.TransformDirection(Vector3.left) * attackRadius  + transform.TransformDirection(Vector3.forward) * attackDistance);
+            Debug.DrawLine(transform.position + transform.TransformDirection(Vector3.left) * attackRadius, transform.position + transform.TransformDirection(Vector3.left) * attackRadius + transform.TransformDirection(Vector3.forward) * attackDistance);
             Debug.DrawLine(transform.position + transform.TransformDirection(Vector3.right) * attackRadius, transform.position + transform.TransformDirection(Vector3.right) * attackRadius + transform.TransformDirection(Vector3.forward) * attackDistance);
             RaycastHit hit;
             if (

@@ -15,6 +15,7 @@ public class EnemyController : MonoBehaviour
     private readonly float gravity = 10f;
     private readonly float turnAllowance = 5f;
     private readonly float turnSpeed = 1f;
+    private readonly float attackDistance = 3f;
 
     private float health = 1f;
     private bool tookDamage = false;
@@ -26,6 +27,7 @@ public class EnemyController : MonoBehaviour
     private bool hasFallen = false;
     private Explodable body;
     private bool isDead = false;
+    private PlayerController player;
 
     private void Start()
     {
@@ -34,6 +36,7 @@ public class EnemyController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         body = GetComponentInChildren<Explodable>();
         agent.enabled = false;
+        player = Player.GetComponent<PlayerController>();
     }
 
     private void Update()
@@ -80,18 +83,27 @@ public class EnemyController : MonoBehaviour
                     Die(); // probably landed on a tree :/
                 }
 
-                Vector3 targetAngle = new Vector3(agent.desiredVelocity.x, 0, agent.desiredVelocity.z);
-                if (Vector3.Angle(transform.forward, targetAngle) > turnAllowance)
+                if (agent.remainingDistance > 0 && agent.remainingDistance < attackDistance)
                 {
-                    isTurning = true;
-                    turnDirection = agent.desiredVelocity;
-                    agent.enabled = false;
+                    // start attacking!
+                    player.DoDamage();
+                    agent.SetDestination(transform.position);
                 }
                 else
                 {
-                    Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1f);
-                    var target = Quaternion.LookRotation(Vector3.ProjectOnPlane(transform.right, hit.normal), hit.normal);
-                    Crab.rotation = Quaternion.RotateTowards(Crab.rotation, target, 1f);
+                    Vector3 targetAngle = new Vector3(agent.desiredVelocity.x, 0, agent.desiredVelocity.z);
+                    if (Vector3.Angle(transform.forward, targetAngle) > turnAllowance)
+                    {
+                        isTurning = true;
+                        turnDirection = agent.desiredVelocity;
+                        agent.enabled = false;
+                    }
+                    else
+                    {
+                        Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1f);
+                        var target = Quaternion.LookRotation(Vector3.ProjectOnPlane(transform.right, hit.normal), hit.normal);
+                        Crab.rotation = Quaternion.RotateTowards(Crab.rotation, target, 1f);
+                    }
                 }
             }
         }
