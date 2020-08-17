@@ -81,6 +81,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   Hightlight: {fileID: 2100000, guid: e3049d5be37f8444d8ed1ba164110de8, type: 2}
+  Fadable: {fileID: 2100000, guid: 90f832f79d2f62e4d93c2cb59eb625ee, type: 2}
+  Moving: {fileID: 7798796062949121075}
 --- !u!195 &1078054345
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -103,6 +105,19 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &4521430279160521329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3407078543341649671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84c3a33e361be084c95c4203958487b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Fadable: {fileID: 2100000, guid: 90f832f79d2f62e4d93c2cb59eb625ee, type: 2}
 --- !u!1001 &3121137518484492753
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -181,6 +196,18 @@ GameObject:
 --- !u!4 &3231961052578379322 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f8a5fcc9370a8df409e78aa042c57ce7,
+    type: 3}
+  m_PrefabInstance: {fileID: 3121137518484492753}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7798796062949121075 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5146032977119383010, guid: f8a5fcc9370a8df409e78aa042c57ce7,
+    type: 3}
+  m_PrefabInstance: {fileID: 3121137518484492753}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3407078543341649671 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8928142258166665514, guid: f8a5fcc9370a8df409e78aa042c57ce7,
     type: 3}
   m_PrefabInstance: {fileID: 3121137518484492753}
   m_PrefabAsset: {fileID: 0}

@@ -8,12 +8,14 @@ public class EnemyController : MonoBehaviour
 {
     public Transform Player;
     public Material Hightlight;
+    public Material Fadable;
+    public GameObject Moving;
 
     private readonly float gravity = 10f;
     private readonly float turnAllowance = 5f;
     private readonly float turnSpeed = 1f;
 
-    private float health = 3f;
+    private float health = 1f;
     private bool tookDamage = false;
     private Material[] defaultMaterials;
     private MeshRenderer[] meshRenderers;
@@ -21,17 +23,22 @@ public class EnemyController : MonoBehaviour
     private bool isTurning = false;
     private Vector3 turnDirection;
     private bool hasFallen = false;
+    private Explodable body;
+    private bool isDead = false;
 
     private void Start()
     {
         meshRenderers = GetComponentsInChildren<MeshRenderer>();
         defaultMaterials = meshRenderers.Select(m => m.material).ToArray();
         agent = GetComponent<NavMeshAgent>();
+        body = GetComponentInChildren<Explodable>();
         agent.enabled = false;
     }
 
     private void Update()
     {
+        if (isDead) return;
+
         if (!agent.enabled)
         {
             if (!hasFallen)
@@ -63,7 +70,14 @@ public class EnemyController : MonoBehaviour
         {
             if (agent.isActiveAndEnabled)
             {
-                agent.SetDestination(Player.position);
+                if (agent.isOnNavMesh)
+                {
+                    agent.SetDestination(Player.position);
+                }
+                else
+                {
+                    Die();
+                }
 
                 if (Vector3.Angle(transform.forward, agent.desiredVelocity) > turnAllowance)
                 {
@@ -95,9 +109,18 @@ public class EnemyController : MonoBehaviour
     {
         tookDamage = true;
         health -= strength * Time.deltaTime;
-        if (health <= 0)
+        if (health <= 0 && !isDead)
         {
-            gameObject.SetActive(false);
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        body.Explode(body.gameObject.transform);
+        isDead = true;
+        Moving.SetActive(false);
+
+        Destroy(gameObject, 5f);
     }
 }

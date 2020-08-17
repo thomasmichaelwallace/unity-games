@@ -6,9 +6,9 @@ public class PlayerController : MonoBehaviour
 {
     // TODO: make these feel more reactive
     // OPTION: target velocity rather than speed
-    private readonly float speed = 10f;
+    private readonly float speed = 15f;
 
-    private readonly float turnSpeed = 20f;
+    private readonly float turnSpeed = 40f;
     private readonly float gravity = 10f;
 
     private CharacterController characterController;
