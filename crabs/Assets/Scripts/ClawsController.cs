@@ -4,20 +4,16 @@ using UnityEngine;
 
 public class ClawsController : MonoBehaviour
 {
-    public Material Hightlight;
-
     private readonly float attackDistance = 3f;
     private readonly float strength = 1f;
     private readonly float hitForce = 1f;
 
-    private MeshRenderer[] claws;
-    private Material clawMaterial;
+    private Animator[] animators;
     private bool isAttacking;
 
     private void Start()
     {
-        claws = GetComponentsInChildren<MeshRenderer>();
-        clawMaterial = claws[0].material;
+        animators = GetComponentsInChildren<Animator>();
         isAttacking = false;
     }
 
@@ -29,17 +25,17 @@ public class ClawsController : MonoBehaviour
         if (fireButtonDown && !isAttacking)
         {
             isAttacking = true;
-            foreach (MeshRenderer claw in claws)
+            foreach (Animator animator in animators)
             {
-                claw.material = Hightlight;
+                animator.SetBool("isAttacking", true);
             }
         }
         else if (!fireButtonDown && isAttacking)
         {
             isAttacking = false;
-            foreach (MeshRenderer claw in claws)
+            foreach (Animator animator in animators)
             {
-                claw.material = clawMaterial;
+                animator.SetBool("isAttacking", false);
             }
         }
 
