@@ -83,6 +83,7 @@ MonoBehaviour:
   Hightlight: {fileID: 2100000, guid: e3049d5be37f8444d8ed1ba164110de8, type: 2}
   Fadable: {fileID: 2100000, guid: 90f832f79d2f62e4d93c2cb59eb625ee, type: 2}
   Moving: {fileID: 7798796062949121075}
+  Crab: {fileID: 3231961052578379322}
 --- !u!195 &1078054345
 NavMeshAgent:
   m_ObjectHideFlags: 0

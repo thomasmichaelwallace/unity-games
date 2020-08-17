@@ -10,6 +10,7 @@ public class EnemyController : MonoBehaviour
     public Material Hightlight;
     public Material Fadable;
     public GameObject Moving;
+    public Transform Crab;
 
     private readonly float gravity = 10f;
     private readonly float turnAllowance = 5f;
@@ -79,11 +80,19 @@ public class EnemyController : MonoBehaviour
                     Die();
                 }
 
-                if (Vector3.Angle(transform.forward, agent.desiredVelocity) > turnAllowance)
+                // TODO: prevent stopping on vertical only
+                Vector3 targetAngle = new Vector3(agent.desiredVelocity.x, 0, agent.desiredVelocity.z);
+                if (Vector3.Angle(transform.forward, targetAngle) > turnAllowance)
                 {
                     isTurning = true;
                     turnDirection = agent.desiredVelocity;
                     agent.enabled = false;
+                }
+                else
+                {
+                    Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1f);
+                    var target = Quaternion.LookRotation(Vector3.ProjectOnPlane(transform.right, hit.normal), hit.normal);
+                    Crab.rotation = Quaternion.RotateTowards(Crab.rotation, target, 1f);
                 }
             }
         }
