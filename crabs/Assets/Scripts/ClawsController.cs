@@ -7,9 +7,11 @@ public class ClawsController : MonoBehaviour
     private readonly float attackDistance = 2.0f;
     private readonly float attackRadius = 1f;
     private readonly float strength = 1f;
+    private readonly float rightJabDelay = 0.1f;
 
     private Animator[] animators;
     private bool isAttacking;
+    private float jabTimer = 0;
 
     private void Start()
     {
@@ -20,13 +22,19 @@ public class ClawsController : MonoBehaviour
     private void Update()
     {
         bool fireButtonDown = Input.GetButton("Fire1");
+        if (isAttacking && jabTimer > 0)
+        {
+            jabTimer -= Time.deltaTime;
+            if (jabTimer <= 0)
+            {
+                animators[1].SetBool("isAttacking", true);
+            }
+        }
         if (fireButtonDown && !isAttacking)
         {
             isAttacking = true;
-            foreach (Animator animator in animators)
-            {
-                animator.SetBool("isAttacking", true);
-            }
+            animators[0].SetBool("isAttacking", true);
+            jabTimer = rightJabDelay;
         }
         else if (!fireButtonDown && isAttacking)
         {
