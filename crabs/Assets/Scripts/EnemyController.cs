@@ -16,8 +16,10 @@ public class EnemyController : MonoBehaviour
     private readonly float turnAllowance = 5f;
     private readonly float turnSpeed = 1f;
     private readonly float attackDistance = 3f;
+    private readonly float initalHeath = 1f;
+    private readonly float allowableDistance = 0.5f;
 
-    private float health = 1f;
+    private float health;
     private bool tookDamage = false;
     private Material[] defaultMaterials;
     private MeshRenderer[] meshRenderers;
@@ -31,6 +33,7 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
+        health = initalHeath;
         meshRenderers = GetComponentsInChildren<MeshRenderer>();
         defaultMaterials = meshRenderers.Select(m => m.material).ToArray();
         agent = GetComponent<NavMeshAgent>();
@@ -100,9 +103,14 @@ public class EnemyController : MonoBehaviour
                     }
                     else
                     {
+                        // stick to ground
                         Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1f);
                         var target = Quaternion.LookRotation(Vector3.ProjectOnPlane(transform.right, hit.normal), hit.normal);
                         Crab.rotation = Quaternion.RotateTowards(Crab.rotation, target, 1f);
+                        if (hit.distance > allowableDistance)
+                        {
+                            Crab.transform.position = Vector3.MoveTowards(Crab.transform.position, hit.point, Time.deltaTime);
+                        }
                     }
                 }
             }
