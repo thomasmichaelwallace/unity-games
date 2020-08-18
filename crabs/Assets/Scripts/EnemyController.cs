@@ -108,26 +108,6 @@ public class EnemyController : MonoBehaviour
 
                 if (agent.remainingDistance < startAttackDistance)
                 {
-                    if (true)
-                    {
-                        RaycastHit hit;
-                        DebugRayLine(transform.position, transform.TransformDirection(Vector3.right), out hit, attackDistance);
-                        DebugRayLine(transform.position + transform.TransformDirection(Vector3.forward) * attackRadius, transform.TransformDirection(Vector3.right), out hit, attackDistance);
-                        DebugRayLine(transform.position + transform.TransformDirection(Vector3.back) * attackRadius, transform.TransformDirection(Vector3.right), out hit, attackDistance);
-
-                        if (
-                            Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit, attackDistance)
-                            || Physics.Raycast(transform.position + transform.TransformDirection(Vector3.forward) * attackRadius, transform.TransformDirection(Vector3.right), out hit, attackDistance)
-                            || Physics.Raycast(transform.position + transform.TransformDirection(Vector3.back) * attackRadius, transform.TransformDirection(Vector3.right), out hit, attackDistance)
-                        )
-                        {
-                            PlayerController player = hit.transform.GetComponent<PlayerController>();
-                            if (player)
-                            {
-                                player.DoDamage();
-                            }
-                        }
-                    }
                     // start attacking!
                     //player.DoDamage();
                     //agent.SetDestination(transform.position);
@@ -160,6 +140,26 @@ public class EnemyController : MonoBehaviour
                     }
                     //}
                 }
+                if (true) // always attack
+                {
+                    RaycastHit hit;
+                    DebugRayLine(transform.position, transform.TransformDirection(Vector3.right), out hit, attackDistance);
+                    DebugRayLine(transform.position + transform.TransformDirection(Vector3.forward) * attackRadius, transform.TransformDirection(Vector3.right), out hit, attackDistance);
+                    DebugRayLine(transform.position + transform.TransformDirection(Vector3.back) * attackRadius, transform.TransformDirection(Vector3.right), out hit, attackDistance);
+
+                    if (
+                        Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit, attackDistance)
+                        || Physics.Raycast(transform.position + transform.TransformDirection(Vector3.forward) * attackRadius, transform.TransformDirection(Vector3.right), out hit, attackDistance)
+                        || Physics.Raycast(transform.position + transform.TransformDirection(Vector3.back) * attackRadius, transform.TransformDirection(Vector3.right), out hit, attackDistance)
+                    )
+                    {
+                        PlayerController player = hit.transform.GetComponent<PlayerController>();
+                        if (player)
+                        {
+                            player.DoDamage();
+                        }
+                    }
+                }
             }
         }
 
@@ -186,6 +186,7 @@ public class EnemyController : MonoBehaviour
         health -= strength * Time.deltaTime;
         if (health <= 0 && !isDead)
         {
+            Player.GetComponent<PlayerController>().AddKill();
             Die();
         }
     }

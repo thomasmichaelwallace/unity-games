@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpawnController : MonoBehaviour
 {
     public Transform Player;
     public GameObject Prefab;
+    public CanvasGroup DeadScreen;
 
     private readonly float interval = 10f;
     private readonly float fieldSize = 25f;
@@ -30,6 +32,14 @@ public class SpawnController : MonoBehaviour
             enemy.transform.SetParent(transform);
             EnemyController controller = enemy.GetComponent<EnemyController>();
             controller.Player = Player;
+        }
+    }
+
+    public void EndGame()
+    {
+        if (Mathf.Approximately(DeadScreen.alpha, 1f))
+        {
+            SceneManager.LoadScene(0);
         }
     }
 }
