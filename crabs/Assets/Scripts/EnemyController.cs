@@ -18,7 +18,7 @@ public class EnemyController : MonoBehaviour
     private readonly float initalHeath = 1f;
     private readonly float allowableDistance = 0.5f;
     private readonly float checkInterval = 2.0f;
-    private readonly float attackDistance = 2.0f;
+    private readonly float attackDistance = 3.0f;
     private readonly float attackRadius = 1f;
     private readonly float strength = 1f;
     private readonly float startAttackDistance = 3f;
@@ -35,6 +35,7 @@ public class EnemyController : MonoBehaviour
     private bool isDead = false;
     private PlayerController player;
     private float checkTimer;
+    private bool isAttacking;
 
     private void Start()
     {
@@ -64,7 +65,7 @@ public class EnemyController : MonoBehaviour
             {
                 // fall
                 float distance = gravity * Time.deltaTime;
-                if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, distance))
+                if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit f, distance))
                 {
                     agent.enabled = true;
                     hasFallen = true;
@@ -72,6 +73,21 @@ public class EnemyController : MonoBehaviour
                 else
                 {
                     transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - distance, transform.localPosition.z);
+                }
+            }
+            else if (isAttacking)
+            {
+                // Vector3 rotation = Vector3.RotateTowards(transform.right, Player.transform.position, turnSpeed * Time.deltaTime, 1.0f);
+                // transform.localRotation.SetLookRotation(Player.transform.position); //  = Quaternion.LookRotation(rotation);
+                var oldrot = transform.rotation;
+                transform.LookAt(Player.transform.position);
+                transform.rotation *= Quaternion.FromToRotation(Vector3.right, Vector3.forward);
+                transform.rotation = Quaternion.Lerp(oldrot, transform.rotation, turnSpeed * Time.deltaTime);
+
+                if ((Player.position - transform.position).magnitude > startAttackDistance)
+                {
+                    isAttacking = false;
+                    agent.enabled = true;
                 }
             }
             //else if (isTurning)
@@ -106,14 +122,19 @@ public class EnemyController : MonoBehaviour
                     Die(); // probably landed on a tree :/
                 }
 
-                if (agent.remainingDistance < startAttackDistance)
+                if ((Player.position - transform.position).magnitude < startAttackDistance)
                 {
                     // start attacking!
                     //player.DoDamage();
                     //agent.SetDestination(transform.position);
+                    isAttacking = true;
+                    agent.enabled = false;
+
+                    // transform.localRotation = Quaternion.LookRotation(Vector3.up);
                 }
                 else
                 {
+                    if (agent.isStopped) agent.isStopped = false;
                     Vector3 targetAngle = new Vector3(agent.desiredVelocity.x, 0, agent.desiredVelocity.z);
                     if (Vector3.Angle(transform.forward, targetAngle) > turnAllowance)
                     {
@@ -131,38 +152,34 @@ public class EnemyController : MonoBehaviour
                     //else
                     //{
                     // stick to ground
-                    Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1f);
-                    var target = Quaternion.LookRotation(Vector3.ProjectOnPlane(transform.right, hit.normal), hit.normal);
+                    Physics.Raycast(transform.position, Vector3.down, out RaycastHit g, 1f);
+                    var target = Quaternion.LookRotation(Vector3.ProjectOnPlane(transform.right, g.normal), g.normal);
                     Crab.rotation = Quaternion.RotateTowards(Crab.rotation, target, 1f);
-                    if (hit.distance > allowableDistance)
+                    if (g.distance > allowableDistance)
                     {
-                        Crab.transform.position = Vector3.MoveTowards(Crab.transform.position, hit.point, Time.deltaTime);
+                        Crab.transform.position = Vector3.MoveTowards(Crab.transform.position, g.point, Time.deltaTime);
                     }
                     //}
-                }
-                if (true) // always attack
-                {
-                    RaycastHit hit;
-                    DebugRayLine(transform.position, transform.TransformDirection(Vector3.right), out hit, attackDistance);
-                    DebugRayLine(transform.position + transform.TransformDirection(Vector3.forward) * attackRadius, transform.TransformDirection(Vector3.right), out hit, attackDistance);
-                    DebugRayLine(transform.position + transform.TransformDirection(Vector3.back) * attackRadius, transform.TransformDirection(Vector3.right), out hit, attackDistance);
-
-                    if (
-                        Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit, attackDistance)
-                        || Physics.Raycast(transform.position + transform.TransformDirection(Vector3.forward) * attackRadius, transform.TransformDirection(Vector3.right), out hit, attackDistance)
-                        || Physics.Raycast(transform.position + transform.TransformDirection(Vector3.back) * attackRadius, transform.TransformDirection(Vector3.right), out hit, attackDistance)
-                    )
-                    {
-                        PlayerController player = hit.transform.GetComponent<PlayerController>();
-                        if (player)
-                        {
-                            player.DoDamage();
-                        }
-                    }
                 }
             }
         }
 
+        RaycastHit hit;
+        DebugRayLine(transform.position, transform.TransformDirection(Vector3.right), out hit, attackDistance);
+        DebugRayLine(transform.position + transform.TransformDirection(Vector3.forward) * attackRadius, transform.TransformDirection(Vector3.right), out hit, attackDistance);
+        DebugRayLine(transform.position + transform.TransformDirection(Vector3.back) * attackRadius, transform.TransformDirection(Vector3.right), out hit, attackDistance);
+        if (
+            Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit, attackDistance)
+            || Physics.Raycast(transform.position + transform.TransformDirection(Vector3.forward) * attackRadius, transform.TransformDirection(Vector3.right), out hit, attackDistance)
+            || Physics.Raycast(transform.position + transform.TransformDirection(Vector3.back) * attackRadius, transform.TransformDirection(Vector3.right), out hit, attackDistance)
+        )
+        {
+            PlayerController player = hit.transform.GetComponent<PlayerController>();
+            if (player)
+            {
+                player.DoDamage();
+            }
+        }
         if (tookDamage)
         {
             tookDamage = false;
