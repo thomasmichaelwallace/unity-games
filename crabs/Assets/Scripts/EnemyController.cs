@@ -18,6 +18,7 @@ public class EnemyController : MonoBehaviour
     private readonly float attackDistance = 3f;
     private readonly float initalHeath = 1f;
     private readonly float allowableDistance = 0.5f;
+    private readonly float checkInterval = 2.0f;
 
     private float health;
     private bool tookDamage = false;
@@ -30,6 +31,7 @@ public class EnemyController : MonoBehaviour
     private Explodable body;
     private bool isDead = false;
     private PlayerController player;
+    private float checkTimer;
 
     private void Start()
     {
@@ -75,11 +77,18 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
+            // TODO: only update every X
+            // TODO: rotate and attack
             if (agent.isActiveAndEnabled)
             {
                 if (agent.isOnNavMesh)
                 {
-                    agent.SetDestination(Player.position);
+                    checkTimer += Time.deltaTime;
+                    if (checkTimer > checkInterval)
+                    {
+                        agent.SetDestination(Player.position);
+                        checkTimer = 0;
+                    }
                 }
                 else
                 {
