@@ -13,8 +13,9 @@ public class SpawnController : MonoBehaviour
     private readonly float interval = 10f;
     private readonly float fieldSize = 25f;
 
+    private bool first = true;
     private float timer = 0f;
-    private int level = 2;
+    private int level = 0;
 
     private GameManager gameManager;
 
@@ -33,6 +34,13 @@ public class SpawnController : MonoBehaviour
 
             Vector3 position = UnityEngine.Random.insideUnitSphere * fieldSize;
             position.y = fieldSize; // paracute in
+
+            if (first)
+            {
+                // make sure first land is easy
+                position.x = 10;
+                position.z = 10;
+            }
 
             GameObject enemy = Instantiate(EnemyPrefab, position, Quaternion.identity);
             enemy.transform.SetParent(transform);
