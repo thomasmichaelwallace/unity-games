@@ -30,7 +30,9 @@ public class SpawnController : MonoBehaviour
 
         if (timer <= 0)
         {
-            timer = interval;
+            float minInterval = interval - level;
+            float maxInterval = level < 4 ? interval : (interval - (level - 3));
+            timer = UnityEngine.Random.Range(minInterval, maxInterval); // max level is 6.
 
             Vector3 position = UnityEngine.Random.insideUnitSphere * fieldSize;
             position.y = fieldSize; // paracute in
@@ -40,19 +42,26 @@ public class SpawnController : MonoBehaviour
                 // make sure first land is easy
                 position.x = 10;
                 position.z = 10;
+                first = false;
             }
 
             GameObject enemy = Instantiate(EnemyPrefab, position, Quaternion.identity);
             enemy.transform.SetParent(transform);
 
             EnemyController controller = enemy.GetComponent<EnemyController>();
-            if (Kills > 0 && Kills % 5 == 0 && level < 3) level += 1;
-            controller.Configure(Player, gameManager, this, level);
+            int minType = level < 4 ? 0 : level - 4;
+            int maxType = level < 4 ? level : 3; // inclusive
+            int crabType = Random.Range(minType, maxType + 1);
+            controller.Configure(Player, gameManager, this, crabType);
         }
     }
 
     public void AddKill()
     {
         Kills += 1;
+        if (Kills % 5 == 0 && level < 6)
+        {
+            level += 1;
+        }
     }
 }
