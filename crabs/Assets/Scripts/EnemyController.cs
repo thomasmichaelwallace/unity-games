@@ -1,219 +1,178 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
-    public Transform Player;
-    public Material Hightlight;
-    public Material Fadable;
-    public GameObject Moving;
-    public Transform Crab;
+    [SerializeField]
+    private Material Hightlight = null;
+
+    [SerializeField]
+    private Transform Model = null;
+
+    private readonly float health = 1f;
+    private readonly float strength = 5f;
+    private readonly float speed = 3.5f;
+    private readonly float turnSpeed = 120f;
+    private readonly float aiUpdateInterval = 2.0f;
 
     private readonly float gravity = 10f;
-    private readonly float turnAllowance = 5f;
-    private readonly float turnSpeed = 1f;
-    private readonly float initalHeath = 1f;
-    private readonly float allowableDistance = 0.5f;
-    private readonly float checkInterval = 2.0f;
-    private readonly float attackDistance = 3.0f;
-    private readonly float attackRadius = 1f;
-    private readonly float strength = 1f;
+    private readonly float allowableCurve = 5f;
+    private readonly float allowableFloat = 0.5f;
     private readonly float startAttackDistance = 3f;
+    private readonly float attackDistance = 3.0f;
+    private readonly float attackWidth = 1f;
 
-    private float health;
-    private bool tookDamage = false;
-    private Material[] defaultMaterials;
-    private MeshRenderer[] meshRenderers;
+    private Transform player;
+    private GameManager gameManager;
+    private SpawnController spawnController;
     private NavMeshAgent agent;
-    private bool isTurning = false;
-    private Vector3 turnDirection;
+    private MeshRenderer[] meshRenderers;
+    private Material[] meshMaterials;
+    private Explodable explodable;
+
+    private float damage;
     private bool hasFallen = false;
-    private Explodable body;
-    private bool isDead = false;
-    private PlayerController player;
-    private float checkTimer;
+    private float aiUpdateTimer;
     private bool isAttacking;
 
     private void Start()
     {
-        health = initalHeath;
-        meshRenderers = GetComponentsInChildren<MeshRenderer>();
-        defaultMaterials = meshRenderers.Select(m => m.material).ToArray();
         agent = GetComponent<NavMeshAgent>();
-        body = GetComponentInChildren<Explodable>();
         agent.enabled = false;
-        player = Player.GetComponent<PlayerController>();
+
+        meshRenderers = GetComponentsInChildren<MeshRenderer>();
+        meshMaterials = meshRenderers.Select(m => m.material).ToArray();
+
+        explodable = GetComponentInChildren<Explodable>();
     }
 
-    // Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, attackDistance)
-    private void DebugRayLine(Vector3 position, Vector3 direction, out RaycastHit hit, float distance)
+    public void Configure(Transform target, GameManager game, SpawnController spawn)
     {
-        hit = new RaycastHit(); // has to be set.
-        Debug.DrawLine(position, position + direction * distance);
+        player = target;
+        gameManager = game;
+        spawnController = spawn;
     }
 
     private void Update()
     {
-        if (isDead) return;
-
-        if (!agent.enabled)
+        if (!hasFallen)
         {
-            if (!hasFallen)
+            float distance = gravity * Time.deltaTime;
+            if (Physics.Raycast(transform.position, Vector3.down, distance))
             {
-                // fall
-                float distance = gravity * Time.deltaTime;
-                if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit f, distance))
-                {
-                    agent.enabled = true;
-                    hasFallen = true;
-                }
-                else
-                {
-                    transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - distance, transform.localPosition.z);
-                }
+                agent.enabled = true;
+                hasFallen = true;
             }
-            else if (isAttacking)
-            {
-                // Vector3 rotation = Vector3.RotateTowards(transform.right, Player.transform.position, turnSpeed * Time.deltaTime, 1.0f);
-                // transform.localRotation.SetLookRotation(Player.transform.position); //  = Quaternion.LookRotation(rotation);
-                var oldrot = transform.rotation;
-                transform.LookAt(Player.transform.position);
-                transform.rotation *= Quaternion.FromToRotation(Vector3.right, Vector3.forward);
-                transform.rotation = Quaternion.Lerp(oldrot, transform.rotation, turnSpeed * Time.deltaTime);
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - distance, transform.localPosition.z);
+            return; // don't enable ai until fallen
+        }
 
-                if ((Player.position - transform.position).magnitude > startAttackDistance)
-                {
-                    isAttacking = false;
-                    agent.enabled = true;
-                }
+        if (isAttacking)
+        {
+            // rotate to "face" player before attacking
+            var fromRotation = transform.rotation;
+            transform.LookAt(player.transform.position);
+            transform.rotation *= Quaternion.FromToRotation(Vector3.right, Vector3.forward); // "face" is actually the right side, so that nav-agent walks sideways
+            transform.rotation = Quaternion.Lerp(fromRotation, transform.rotation, (turnSpeed / 90) * Time.deltaTime);
+
+            if ((player.position - transform.position).magnitude > startAttackDistance)
+            {
+                isAttacking = false;
+                agent.enabled = true;
             }
-            //else if (isTurning)
-            //{
-            //    Vector3 rotation = Vector3.RotateTowards(transform.forward, turnDirection, turnSpeed * Time.deltaTime, 0.0f);
-            //    transform.localRotation = Quaternion.LookRotation(rotation);
-            //    if (Vector3.Angle(transform.forward, agent.desiredVelocity) < turnAllowance)
-            //    {
-            //        isTurning = false;
-            //        agent.enabled = true;
-            //        agent.SetDestination(Player.position);
-            //    }
-            //}
         }
         else
         {
-            // TODO: only update every X
-            // TODO: rotate and attack
-            if (agent.isActiveAndEnabled)
+            if (!agent.isOnNavMesh)
             {
-                if (agent.isOnNavMesh)
+                Die(); // probably landed on a tree :/
+                return;
+            }
+
+            aiUpdateTimer += Time.deltaTime;
+            if (aiUpdateTimer > aiUpdateInterval)
+            {
+                agent.SetDestination(player.position);
+                aiUpdateTimer = 0;
+            }
+
+            if ((player.position - transform.position).magnitude < startAttackDistance)
+            {
+                isAttacking = true;
+                agent.enabled = false;
+            }
+            else
+            {
+                // crabs can't walk and turn
+                Vector3 targetAngle = new Vector3(agent.desiredVelocity.x, 0, agent.desiredVelocity.z);
+                if (Vector3.Angle(transform.forward, targetAngle) > allowableCurve)
                 {
-                    checkTimer += Time.deltaTime;
-                    if (checkTimer > checkInterval)
-                    {
-                        agent.SetDestination(Player.position);
-                        checkTimer = 0;
-                    }
+                    agent.speed = 0f;
+                    agent.angularSpeed = turnSpeed;
                 }
                 else
                 {
-                    Die(); // probably landed on a tree :/
+                    agent.speed = speed;
+                    agent.angularSpeed = 0f;
                 }
 
-                if ((Player.position - transform.position).magnitude < startAttackDistance)
+                // slope and stick to ground (as nav-mesh isn't very reliable)
+                Physics.Raycast(transform.position, Vector3.down, out RaycastHit ground, 1f);
+                Quaternion target = Quaternion.LookRotation(Vector3.ProjectOnPlane(transform.right, ground.normal), ground.normal);
+                Model.rotation = Quaternion.RotateTowards(Model.rotation, target, 1f);
+                if (ground.distance > allowableFloat)
                 {
-                    // start attacking!
-                    //player.DoDamage();
-                    //agent.SetDestination(transform.position);
-                    isAttacking = true;
-                    agent.enabled = false;
-
-                    // transform.localRotation = Quaternion.LookRotation(Vector3.up);
-                }
-                else
-                {
-                    if (agent.isStopped) agent.isStopped = false;
-                    Vector3 targetAngle = new Vector3(agent.desiredVelocity.x, 0, agent.desiredVelocity.z);
-                    if (Vector3.Angle(transform.forward, targetAngle) > turnAllowance)
-                    {
-                        agent.speed = 0;
-                        agent.angularSpeed = 120f;
-                        // isTurning = true;
-                        // turnDirection = agent.desiredVelocity;
-                        // agent.enabled = false;
-                    }
-                    else
-                    {
-                        agent.speed = 3.5f;
-                        agent.angularSpeed = 0f;
-                    }
-                    //else
-                    //{
-                    // stick to ground
-                    Physics.Raycast(transform.position, Vector3.down, out RaycastHit g, 1f);
-                    var target = Quaternion.LookRotation(Vector3.ProjectOnPlane(transform.right, g.normal), g.normal);
-                    Crab.rotation = Quaternion.RotateTowards(Crab.rotation, target, 1f);
-                    if (g.distance > allowableDistance)
-                    {
-                        Crab.transform.position = Vector3.MoveTowards(Crab.transform.position, g.point, Time.deltaTime);
-                    }
-                    //}
+                    Model.transform.position = Vector3.MoveTowards(Model.transform.position, ground.point, Time.deltaTime);
                 }
             }
         }
 
-        RaycastHit hit;
-        DebugRayLine(transform.position, transform.TransformDirection(Vector3.right), out hit, attackDistance);
-        DebugRayLine(transform.position + transform.TransformDirection(Vector3.forward) * attackRadius, transform.TransformDirection(Vector3.right), out hit, attackDistance);
-        DebugRayLine(transform.position + transform.TransformDirection(Vector3.back) * attackRadius, transform.TransformDirection(Vector3.right), out hit, attackDistance);
+        // crabs are wide, use three raycasts
         if (
-            Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit, attackDistance)
-            || Physics.Raycast(transform.position + transform.TransformDirection(Vector3.forward) * attackRadius, transform.TransformDirection(Vector3.right), out hit, attackDistance)
-            || Physics.Raycast(transform.position + transform.TransformDirection(Vector3.back) * attackRadius, transform.TransformDirection(Vector3.right), out hit, attackDistance)
+            Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out RaycastHit hit, attackDistance)
+            || Physics.Raycast(transform.position + transform.TransformDirection(Vector3.forward) * attackWidth, transform.TransformDirection(Vector3.right), out hit, attackDistance)
+            || Physics.Raycast(transform.position + transform.TransformDirection(Vector3.back) * attackWidth, transform.TransformDirection(Vector3.right), out hit, attackDistance)
         )
         {
             PlayerController player = hit.transform.GetComponent<PlayerController>();
-            if (player)
-            {
-                player.DoDamage();
-            }
-        }
-        if (tookDamage)
-        {
-            tookDamage = false;
-            foreach (MeshRenderer meshRenderer in meshRenderers)
-            {
-                meshRenderer.material = Hightlight;
-            }
-        }
-        else
-        {
-            for (int i = 0; i < meshRenderers.Length; i++)
-            {
-                meshRenderers[i].material = defaultMaterials[i];
-            }
+            if (player) gameManager.TakeDamage(strength);
         }
     }
 
     public void TakeDamage(float strength)
     {
-        tookDamage = true;
-        health -= strength * Time.deltaTime;
-        if (health <= 0 && !isDead)
+        float lastDamage = damage;
+        damage += strength * Time.deltaTime;
+        if (lastDamage < health && damage > health) // prevent double count while waiting for crab to die
         {
-            Player.GetComponent<PlayerController>().AddKill();
+            spawnController.AddKill(); ;
             Die();
+        }
+        else
+        {
+            StopCoroutine(nameof(LookDamaged));
+            StartCoroutine(nameof(LookDamaged));
+        }
+    }
+
+    private IEnumerator LookDamaged()
+    {
+        foreach (MeshRenderer meshRenderer in meshRenderers)
+        {
+            meshRenderer.material = Hightlight;
+        }
+        yield return new WaitForSeconds(0.5f);
+        for (int i = 0; i < meshRenderers.Length; i++)
+        {
+            meshRenderers[i].material = meshMaterials[i];
         }
     }
 
     private void Die()
     {
-        body.Explode(body.gameObject.transform);
-        isDead = true;
-        Moving.SetActive(false);
-
-        Destroy(gameObject, 5f);
+        explodable.Explode(explodable.gameObject.transform);
+        Destroy(gameObject);
     }
 }

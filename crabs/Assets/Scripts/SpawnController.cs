@@ -1,22 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SpawnController : MonoBehaviour
 {
-    public Transform Player;
-    public GameObject Prefab;
-    public CanvasGroup DeadScreen;
+    [SerializeField]
+    private Transform Player = null;
+
+    [SerializeField]
+    private GameObject EnemyPrefab = null;
+
+    public int Kills { get; private set; }
 
     private readonly float interval = 10f;
     private readonly float fieldSize = 25f;
-    private readonly float waitTime = 0f;
+
     private float timer = 0f;
+
+    private GameManager gameManager;
 
     private void Start()
     {
-        timer = waitTime;
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void Update()
@@ -26,20 +30,20 @@ public class SpawnController : MonoBehaviour
         if (timer <= 0)
         {
             timer = interval;
+
             Vector3 position = UnityEngine.Random.insideUnitSphere * fieldSize;
-            position.y = fieldSize;
-            GameObject enemy = Instantiate(Prefab, position, Quaternion.identity);
+            position.y = fieldSize; // paracute in
+
+            GameObject enemy = Instantiate(EnemyPrefab, position, Quaternion.identity);
             enemy.transform.SetParent(transform);
+
             EnemyController controller = enemy.GetComponent<EnemyController>();
-            controller.Player = Player;
+            controller.Configure(Player, gameManager, this);
         }
     }
 
-    public void EndGame()
+    public void AddKill()
     {
-        if (Mathf.Approximately(DeadScreen.alpha, 1f))
-        {
-            SceneManager.LoadScene(0);
-        }
+        Kills += 1;
     }
 }

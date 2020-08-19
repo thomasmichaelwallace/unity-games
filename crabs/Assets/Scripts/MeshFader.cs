@@ -1,36 +1,43 @@
-﻿using UnityEngine;
+﻿// adapted from: https://github.com/unitycoder/SimpleMeshExploder/blob/master/Assets/Scripts/MeshFader.cs
 using System.Collections;
-
-// thnaks to: https://github.com/unitycoder/SimpleMeshExploder/blob/master/Assets/Scripts/MeshFader.cs
+using UnityEngine;
 
 public class MeshFader : MonoBehaviour
 {
-    private bool fadeOut = false;
-    private float timer = 2f;
+    private readonly float maximumLifeTime = 2f;
+    private readonly float fadeTime = 1f;
+
+    private float timer;
+
+    private bool fadingOut = false;
+
+    private void Start()
+    {
+        timer = maximumLifeTime;
+    }
 
     private void Update()
     {
-        if (fadeOut) return;
+        if (fadingOut) return;
 
         timer -= Time.deltaTime;
         if (timer < 0f || GetComponent<Rigidbody>().IsSleeping())
         {
-            fadeOut = true;
+            fadingOut = true;
             StartCoroutine(FadeOut());
         }
     }
 
     private IEnumerator FadeOut()
     {
-        float fadeTime = 1.0f;
-        var rend = GetComponent<Renderer>();
+        var render = GetComponent<Renderer>();
 
-        var startColor = rend.material.color;
-        var endColor = new Color(1, 1, 1, 0);
+        var startColor = render.material.color;
+        var endColor = new Color(1, 1, 1, 0); // fade to white
 
         for (float t = 0.0f; t < fadeTime; t += Time.deltaTime)
         {
-            rend.material.color = Color.Lerp(startColor, endColor, t / fadeTime);
+            render.material.color = Color.Lerp(startColor, endColor, t / fadeTime);
             yield return null;
         }
         Destroy(gameObject);

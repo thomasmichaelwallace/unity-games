@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 167905968}
   - component: {fileID: 167905967}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -296,11 +296,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 2134963298}
   - {fileID: 1142851924}
+  - {fileID: 2134963298}
   - {fileID: 1286102556}
+  - {fileID: 1163140408}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -339,10 +340,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21e17044dc3b8f4ab95fc21abb04cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damaged: {fileID: 2134963299}
-  HealthBar: {fileID: 1142851924}
-  DeadScreen: {fileID: 1286102557}
-  DeadText: {fileID: 1270800440}
+  Speed: 15
+  TurnSpeed: 40
 --- !u!143 &194191914
 CharacterController:
   m_ObjectHideFlags: 0
@@ -430,7 +429,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh14054
+  m_Name: pb_Mesh14064
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1356,6 +1355,54 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 293376410}
   m_Mesh: {fileID: 1726597383}
+--- !u!1 &381092387
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 381092389}
+  - component: {fileID: 381092388}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &381092388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381092387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61c3748ce447b7c4d9a461801ebd1218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerHealth: 100
+  HealthBar: {fileID: 1142851924}
+  DamageOverlay: {fileID: 2134963299}
+  GameOverScreen: {fileID: 1286102557}
+  GameOverText: {fileID: 1270800440}
+--- !u!4 &381092389
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381092387}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.1545553, y: 13.118817, z: 8.370788}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &442953784 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 69316f8cb5670644aac8a068475846f1,
@@ -2106,7 +2153,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh13958
+  m_Name: pb_Mesh13968
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4432,7 +4479,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh13942
+  m_Name: pb_Mesh13952
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4709,7 +4756,7 @@ GameObject:
   - component: {fileID: 1142851926}
   - component: {fileID: 1142851925}
   m_Layer: 5
-  m_Name: Health
+  m_Name: Health Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4727,7 +4774,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 167905970}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -4830,12 +4877,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1163140405}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -400, y: -249.57265, z: 0}
+  m_LocalScale: {x: 1.7094017, y: 1.7094017, z: 1.7094017}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 167905970}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1242336832 stripped
 Transform:
@@ -4856,7 +4903,7 @@ GameObject:
   - component: {fileID: 1270800440}
   - component: {fileID: 1270800442}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Game Over Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5001,8 +5048,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1970186178}
-          m_MethodName: EndGame
+        - m_Target: {fileID: 381092388}
+          m_MethodName: RestartGame
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -5025,7 +5072,7 @@ GameObject:
   - component: {fileID: 1286102558}
   - component: {fileID: 1286102557}
   m_Layer: 5
-  m_Name: GameOver
+  m_Name: Game Over Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5842,7 +5889,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh14034
+  m_Name: pb_Mesh14042
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6005,7 +6052,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh13928
+  m_Name: pb_Mesh13932
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7131,8 +7178,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 194191917}
-  Prefab: {fileID: 3121137518910499939, guid: 02c72a944649f8442a8b08167b6671b6, type: 3}
-  DeadScreen: {fileID: 1286102557}
+  EnemyPrefab: {fileID: 3121137518910499939, guid: 02c72a944649f8442a8b08167b6671b6,
+    type: 3}
 --- !u!1 &2077762325
 GameObject:
   m_ObjectHideFlags: 0
@@ -7178,6 +7225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4c48a851d408674ca29ea909df7cc35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  strength: 1
 --- !u!1 &2134963297
 GameObject:
   m_ObjectHideFlags: 0
@@ -7209,7 +7257,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 167905970}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

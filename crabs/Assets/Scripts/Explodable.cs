@@ -1,22 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// adapted from: https://github.com/unitycoder/SimpleMeshExploder/blob/master/Assets/Scripts/SimpleMeshExploder.cs
 using UnityEngine;
-
-// based on https://github.com/unitycoder/SimpleMeshExploder/blob/master/Assets/Scripts/SimpleMeshExploder.cs
 
 public class Explodable : MonoBehaviour
 {
-    public Material Fadable;
+    [SerializeField]
+    private Material PieceMaterial = null; // must be transparent for fader
 
     public void Explode(Transform target)
     {
-        // fx
-        // Transform clone = Instantiate(exploPrefab, target.position, Quaternion.identity) as Transform;
-        // Destroy(clone.gameObject, 5);
-
-        // clone = Instantiate(smokePrefab, target.position, Quaternion.identity) as Transform;
-        // Destroy(clone.gameObject, 10);
-
+        Color color = target.GetComponent<MeshRenderer>().material.color;
         Mesh mesh = target.GetComponent<MeshFilter>().mesh;
         Vector3[] vertices = mesh.vertices;
         Vector3[] normals = mesh.normals;
@@ -24,33 +16,30 @@ public class Explodable : MonoBehaviour
         Vector2[] uvs = mesh.uv;
         int index = 0;
 
-        // remove collider from original
-        // target.GetComponent<Collider>().enabled = false;
-
-        // get each face
         for (int i = 0; i < triangles.Length; i += 3)
         {
-            // TODO: inherit speed, spin...?
             Vector3 averageNormal = (normals[triangles[i]] + normals[triangles[i + 1]] + normals[triangles[i + 2]]).normalized;
-            Vector3 s = target.GetComponent<Renderer>().bounds.size;
-            float extrudeSize = ((s.x + s.y + s.z) / 3) * 0.3f;
-            float c = 0.25f;
-            CreateMeshPiece(extrudeSize, target.transform.position, target.GetComponent<Renderer>().material, index, averageNormal, vertices[triangles[i]] * c, vertices[triangles[i + 1]] * c, vertices[triangles[i + 2]] * c, uvs[triangles[i]] * c, uvs[triangles[i + 1]] * c, uvs[triangles[i + 2]] * c);
+            Vector3 size = target.GetComponent<Renderer>().bounds.size;
+            float extrudeSize = ((size.x + size.y + size.z) / 3) * 0.3f;
+            float scale = transform.lossyScale.x; // assume x scale is representitive
+            CreateMeshPiece(extrudeSize, target.transform.position, color, index, averageNormal, vertices[triangles[i]] * scale, vertices[triangles[i + 1]] * scale, vertices[triangles[i + 2]] * scale, uvs[triangles[i]] * scale, uvs[triangles[i + 1]] * scale, uvs[triangles[i + 2]] * scale);
             index++;
         }
-        // destroy original
+
         Destroy(target.gameObject);
     }
 
-    private void CreateMeshPiece(float extrudeSize, Vector3 pos, Material mat, int index, Vector3 faceNormal, Vector3 v1, Vector3 v2, Vector3 v3, Vector2 uv1, Vector2 uv2, Vector2 uv3)
+    private void CreateMeshPiece(float extrudeSize, Vector3 position, Color color, int index, Vector3 faceNormal, Vector3 v1, Vector3 v2, Vector3 v3, Vector2 uv1, Vector2 uv2, Vector2 uv3)
     {
-        GameObject go = new GameObject("piece_" + index);
+        GameObject piece = new GameObject("piece_" + index);
 
-        Mesh mesh = go.AddComponent<MeshFilter>().mesh;
-        go.AddComponent<MeshRenderer>();
-        go.tag = "Explodable"; // set this only if should be able to explode this piece also
-        go.GetComponent<Renderer>().material = Fadable;
-        go.transform.position = pos;
+        Mesh mesh = piece.AddComponent<MeshFilter>().mesh;
+        piece.AddComponent<MeshRenderer>();
+        Renderer renderer = piece.GetComponent<Renderer>();
+        renderer.material = PieceMaterial;
+        renderer.material.color = color;
+
+        piece.transform.position = position;
 
         Vector3[] vertices = new Vector3[3 * 4];
         int[] triangles = new int[3 * 4];
@@ -59,7 +48,7 @@ public class Explodable : MonoBehaviour
         // get centroid
         Vector3 v4 = (v1 + v2 + v3) / 3;
         // extend to backwards
-        v4 = v4 + (-faceNormal) * extrudeSize;
+        v4 += (-faceNormal) * extrudeSize;
 
         // not shared vertices
         // orig face
@@ -100,20 +89,19 @@ public class Explodable : MonoBehaviour
         // orig face
         uvs[0] = uv1;
         uvs[1] = uv2;
-        uvs[2] = uv3; // todo
-                      // right face
+        uvs[2] = uv3;
+        // right face
         uvs[3] = uv1;
         uvs[4] = uv2;
-        uvs[5] = uv3; // todo
-
+        uvs[5] = uv3;
         // left face
         uvs[6] = uv1;
         uvs[7] = uv3;
-        uvs[8] = uv3;   // todo
-                        // bottom face (mirror?) or custom color? or fixed from uv?
+        uvs[8] = uv3;
+        // bottom face
         uvs[9] = uv1;
         uvs[10] = uv2;
-        uvs[11] = uv1; // todo
+        uvs[11] = uv1;
 
         mesh.vertices = vertices;
         mesh.uv = uvs;
@@ -123,13 +111,13 @@ public class Explodable : MonoBehaviour
 
         CalculateMeshTangents(mesh);
 
-        go.AddComponent<Rigidbody>();
-        MeshCollider mc = go.AddComponent<MeshCollider>();
+        piece.AddComponent<Rigidbody>();
+        MeshCollider mc = piece.AddComponent<MeshCollider>();
 
         mc.sharedMesh = mesh;
         mc.convex = true;
 
-        go.AddComponent<MeshFader>();
+        piece.AddComponent<MeshFader>();
     }
 
     // source: http://answers.unity3d.com/questions/7789/calculating-tangents-vector4.html
