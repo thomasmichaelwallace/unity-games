@@ -19,17 +19,24 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButton("Fire2"))
+        bool turning = Input.GetButton("Fire2"); // alt
+
+        float hoizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        if (Mathf.Abs(vertical) > Mathf.Abs(hoizontal))
         {
-            // rotating
-            float hoizontal = Input.GetAxis("Horizontal");
+            // vertical is alternative to turning
+            hoizontal = vertical;
+            turning = true;
+        }
+
+        if (turning)
+        {
             Vector3 rotation = new Vector3(0, hoizontal, 0) * TurnSpeed;
             transform.eulerAngles += (rotation * Time.deltaTime);
         }
         else
         {
-            // walking
-            float hoizontal = Input.GetAxis("Horizontal");
             Vector3 movement = transform.TransformDirection(Vector3.right) * hoizontal * Speed;
             characterController.Move(movement * Time.deltaTime);
         }

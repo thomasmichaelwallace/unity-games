@@ -23,7 +23,7 @@ public class ClawsController : MonoBehaviour
 
     private void Update()
     {
-        bool fireButtonDown = Input.GetButton("Fire1");
+        bool fireButtonDown = Input.GetButton("Fire1") || Input.GetButton("Fire3");
 
         if (fireButtonDown && !isAttacking)
         {

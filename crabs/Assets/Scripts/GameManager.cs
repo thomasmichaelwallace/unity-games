@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     private float health;
     private Vector2 barSize;
     private float damageTimer = 0;
+    private float screenTimer = 2f; // wait to restart
     private bool isGameOver;
 
     private void Start()
@@ -38,6 +39,18 @@ public class GameManager : MonoBehaviour
         {
             damageTimer -= Time.deltaTime;
             DamageOverlay.alpha = Mathf.Lerp(0, 1, damageTimer / damageShowTime);
+        }
+
+        if (isGameOver)
+        {
+            if (screenTimer < 0)
+            {
+                if (Input.anyKeyDown) SceneManager.LoadScene(0);
+            }
+            else
+            {
+                screenTimer -= Time.deltaTime;
+            }
         }
     }
 
@@ -60,10 +73,5 @@ public class GameManager : MonoBehaviour
         int killCount = spawnController.Kills;
         GameOverText.text = GameOverText.text.Replace("{{kills}}", killCount.ToString());
         GameOverScreen.alpha = 1;
-    }
-
-    public void RestartGame()
-    {
-        if (isGameOver) SceneManager.LoadScene(0);
     }
 }
