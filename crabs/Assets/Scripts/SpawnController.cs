@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class SpawnController : MonoBehaviour
 {
@@ -15,6 +14,7 @@ public class SpawnController : MonoBehaviour
     private readonly float fieldSize = 25f;
 
     private float timer = 0f;
+    private int level;
 
     private GameManager gameManager;
 
@@ -38,7 +38,8 @@ public class SpawnController : MonoBehaviour
             enemy.transform.SetParent(transform);
 
             EnemyController controller = enemy.GetComponent<EnemyController>();
-            controller.Configure(Player, gameManager, this);
+            if (Kills > 0 && Kills % 5 == 0 && level < 3) level += 1;
+            controller.Configure(Player, gameManager, this, level);
         }
     }
 

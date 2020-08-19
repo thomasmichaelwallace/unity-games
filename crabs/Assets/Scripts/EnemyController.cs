@@ -6,16 +6,41 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField]
-    private Material Hightlight = null;
-
-    [SerializeField]
     private Transform Model = null;
 
-    private readonly float health = 1f;
-    private readonly float strength = 5f;
-    private readonly float speed = 3.5f;
-    private readonly float turnSpeed = 120f;
-    private readonly float aiUpdateInterval = 2.0f;
+    private float health = 1f;
+    private float strength = 5f;
+    private float speed = 3.5f;
+    private float turnSpeed = 120f;
+    private float aiUpdateInterval = 2.0f;
+    private Color color;
+
+    private struct CrabType
+    {
+        public Color color;
+        public float health;
+        public float stregth;
+        public float speed;
+        public float turnSpeed;
+        public float aiUpdateInterval;
+
+        public CrabType(Color color, float power, float inteligence)
+        {
+            this.color = color;
+            health = 80 * power;
+            stregth = 5 * power;
+            speed = 3.5f * inteligence;
+            turnSpeed = 120f * inteligence;
+            aiUpdateInterval = 2 / (inteligence * 2);
+        }
+    }
+
+    private readonly CrabType[] crabTypes = {
+        new CrabType(new Color(0.8000001f, 0.06997719f, 0.03708231f), 1f, 1f),
+        new CrabType(new Color(0.6860168f, 0.8f, 0.0352941f), 1.2f, 1.2f),
+        new CrabType(new Color(0.0352941f, 0.5453134f, 0.8f), 1.6f, 1.6f),
+        new CrabType(new Color(0.08733088f,0.01023496f,0.09433961f), 2.0f, 2.0f),
+    };
 
     private readonly float gravity = 10f;
     private readonly float allowableCurve = 5f;
@@ -29,10 +54,8 @@ public class EnemyController : MonoBehaviour
     private SpawnController spawnController;
     private NavMeshAgent agent;
     private MeshRenderer[] meshRenderers;
-    private Material[] meshMaterials;
     private Explodable explodable;
 
-    private float damage;
     private bool hasFallen = false;
     private float aiUpdateTimer;
     private bool isAttacking;
@@ -43,16 +66,27 @@ public class EnemyController : MonoBehaviour
         agent.enabled = false;
 
         meshRenderers = GetComponentsInChildren<MeshRenderer>();
-        meshMaterials = meshRenderers.Select(m => m.material).ToArray();
+        foreach (MeshRenderer renderer in meshRenderers)
+        {
+            renderer.material.color = color;
+        }
 
         explodable = GetComponentInChildren<Explodable>();
     }
 
-    public void Configure(Transform target, GameManager game, SpawnController spawn)
+    public void Configure(Transform target, GameManager game, SpawnController spawn, int level)
     {
         player = target;
         gameManager = game;
         spawnController = spawn;
+
+        CrabType crabType = crabTypes[level];
+        health = crabType.health;
+        speed = crabType.speed;
+        strength = crabType.stregth;
+        turnSpeed = crabType.turnSpeed;
+        aiUpdateInterval = crabType.aiUpdateInterval;
+        color = crabType.color;
     }
 
     private void Update()
@@ -143,9 +177,9 @@ public class EnemyController : MonoBehaviour
 
     public void TakeDamage(float strength)
     {
-        float lastDamage = damage;
-        damage += strength * Time.deltaTime;
-        if (lastDamage < health && damage > health) // prevent double count while waiting for crab to die
+        float lastHealth = health;
+        health -= (strength * Time.deltaTime);
+        if (lastHealth > 0 && health <= 0) // prevent double count while waiting for crab to die
         {
             spawnController.AddKill(); ;
             Die();
@@ -161,12 +195,12 @@ public class EnemyController : MonoBehaviour
     {
         foreach (MeshRenderer meshRenderer in meshRenderers)
         {
-            meshRenderer.material = Hightlight;
+            meshRenderer.material.color = Color.Lerp(color, new Color(1, 1, 1), 0.35f);
         }
         yield return new WaitForSeconds(0.5f);
-        for (int i = 0; i < meshRenderers.Length; i++)
+        foreach (MeshRenderer meshRenderer in meshRenderers)
         {
-            meshRenderers[i].material = meshMaterials[i];
+            meshRenderer.material.color = color;
         }
     }
 
