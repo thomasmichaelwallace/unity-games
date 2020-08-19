@@ -14,7 +14,7 @@ public class SpawnController : MonoBehaviour
     private readonly float fieldSize = 25f;
 
     private float timer = 0f;
-    private int level;
+    private int level = 2;
 
     private GameManager gameManager;
 

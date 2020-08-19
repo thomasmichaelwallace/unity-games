@@ -53,7 +53,7 @@ public class EnemyController : MonoBehaviour
     private GameManager gameManager;
     private SpawnController spawnController;
     private NavMeshAgent agent;
-    private MeshRenderer[] meshRenderers;
+    private Renderer[] renderers;
     private Explodable explodable;
 
     private bool hasFallen = false;
@@ -65,11 +65,8 @@ public class EnemyController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.enabled = false;
 
-        meshRenderers = GetComponentsInChildren<MeshRenderer>();
-        foreach (MeshRenderer renderer in meshRenderers)
-        {
-            renderer.material.color = color;
-        }
+        renderers = GetComponentsInChildren<Renderer>();
+        SetColor(color);
 
         explodable = GetComponentInChildren<Explodable>();
     }
@@ -193,20 +190,25 @@ public class EnemyController : MonoBehaviour
 
     private IEnumerator LookDamaged()
     {
-        foreach (MeshRenderer meshRenderer in meshRenderers)
-        {
-            meshRenderer.material.color = Color.Lerp(color, new Color(1, 1, 1), 0.35f);
-        }
+        SetColor(Color.Lerp(color, Color.white, 0.35f));
         yield return new WaitForSeconds(0.5f);
-        foreach (MeshRenderer meshRenderer in meshRenderers)
-        {
-            meshRenderer.material.color = color;
-        }
+        SetColor(color);
     }
 
     private void Die()
     {
+        SetColor(color);
         explodable.Explode(explodable.gameObject.transform);
         Destroy(gameObject);
+    }
+
+    private void SetColor(Color color)
+    {
+        foreach (Renderer renderer in renderers)
+        {
+            // normalise "shell" material colour
+            int target = renderer.materials.Length == 2 ? 1 : 0;
+            renderer.materials[target].color = color;
+        }
     }
 }
