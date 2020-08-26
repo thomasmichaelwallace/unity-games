@@ -4,20 +4,11 @@ using UnityEngine;
 
 public class Water : MonoBehaviour
 {
-    private readonly float speed = 0.1f;
-
-    // Start is called before the first frame update
-    void Start()
+    public void SetLevel(float level)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        var delta = speed * Time.deltaTime; 
-        
         var scale = transform.localScale;
+        var delta = level - scale.y;
+        
         scale.y += delta;
         transform.localScale = scale;
 
