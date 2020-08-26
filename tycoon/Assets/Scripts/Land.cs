@@ -66,10 +66,9 @@ public class Land : MonoBehaviour
 
     private void BuildUp()
     {
-        
         if (Game.ChargeBuild(height, color + 1))
         {
-            height += 1f;    
+            height += 1f;
         }
     }
 
