@@ -60,6 +60,9 @@ public class Land : MonoBehaviour
     private void OnMouseOver()
     {
         if (isAnimating) return;
+        
+        Game.DisplayCosts(height, color + 1);
+        
         if (Input.GetMouseButton(0)) BuildUp(); // left click
         if (Input.GetMouseButton(1)) ChangeUp(); // right click
     }
