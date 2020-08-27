@@ -14,7 +14,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.tycoon/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tycoon/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Land.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Land.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +81,7 @@
       <option name="presentableId" value="Default" />
       <updated>1598453809088</updated>
       <workItem from="1598453809972" duration="7243000" />
-      <workItem from="1598531397470" duration="4667000" />
+      <workItem from="1598531397470" duration="6672000" />
     </task>
     <servers />
   </component>

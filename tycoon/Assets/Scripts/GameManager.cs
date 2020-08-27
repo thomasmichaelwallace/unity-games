@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public Text uiMoney;
     public Text uiBalanace;
     public Text uiHint;
+    public Text uiGameOver;
     public Water water;
     public Land landPrefab;
     public Transform landParent;
@@ -85,7 +86,11 @@ public class GameManager : MonoBehaviour
             if (hintTimer < 0) uiHint.text = "";
         }
 
-        if (level > landHeight + 1f) isGameOver = true;
+        if (!isGameOver && level > landHeight + 1f)
+        {
+            isGameOver = true;
+            uiGameOver.text = uiGameOver.text.Replace("{{ money }}", Mathf.CeilToInt(money).ToString());
+        }
         if (isGameOver && gameOverScreen.alpha < 1) gameOverScreen.alpha += 0.5f * Time.deltaTime;
         if (isGameOver && gameOverScreen.alpha >= 1 && Input.GetMouseButton(0)) GameOverClick();
     }

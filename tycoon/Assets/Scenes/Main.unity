@@ -192,7 +192,13 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: '<b>Game Over</b>
 
-    <color=white><size=25>Click to play again</size></color>
+    <color=white><size=20>You had <color=#FFEA49>${{
+    money }}</color> in the bank</size></color>
+
+    <color=white><size=20>But the
+    sea still took you...</size></color>
+
+    <size=25>Click to play again</size>
 
 '
 --- !u!222 &285010154
@@ -405,6 +411,7 @@ MonoBehaviour:
   uiMoney: {fileID: 622716608}
   uiBalanace: {fileID: 1600417415}
   uiHint: {fileID: 1657874085}
+  uiGameOver: {fileID: 285010153}
   water: {fileID: 363872180}
   landPrefab: {fileID: 8736995371133697057, guid: 6b58f545edb5a56448b1ea572ca5566f,
     type: 3}
