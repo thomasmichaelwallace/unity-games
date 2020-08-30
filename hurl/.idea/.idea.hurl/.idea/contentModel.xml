@@ -8,6 +8,7 @@
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
           <e p="PlayerController.cs" t="Include" />
+          <e p="StickController.cs" t="Include" />
         </e>
       </e>
       <e p="hurl.sln" t="IncludeFlat" />

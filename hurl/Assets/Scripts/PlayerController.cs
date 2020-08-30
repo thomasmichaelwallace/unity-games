@@ -1,37 +1,25 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Rigidbody fieldBall;
-    public GameObject playerBall;
-    private readonly float _angle = 0.5f; // raise at 2:1
-    private readonly float _effortRate = 2f;
+    public Rigidbody ball;
+    public Transform deathField;
+
+    public float angle = 0.8f; // raise at 2:1
+    public float strength = 250f;    
+    
+    private readonly Vector3 _ballOffset = new Vector3(0f, 0.15f, -0.5f);
+    private readonly float _effortRate = 8f;
     private readonly float _maxEffort = 4f;
 
     private readonly float _speed = 2.5f;
-    private readonly float _strength = 10f;
-    private readonly Vector3 _ballOffset = new Vector3(0f,0.15f, -0.5f);
-
+    
     private float _effort;
-    private bool _hasBall = false;
+    private bool _hasBall;
 
-    private void OnCollisionEnter(Collision other)
+    private void Start()
     {
-        if (other.rigidbody == fieldBall)
-        {
-            _hasBall = true;
-            fieldBall.isKinematic = true;
-            fieldBall.constraints = RigidbodyConstraints.None;
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        if (_hasBall)
-        {
-            fieldBall.position = transform.position + _ballOffset;
-        }
+        ball.sleepThreshold = 0f;
     }
 
     private void Update()
@@ -44,10 +32,12 @@ public class PlayerController : MonoBehaviour
         position.x += horizontal * _speed * Time.deltaTime;
         position.z += vertical * _speed * Time.deltaTime;
         transform.position = position;
-        
-        // hit
+
         if (_hasBall)
         {
+            ball.MovePosition(transform.position + _ballOffset);
+            
+            // shooting
             if (Input.GetButton("Fire1"))
             {
                 _effort += _effortRate * Time.deltaTime;
@@ -55,12 +45,12 @@ public class PlayerController : MonoBehaviour
             }
             else if (_effort > 0)
             {
-                fieldBall.isKinematic = false;
-                fieldBall.constraints = RigidbodyConstraints.FreezePositionX;
+                ball.isKinematic = false;
+                ball.constraints = RigidbodyConstraints.FreezePositionX;
                 _hasBall = false;
-                
-                var impact = new Vector3(0, _angle * _strength * _effort, -_strength * _effort);
-                fieldBall.AddForce(impact); // , ForceMode.VelocityChange);
+
+                var impact = new Vector3(0, angle * strength * _effort, -strength * _effort);
+                ball.AddForce(impact); // , ForceMode.VelocityChange);
 
                 _effort = 0;
             }
@@ -68,6 +58,41 @@ public class PlayerController : MonoBehaviour
             {
                 _effort = 0;
             }
+        }
+        else
+        {
+            // is attacking
+            if (Input.GetButton("Fire1"))
+            {
+                deathField.gameObject.SetActive(true);
+                LayerMask layerMask = LayerMask.GetMask("Opponents");
+                var colliders = Physics.OverlapBox(deathField.transform.position, deathField.transform.localScale / 2,
+                    Quaternion.identity, layerMask);
+                var i = 0;
+                while (i < colliders.Length)
+                {
+                    colliders[i].gameObject.SetActive(false);
+                    i += 1;
+                }
+            }
+            else if (deathField.gameObject.activeSelf)
+            {
+                deathField.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.rigidbody == ball)
+        {
+            _hasBall = true;
+            ball.isKinematic = true;
+            ball.constraints = RigidbodyConstraints.None;
         }
     }
 }
