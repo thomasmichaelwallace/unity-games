@@ -5,8 +5,11 @@ public class PlayerController : MonoBehaviour
     public Rigidbody ball;
     public Transform deathField;
 
-    public float angle = 0.8f; // raise at 2:1
-    public float strength = 250f;    
+    public float angle;
+    public float strength;
+    public float maxSpeed;
+    public float maxAcceleration;
+    
     
     private readonly Vector3 _ballOffset = new Vector3(0f, 0.15f, -0.5f);
     private readonly float _effortRate = 8f;
@@ -16,27 +19,27 @@ public class PlayerController : MonoBehaviour
     
     private float _effort;
     private bool _hasBall;
+    private Vector3 _inputs = Vector3.zero;
+    private Rigidbody _rigidbody;
+    
+    public Animator _stick;
 
     private void Start()
     {
+        _rigidbody = GetComponent<Rigidbody>();
+        _stick = GetComponentInChildren<Animator>();
         ball.sleepThreshold = 0f;
     }
 
     private void Update()
     {
         // movement
-        var vertical = Input.GetAxis("Vertical");
-        var horizontal = Input.GetAxis("Horizontal");
-
-        var position = transform.position;
-        position.x += horizontal * _speed * Time.deltaTime;
-        position.z += vertical * _speed * Time.deltaTime;
-        transform.position = position;
+        _inputs = Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")), 1f);
+        Vector3 acceleration = _inputs * (maxAcceleration * Time.deltaTime);
+        _rigidbody.AddForce(acceleration, ForceMode.Acceleration);
 
         if (_hasBall)
         {
-            ball.MovePosition(transform.position + _ballOffset);
-            
             // shooting
             if (Input.GetButton("Fire1"))
             {
@@ -46,6 +49,7 @@ public class PlayerController : MonoBehaviour
             else if (_effort > 0)
             {
                 ball.isKinematic = false;
+                ball.detectCollisions = true;
                 ball.constraints = RigidbodyConstraints.FreezePositionX;
                 _hasBall = false;
 
@@ -64,6 +68,8 @@ public class PlayerController : MonoBehaviour
             // is attacking
             if (Input.GetButton("Fire1"))
             {
+                _stick.SetTrigger("strike");
+                
                 deathField.gameObject.SetActive(true);
                 LayerMask layerMask = LayerMask.GetMask("Opponents");
                 var colliders = Physics.OverlapBox(deathField.transform.position, deathField.transform.localScale / 2,
@@ -77,6 +83,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (deathField.gameObject.activeSelf)
             {
+                _stick.ResetTrigger("strike");
                 deathField.gameObject.SetActive(false);
             }
         }
@@ -84,6 +91,13 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Vector3 targetVelocity =_inputs * maxSpeed;
+        _rigidbody.velocity = Vector3.MoveTowards(_rigidbody.velocity, targetVelocity, maxAcceleration);
+
+        if (_hasBall)
+        {
+            ball.MovePosition(transform.position + _ballOffset);
+        }
     }
 
     private void OnCollisionEnter(Collision other)
@@ -92,6 +106,7 @@ public class PlayerController : MonoBehaviour
         {
             _hasBall = true;
             ball.isKinematic = true;
+            ball.detectCollisions = false;
             ball.constraints = RigidbodyConstraints.None;
         }
     }
