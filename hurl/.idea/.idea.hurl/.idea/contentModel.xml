@@ -10,6 +10,10 @@
           <e p="GoalBehaviour.cs" t="Include" />
           <e p="PlayerController.cs" t="Include" />
         </e>
+        <e p="Shaders" t="Include">
+          <e p="ShadowReceiver.shader" t="Include" />
+          <e p="ToonComplete.shader" t="Include" />
+        </e>
       </e>
       <e p="hurl.sln" t="IncludeFlat" />
       <e p="obj" t="ExcludeRecursive" />

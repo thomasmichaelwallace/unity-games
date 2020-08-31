@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 0.30000007, y: 0.3, z: 0.30000007}
   m_Children: []
   m_Father: {fileID: 4471198278860719466}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4471198278173055996
 MeshFilter:
@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 72a3ba653182cc44895dadc5d37b0196, type: 2}
+  - {fileID: 2100000, guid: 6a71200b54325274e8e25dbe75e07d82, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 4471198278435520491}
   - component: {fileID: 4471198278435520492}
   m_Layer: 8
-  m_Name: Cube
+  m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,7 +109,7 @@ Transform:
   m_LocalScale: {x: 0.25000006, y: 1.4, z: 0.9000002}
   m_Children: []
   m_Father: {fileID: 4471198278860719466}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4471198278435520491
 MeshFilter:
@@ -137,7 +137,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 98ecee52d26aa754fbf0257c0e21cd1e, type: 2}
+  - {fileID: 2100000, guid: eab1413ca39b1b648a5800afc3a4e903, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -187,8 +187,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4471198278435520493}
   - {fileID: 4471198278173055998}
+  - {fileID: 4471198278435520493}
   - {fileID: 4471198279252707333}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -280,7 +280,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 6a71200b54325274e8e25dbe75e07d82, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
