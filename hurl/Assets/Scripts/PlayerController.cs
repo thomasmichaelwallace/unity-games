@@ -3,26 +3,27 @@
 public class PlayerController : MonoBehaviour
 {
     public Rigidbody ball;
-    public Transform deathField;
 
     public float angle;
     public float strength;
     public float maxSpeed;
     public float maxAcceleration;
-    
-    
+
+    public Animator _stick;
+
+
     private readonly Vector3 _ballOffset = new Vector3(0f, 0.15f, -0.5f);
+    private readonly Vector3 _deathOffset = new Vector3(0f, 0.75f, -0.5f);
+    private readonly Vector3 _deathScale = new Vector3(1f, 1f, 1.5f) / 2f;
     private readonly float _effortRate = 8f;
     private readonly float _maxEffort = 4f;
 
     private readonly float _speed = 2.5f;
-    
+
     private float _effort;
     private bool _hasBall;
     private Vector3 _inputs = Vector3.zero;
     private Rigidbody _rigidbody;
-    
-    public Animator _stick;
 
     private void Start()
     {
@@ -35,7 +36,7 @@ public class PlayerController : MonoBehaviour
     {
         // movement
         _inputs = Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")), 1f);
-        Vector3 acceleration = _inputs * (maxAcceleration * Time.deltaTime);
+        var acceleration = _inputs * (maxAcceleration * Time.deltaTime);
         _rigidbody.AddForce(acceleration, ForceMode.Acceleration);
 
         if (_hasBall)
@@ -69,35 +70,30 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButton("Fire1"))
             {
                 _stick.SetTrigger("strike");
-                
-                deathField.gameObject.SetActive(true);
+
                 LayerMask layerMask = LayerMask.GetMask("Opponents");
-                var colliders = Physics.OverlapBox(deathField.transform.position, deathField.transform.localScale / 2,
-                    Quaternion.identity, layerMask);
+                var colliders = Physics.OverlapBox(transform.position + _ballOffset, _deathScale, Quaternion.identity, layerMask);
                 var i = 0;
                 while (i < colliders.Length)
                 {
-                    colliders[i].gameObject.SetActive(false);
+                    OpponentController opponent = colliders[i].GetComponent<OpponentController>();
+                    if (opponent) opponent.GetHit();
                     i += 1;
                 }
             }
-            else if (deathField.gameObject.activeSelf)
+            else
             {
-                _stick.ResetTrigger("strike");
-                deathField.gameObject.SetActive(false);
+                _stick.ResetTrigger("strike");    
             }
         }
     }
 
     private void FixedUpdate()
     {
-        Vector3 targetVelocity =_inputs * maxSpeed;
+        var targetVelocity = _inputs * maxSpeed;
         _rigidbody.velocity = Vector3.MoveTowards(_rigidbody.velocity, targetVelocity, maxAcceleration);
 
-        if (_hasBall)
-        {
-            ball.MovePosition(transform.position + _ballOffset);
-        }
+        if (_hasBall) ball.MovePosition(transform.position + _ballOffset);
     }
 
     private void OnCollisionEnter(Collision other)
