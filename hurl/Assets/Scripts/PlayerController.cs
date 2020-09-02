@@ -17,9 +17,7 @@ public class PlayerController : MonoBehaviour
     private readonly Vector3 _deathScale = new Vector3(1f, 1f, 1.5f) / 2f;
     private readonly float _effortRate = 8f;
     private readonly float _maxEffort = 4f;
-
-    private readonly float _speed = 2.5f;
-
+    
     private float _effort;
     private bool _hasBall;
     private Vector3 _inputs = Vector3.zero;
@@ -55,7 +53,7 @@ public class PlayerController : MonoBehaviour
                 _hasBall = false;
 
                 var impact = new Vector3(0, angle * strength * _effort, -strength * _effort);
-                ball.AddForce(impact); // , ForceMode.VelocityChange);
+                ball.AddForce(impact);
 
                 _effort = 0;
             }

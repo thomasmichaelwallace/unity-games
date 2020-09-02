@@ -9,6 +9,7 @@ public class OpponentController : MonoBehaviour
     public GameObject exploder;
 
     private readonly float effort = 5;
+    private readonly float health = 2f;
 
     private Rigidbody _rigidbody;
 
@@ -31,5 +32,25 @@ public class OpponentController : MonoBehaviour
         gameObject.SetActive(false);
         Destroy(this);
     }
-    
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Ball"))
+        {
+            float speed = other.rigidbody.velocity.magnitude;
+            if (speed > health)
+            {
+                GetHit();    
+            }
+            else
+            {
+                float angle = 0.5f;
+                float strength = 40;
+                float _effort = 2f;
+                var impact = new Vector3(0, angle * strength * _effort, strength * _effort);
+                other.rigidbody.AddForce(impact);
+                Debug.Log($"Ouch! {speed}");   
+            }
+        }
+    }
 }
