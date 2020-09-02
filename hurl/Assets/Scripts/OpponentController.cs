@@ -22,7 +22,12 @@ public class OpponentController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 direction = (player.position - transform.position).normalized;
+        float maxSpeed = 3f;
+        float maxAcceleration = 2000f;
+        Vector3 direction = Vector3.ClampMagnitude((player.position - transform.position), 1f);
+        
+        var targetVelocity = direction * maxSpeed;
+        _rigidbody.velocity = Vector3.MoveTowards(_rigidbody.velocity, targetVelocity, maxAcceleration);
     }
 
     public void GetHit()

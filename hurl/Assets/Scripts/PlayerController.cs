@@ -34,8 +34,8 @@ public class PlayerController : MonoBehaviour
     {
         // movement
         _inputs = Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")), 1f);
-        var acceleration = _inputs * (maxAcceleration * Time.deltaTime);
-        _rigidbody.AddForce(acceleration, ForceMode.Acceleration);
+        // var acceleration = _inputs * (maxAcceleration * Time.deltaTime);
+        // _rigidbody.AddForce(acceleration, ForceMode.Acceleration);
 
         if (_hasBall)
         {
