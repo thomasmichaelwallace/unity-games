@@ -21,9 +21,11 @@ public class PlayerController : MonoBehaviour
     private bool _hasBall;
     private Vector3 _inputs = Vector3.zero;
     private Rigidbody _rigidbody;
+    private GameManager _gameManager;
 
     private void Start()
     {
+        _gameManager = FindObjectOfType<GameManager>();
         _rigidbody = GetComponent<Rigidbody>();
         stick = GetComponentInChildren<Animator>();
         ball.sleepThreshold = 0f;
@@ -74,7 +76,11 @@ public class PlayerController : MonoBehaviour
                 while (i < colliders.Length)
                 {
                     OpponentController opponent = colliders[i].GetComponent<OpponentController>();
-                    if (opponent) opponent.GetHit();
+                    if (opponent)
+                    {
+                        _gameManager.Kill();
+                        opponent.GetHit();
+                    }
                     i += 1;
                 }
             }

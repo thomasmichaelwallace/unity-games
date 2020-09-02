@@ -11,8 +11,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ccaa77ac-b0a9-4ed0-b676-8280853e8d16" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/ToonGreen.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/ToonGreen.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.hurl/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.hurl/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.hurl/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.hurl/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ExplodeBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ExplodeBehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/OpponentController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/OpponentController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,8 +40,8 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/BallController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GoalBehaviour.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/SpawnController.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ExplodeBehaviour.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/OpponentController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ExplodeBehaviour.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
       </list>
@@ -95,7 +100,7 @@
       <updated>1598781950206</updated>
       <workItem from="1598781974801" duration="10484000" />
       <workItem from="1598871466125" duration="4287000" />
-      <workItem from="1599055050253" duration="8677000" />
+      <workItem from="1599055050253" duration="9604000" />
     </task>
     <servers />
   </component>

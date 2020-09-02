@@ -23,6 +23,7 @@ public class OpponentController : MonoBehaviour
         float maxSpeed = 3f;
         float maxAcceleration = 2000f;
         Vector3 direction = target.position - transform.position;
+        direction.y = 0; // do not fly.
         if (direction.magnitude > distance) return;
         direction = Vector3.ClampMagnitude(direction, 1f);
         
