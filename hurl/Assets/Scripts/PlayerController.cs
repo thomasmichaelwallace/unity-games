@@ -4,14 +4,13 @@ public class PlayerController : MonoBehaviour
 {
     public Rigidbody ball;
 
+    // TODO: ball can't one shot
     public float angle;
     public float strength;
     public float maxSpeed;
     public float maxAcceleration;
-
-    public Animator _stick;
-
-
+    public Animator stick;
+    
     private readonly Vector3 _ballOffset = new Vector3(0f, 0.15f, -0.5f);
     private readonly Vector3 _deathOffset = new Vector3(0f, 0.75f, -0.5f);
     private readonly Vector3 _deathScale = new Vector3(1f, 1f, 1.5f) / 2f;
@@ -26,7 +25,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        _stick = GetComponentInChildren<Animator>();
+        stick = GetComponentInChildren<Animator>();
         ball.sleepThreshold = 0f;
     }
 
@@ -53,7 +52,7 @@ public class PlayerController : MonoBehaviour
                 var impact = new Vector3(0, angle * strength * _effort, -strength * _effort);
                 ball.AddForce(impact);
                 
-                _stick.SetTrigger("strike");
+                stick.SetTrigger("strike");
 
                 _effort = 0;
             }
@@ -67,10 +66,10 @@ public class PlayerController : MonoBehaviour
             // is attacking
             if (Input.GetButton("Fire1"))
             {
-                _stick.SetTrigger("strike");
+                stick.SetTrigger("strike");
 
                 LayerMask layerMask = LayerMask.GetMask("Opponents");
-                var colliders = Physics.OverlapBox(transform.position + _ballOffset, _deathScale, Quaternion.identity, layerMask);
+                var colliders = Physics.OverlapBox(transform.position + _deathOffset, _deathScale, Quaternion.identity, layerMask);
                 var i = 0;
                 while (i < colliders.Length)
                 {
@@ -81,7 +80,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                _stick.ResetTrigger("strike");    
+                stick.ResetTrigger("strike");    
             }
         }
     }

@@ -7,7 +7,7 @@ public class ExplodeBehaviour : MonoBehaviour
 {
     private readonly float minForce = 250f;
     private readonly float maxForce = 1500f;
-    private readonly float maxHeight = 2f; // (1.75f + 0.15f) / 2f;
+    private readonly float maxHeight = 2f;
     
     void Start()
     {

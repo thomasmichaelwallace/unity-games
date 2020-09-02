@@ -7,12 +7,8 @@ public class SpawnController : MonoBehaviour
     public Transform player;
     public Transform ball;
     public GameObject oppositionPrefab;
-
-    private readonly float pitchX = 25;
-    private readonly float pitchZ = 30;
-    private readonly int count = 20;
-
-    void Start()
+    
+    public void Spawn(float pitchX, float pitchZ, int count)
     {
         for (int i = 0; i < count; i += 1)
         {
@@ -22,6 +18,6 @@ public class SpawnController : MonoBehaviour
             GameObject opponent = Instantiate(oppositionPrefab, start, Quaternion.identity, transform);
             OpponentController controller = opponent.GetComponent<OpponentController>();
             controller.target = i % 2 == 0 ? ball : player;
-        }
+        }   
     }
 }

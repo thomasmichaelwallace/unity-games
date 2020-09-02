@@ -14,8 +14,13 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.hurl/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.hurl/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.hurl/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.hurl/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BallController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BallController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ExplodeBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ExplodeBehaviour.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GoalBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GoalBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/OpponentController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/OpponentController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SpawnController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SpawnController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,12 +40,13 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Assets/Scripts/StickController.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ExplodeBehaviour.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/SpawnController.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/OpponentController.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/GoalBehaviour.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/BallController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GoalBehaviour.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/OpponentController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/SpawnController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ExplodeBehaviour.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
       </list>
     </option>
   </component>
@@ -97,7 +103,7 @@
       <updated>1598781950206</updated>
       <workItem from="1598781974801" duration="10484000" />
       <workItem from="1598871466125" duration="4287000" />
-      <workItem from="1599055050253" duration="6418000" />
+      <workItem from="1599055050253" duration="8189000" />
     </task>
     <servers />
   </component>
@@ -194,5 +200,13 @@
       <screen x="74" y="0" width="3366" height="1440" />
     </state>
     <state x="181" y="100" width="1308" height="1240" key="VCS.FileHistoryDialog/74.0.3366.1440@74.0.3366.1440" timestamp="1598796595492" />
+    <state x="507" y="424" width="644" height="592" key="find.popup" timestamp="1599076094014">
+      <screen x="74" y="0" width="3366" height="1440" />
+    </state>
+    <state x="507" y="424" width="644" height="592" key="find.popup/74.0.3366.1440@74.0.3366.1440" timestamp="1599076094014" />
+    <state x="485" y="342" key="run.anything.popup" timestamp="1599076498034">
+      <screen x="74" y="0" width="3366" height="1440" />
+    </state>
+    <state x="485" y="342" key="run.anything.popup/74.0.3366.1440@74.0.3366.1440" timestamp="1599076498034" />
   </component>
 </project>

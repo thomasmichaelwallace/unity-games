@@ -8,19 +8,16 @@ public class OpponentController : MonoBehaviour
     public Transform target;
     public GameObject exploder;
 
-    private readonly float effort = 5;
     private readonly float health = 2f;
     private readonly float distance = 10f;
 
     private Rigidbody _rigidbody;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
     }
-
-
+    
     private void FixedUpdate()
     {
         float maxSpeed = 3f;
@@ -31,6 +28,8 @@ public class OpponentController : MonoBehaviour
         
         var targetVelocity = direction * maxSpeed;
         _rigidbody.velocity = Vector3.MoveTowards(_rigidbody.velocity, targetVelocity, maxAcceleration);
+        
+        // TODO: ATTACK!
     }
 
     public void GetHit()
@@ -57,7 +56,6 @@ public class OpponentController : MonoBehaviour
                 float _effort = 1f;
                 var impact = new Vector3(0, angle * strength * _effort, strength * _effort);
                 other.rigidbody.AddForce(impact);
-                Debug.Log($"Ouch! {speed}");   
             }
         }
     }

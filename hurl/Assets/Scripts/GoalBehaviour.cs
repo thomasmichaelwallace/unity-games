@@ -8,19 +8,15 @@ public class GoalBehaviour : MonoBehaviour
 {
     public int points;
 
-    private void OnTriggerExit(Collider other)
+    private GameManager _gameManager;
+
+    private void Start()
     {
-        if (other.gameObject.CompareTag("Ball"))
-        {
-            Debug.Log($"Score! +{points}");
-            StartCoroutine(FadeOut());
-        }
-    }
-    
-    private IEnumerator FadeOut()
-    {
-        yield return new WaitForSeconds(2);
-        SceneManager.LoadScene(0);
+        _gameManager = FindObjectOfType<GameManager>();
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        _gameManager.Score(points);
+    }
 }
