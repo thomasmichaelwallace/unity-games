@@ -46,7 +46,7 @@ public class OpponentController : MonoBehaviour
             {
                 float angle = 0.5f;
                 float strength = 40;
-                float _effort = 2f;
+                float _effort = 1f;
                 var impact = new Vector3(0, angle * strength * _effort, strength * _effort);
                 other.rigidbody.AddForce(impact);
                 Debug.Log($"Ouch! {speed}");   
