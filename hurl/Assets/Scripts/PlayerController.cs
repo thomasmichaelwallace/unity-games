@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour
                     {
                         _gameManager.Kill();
                         opponent.GetHit();
+                        Destroy(opponent.gameObject, 1f);
                     }
                     i += 1;
                 }

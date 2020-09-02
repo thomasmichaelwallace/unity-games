@@ -6,7 +6,7 @@ using UnityEngine;
 public class ExplodeBehaviour : MonoBehaviour
 {
     private readonly float minForce = 250f;
-    private readonly float maxForce = 3500f;
+    private readonly float maxForce = 2500f;
     private readonly float maxHeight = 2f;
     
     void Start()

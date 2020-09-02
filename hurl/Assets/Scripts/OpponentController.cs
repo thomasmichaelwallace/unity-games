@@ -35,10 +35,9 @@ public class OpponentController : MonoBehaviour
 
     public void GetHit()
     {
-        Instantiate(exploder, transform.position, transform.rotation);
+        Instantiate(exploder, transform.position, transform.rotation, transform.parent);
         _rigidbody.detectCollisions = false;
         gameObject.SetActive(false);
-        Destroy(this);
     }
 
     private void OnCollisionEnter(Collision other)

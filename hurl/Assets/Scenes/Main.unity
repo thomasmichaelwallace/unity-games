@@ -671,7 +671,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 734885290}
-  m_LocalRotation: {x: 0.70870894, y: -0.00000015298521, z: 0.00000015215623, w: 0.705501}
+  m_LocalRotation: {x: 0.70870894, y: -0.00000015282049, z: 0.0000001523202, w: 0.705501}
   m_LocalPosition: {x: 0, y: 10.074999, z: 22.500002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -930,7 +930,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.70870894, y: -0.00000015298521, z: 0.00000015215623, w: 0.705501}
+  m_LocalRotation: {x: 0.70870894, y: -0.00000015282049, z: 0.0000001523202, w: 0.705501}
   m_LocalPosition: {x: 0, y: 19.299622, z: 22.541853}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1122,7 +1122,6 @@ GameObject:
   - component: {fileID: 1237274590}
   - component: {fileID: 1237274589}
   - component: {fileID: 1237274593}
-  - component: {fileID: 1237274594}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Ball
@@ -1220,19 +1219,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 2
   m_CollisionDetection: 0
---- !u!114 &1237274594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1237274588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f250665a604fe640b378a64a0d2ef03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gameManager: {fileID: 0}
 --- !u!1 &1256243779
 GameObject:
   m_ObjectHideFlags: 0
