@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class OpponentController : MonoBehaviour
 {
-    public Transform player;
+    public Transform target;
     public GameObject exploder;
 
     private readonly float effort = 5;
     private readonly float health = 2f;
+    private readonly float distance = 10f;
 
     private Rigidbody _rigidbody;
 
@@ -24,7 +25,9 @@ public class OpponentController : MonoBehaviour
     {
         float maxSpeed = 3f;
         float maxAcceleration = 2000f;
-        Vector3 direction = Vector3.ClampMagnitude((player.position - transform.position), 1f);
+        Vector3 direction = target.position - transform.position;
+        if (direction.magnitude > distance) return;
+        direction = Vector3.ClampMagnitude(direction, 1f);
         
         var targetVelocity = direction * maxSpeed;
         _rigidbody.velocity = Vector3.MoveTowards(_rigidbody.velocity, targetVelocity, maxAcceleration);

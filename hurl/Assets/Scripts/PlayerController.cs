@@ -34,8 +34,6 @@ public class PlayerController : MonoBehaviour
     {
         // movement
         _inputs = Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")), 1f);
-        // var acceleration = _inputs * (maxAcceleration * Time.deltaTime);
-        // _rigidbody.AddForce(acceleration, ForceMode.Acceleration);
 
         if (_hasBall)
         {
@@ -54,6 +52,8 @@ public class PlayerController : MonoBehaviour
 
                 var impact = new Vector3(0, angle * strength * _effort, -strength * _effort);
                 ball.AddForce(impact);
+                
+                _stick.SetTrigger("strike");
 
                 _effort = 0;
             }
