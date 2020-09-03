@@ -7,29 +7,44 @@ public class OpponentController : MonoBehaviour
 {
     public Transform target;
     public GameObject exploder;
+    public Animator stick;
 
     private readonly float health = 2f;
-    private readonly float distance = 10f;
+    private readonly float activeDistance = 10f;
+    private readonly float maxSpeed = 3f;
+    private readonly float maxAcceleration = 2000f;
+    
+    private readonly Vector3 _deathOffset = new Vector3(0f, 0.75f, 0.5f);
+    private readonly Vector3 _deathScale = new Vector3(1f, 1f, 1.5f) / 3f;
 
     private Rigidbody _rigidbody;
     
     void Start()
     {
+        stick = GetComponentInChildren<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
     }
     
     private void FixedUpdate()
     {
-        float maxSpeed = 3f;
-        float maxAcceleration = 2000f;
         Vector3 direction = target.position - transform.position;
         direction.y = 0; // do not fly.
-        if (direction.magnitude > distance) return;
-        direction = Vector3.ClampMagnitude(direction, 1f);
         
-        var targetVelocity = direction * maxSpeed;
-        _rigidbody.velocity = Vector3.MoveTowards(_rigidbody.velocity, targetVelocity, maxAcceleration);
+        if (direction.magnitude > activeDistance) return;
         
+        
+        // if (direction.z > 0 && direction.magnitude < _deathScale.magnitude)
+        // {
+        //     stick.SetTrigger("strike");
+        //     //attach
+        // }
+        // else
+        // {
+            direction = Vector3.ClampMagnitude(direction, 1f);
+            var targetVelocity = direction * maxSpeed;
+            _rigidbody.velocity = Vector3.MoveTowards(_rigidbody.velocity, targetVelocity, maxAcceleration);   
+        // }
+
         // TODO: ATTACK!
     }
 
