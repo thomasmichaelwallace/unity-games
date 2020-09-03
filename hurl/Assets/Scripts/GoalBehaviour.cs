@@ -17,6 +17,6 @@ public class GoalBehaviour : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        _gameManager.Score(points);
+        if (other.CompareTag("Ball")) _gameManager.Score(points);
     }
 }
