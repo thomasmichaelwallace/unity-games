@@ -9,12 +9,13 @@ public class PlayerController : MonoBehaviour
     public float strength;
     public float maxSpeed;
     public float maxAcceleration;
+    public Transform power;
     public Animator stick;
     
     private readonly Vector3 _ballOffset = new Vector3(0f, 0.15f, -0.5f);
     private readonly Vector3 _deathOffset = new Vector3(0f, 0.75f, -0.5f);
     private readonly Vector3 _deathScale = new Vector3(1f, 1f, 1.5f) / 2f;
-    private readonly float _effortRate = 4f;
+    private readonly float _effortRate = 1f;
     private readonly float _maxEffort = 4f;
     
     private float _effort;
@@ -35,9 +36,17 @@ public class PlayerController : MonoBehaviour
     {
         // movement
         _inputs = Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")), 1f);
-
+        
         if (_hasBall)
         {
+            float powerHeight = (2 / _maxEffort) * _effort;
+            Vector3 powerScale = power.localScale;
+            powerScale.y = powerHeight;
+            power.localScale = powerScale;
+            Vector3 powerPos = power.position;
+            powerPos.y = powerHeight / 2;
+            power.position = powerPos;
+            
             // shooting
             if (Input.GetButton("Fire1"))
             {
@@ -90,6 +99,8 @@ public class PlayerController : MonoBehaviour
                 stick.ResetTrigger("strike");    
             }
         }
+
+        if (_hasBall != power.gameObject.activeSelf) power.gameObject.SetActive(_hasBall);
     }
 
     public void GetHit()

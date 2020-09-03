@@ -16,7 +16,8 @@ public class GameManager : MonoBehaviour
     
     private readonly float pitchX = 25;
     private readonly float pitchZ = 30;
-    private readonly int count = 20;
+
+    private int nextCount = 20;
 
     private Vector3 _playerStart;
     private Vector3 _ballStart;
@@ -44,7 +45,6 @@ public class GameManager : MonoBehaviour
         _ballStart = ball.position;
         _template = uiText.text;
         _timer = _gameLength;
-        DoMatch();
         _restarting = true; // show title
         fader.alpha = 1;
     }
@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
         _restarting = false;
         fader.alpha = 0;
 
-        spawner.Spawn(pitchX, pitchZ, count);
+        spawner.Spawn(pitchX, pitchZ, nextCount);
         player.position = _playerStart;
         ball.position = _ballStart;
         ball.GetComponent<Rigidbody>().velocity = Vector3.up * 5;
@@ -106,6 +106,7 @@ public class GameManager : MonoBehaviour
     {
         if (_restarting) return;
         _score += (points * _goalWeight);
+        nextCount = 20;
         DoScreen("GOAL!", new Color(0.4431373f, 0.9882354f, 0.6745098f));
     }
 
@@ -120,6 +121,7 @@ public class GameManager : MonoBehaviour
         if (player.position.y < -1 || ball.position.y < -1)
         {
             _score -= _outWeight;
+            nextCount = 5;
             DoScreen("OUT!", new Color(0.945098f, 0.4509804f, 0.5556951f));
         }
     }

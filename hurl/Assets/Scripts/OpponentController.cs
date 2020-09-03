@@ -10,10 +10,10 @@ public class OpponentController : MonoBehaviour
     public Animator stick;
 
     private readonly float health = 2f;
-    private readonly float activeDistance = 10f;
+    private readonly float activeDistance = 30f;
     private readonly float maxSpeed = 3f;
     private readonly float maxAcceleration = 2000f;
-    private readonly float aheadness = 0.25f;
+    private readonly float aheadness = 0.5f;
     
     private readonly Vector3 _deathOffset = new Vector3(0f, 0.75f, 0.5f);
     private readonly Vector3 _deathScale = new Vector3(1f, 1f, 1.5f) / 2.5f;
@@ -30,15 +30,27 @@ public class OpponentController : MonoBehaviour
     {
         Vector3 direction = target.position - transform.position;
         if (direction.y > 0) direction.y = 0; // do not fly.
-        
         if (direction.magnitude > activeDistance) return;
-        if (direction.z < aheadness) return; // don't go backwards, for now
         
         
-        if (direction.z > aheadness && direction.magnitude < _deathScale.magnitude)
+        if (direction.z < 0)
+        {
+            // behind
+            float offsetX = 2 * Mathf.Sign(direction.x);
+            Vector3 offset = new Vector3(-offsetX, 0, -0.5f);
+            Vector3 point = (target.position + offset);
+            direction = point - transform.position;
+        } else if (Mathf.Abs(direction.x) > 2f)
+        {
+            // side
+            Vector3 offset = new Vector3(0, 0, -2.5f);
+            Vector3 point = (target.position + offset);
+            direction = point - transform.position;
+        }
+
+        if (direction.z > 0 && direction.magnitude < _deathScale.magnitude)
         {
             stick.SetTrigger("strike");
-            // TODO: ATTACK!
             LayerMask layerMask = LayerMask.GetMask("Player");
             var colliders = Physics.OverlapBox(transform.position + _deathOffset, _deathScale, Quaternion.identity, layerMask);
             int i = 0;
@@ -74,7 +86,7 @@ public class OpponentController : MonoBehaviour
     private void HitBall(Rigidbody ball)
     {
         float angle = 0.5f;
-        float strength = 40;
+        float strength = 30;
         float _effort = 1f;
         var impact = new Vector3(0, angle * strength * _effort, strength * _effort);
         ball.AddForce(impact);

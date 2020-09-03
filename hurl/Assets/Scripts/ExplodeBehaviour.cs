@@ -22,6 +22,7 @@ public class ExplodeBehaviour : MonoBehaviour
         foreach (var child in rigidbodies)
         {
             child.AddExplosionForce(force, centre, impactHeight, impactHeight / 2);
+            Destroy(child.gameObject, 10f);
         }
     }
 }
