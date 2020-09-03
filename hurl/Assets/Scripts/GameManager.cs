@@ -26,13 +26,14 @@ public class GameManager : MonoBehaviour
     private readonly int _killWeight = 1;
     private readonly int _goalWeight = 10;
     private readonly int _outWeight = 10;
-    private readonly float _gameLength = 60;
+    private readonly float _gameLength = 10;
 
     private bool _ending;
     private bool _restarting = true;
     private string _template;
     private readonly float _fadeSpeed = 2;
     private readonly float _fadeHold = 1f;
+    private readonly float _scoreHold = 5f;
 
     private float _faderTimer;
     private float _timer;
@@ -55,8 +56,8 @@ public class GameManager : MonoBehaviour
         {
             _timer = 0;
             _ending = true;
-            _faderTimer = -10f;
             DoScreen($"final score\n{_score}", new Color(1, 0.8871336f, 0.3254717f));
+            _faderTimer = -_scoreHold;
         }
 
         uiText.text = _template

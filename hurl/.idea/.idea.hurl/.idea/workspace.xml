@@ -11,11 +11,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ccaa77ac-b0a9-4ed0-b676-8280853e8d16" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.hurl/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.hurl/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.hurl/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.hurl/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GoalBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GoalBehaviour.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,8 +51,8 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.28313252" />
-    <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.17737617" />
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.28303656" />
+    <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.17713214" />
     <property name="Discover.Launch.Via.Unity" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -79,10 +76,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="14428">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="14428" />
       <option name="selectedOptions">
         <set />
       </option>
@@ -100,7 +97,7 @@
       <workItem from="1598781974801" duration="10484000" />
       <workItem from="1598871466125" duration="4287000" />
       <workItem from="1599055050253" duration="11596000" />
-      <workItem from="1599129135894" duration="4596000" />
+      <workItem from="1599129135894" duration="4904000" />
     </task>
     <servers />
   </component>
@@ -129,38 +126,38 @@
       <screen x="74" y="0" width="3366" height="1440" />
     </state>
     <state width="417" height="464" key="DebuggerActiveHint/74.0.3366.1440@74.0.3366.1440" timestamp="1598802311059" />
-    <state width="1525" height="528" key="GridCell.Tab.0.bottom" timestamp="1598907709547">
+    <state width="1098" height="528" key="GridCell.Tab.0.bottom" timestamp="1599140711857">
       <screen x="74" y="0" width="3366" height="1440" />
     </state>
-    <state width="1525" height="528" key="GridCell.Tab.0.bottom/74.0.3366.1440@74.0.3366.1440" timestamp="1598907709547" />
-    <state width="1525" height="528" key="GridCell.Tab.0.center" timestamp="1598907709547">
+    <state width="1098" height="528" key="GridCell.Tab.0.bottom/74.0.3366.1440@74.0.3366.1440" timestamp="1599140711857" />
+    <state width="1098" height="528" key="GridCell.Tab.0.center" timestamp="1599140711856">
       <screen x="74" y="0" width="3366" height="1440" />
     </state>
-    <state width="1525" height="528" key="GridCell.Tab.0.center/74.0.3366.1440@74.0.3366.1440" timestamp="1598907709547" />
-    <state width="1525" height="528" key="GridCell.Tab.0.left" timestamp="1598907709547">
+    <state width="1098" height="528" key="GridCell.Tab.0.center/74.0.3366.1440@74.0.3366.1440" timestamp="1599140711856" />
+    <state width="1098" height="528" key="GridCell.Tab.0.left" timestamp="1599140711856">
       <screen x="74" y="0" width="3366" height="1440" />
     </state>
-    <state width="1525" height="528" key="GridCell.Tab.0.left/74.0.3366.1440@74.0.3366.1440" timestamp="1598907709547" />
-    <state width="1525" height="528" key="GridCell.Tab.0.right" timestamp="1598907709547">
+    <state width="1098" height="528" key="GridCell.Tab.0.left/74.0.3366.1440@74.0.3366.1440" timestamp="1599140711856" />
+    <state width="1098" height="528" key="GridCell.Tab.0.right" timestamp="1599140711856">
       <screen x="74" y="0" width="3366" height="1440" />
     </state>
-    <state width="1525" height="528" key="GridCell.Tab.0.right/74.0.3366.1440@74.0.3366.1440" timestamp="1598907709547" />
-    <state width="1525" height="528" key="GridCell.Tab.1.bottom" timestamp="1598907709547">
+    <state width="1098" height="528" key="GridCell.Tab.0.right/74.0.3366.1440@74.0.3366.1440" timestamp="1599140711856" />
+    <state width="1098" height="528" key="GridCell.Tab.1.bottom" timestamp="1599140713201">
       <screen x="74" y="0" width="3366" height="1440" />
     </state>
-    <state width="1525" height="528" key="GridCell.Tab.1.bottom/74.0.3366.1440@74.0.3366.1440" timestamp="1598907709547" />
-    <state width="1525" height="528" key="GridCell.Tab.1.center" timestamp="1598907709547">
+    <state width="1098" height="528" key="GridCell.Tab.1.bottom/74.0.3366.1440@74.0.3366.1440" timestamp="1599140713201" />
+    <state width="1098" height="528" key="GridCell.Tab.1.center" timestamp="1599140713201">
       <screen x="74" y="0" width="3366" height="1440" />
     </state>
-    <state width="1525" height="528" key="GridCell.Tab.1.center/74.0.3366.1440@74.0.3366.1440" timestamp="1598907709547" />
-    <state width="1525" height="528" key="GridCell.Tab.1.left" timestamp="1598907709547">
+    <state width="1098" height="528" key="GridCell.Tab.1.center/74.0.3366.1440@74.0.3366.1440" timestamp="1599140713201" />
+    <state width="1098" height="528" key="GridCell.Tab.1.left" timestamp="1599140713201">
       <screen x="74" y="0" width="3366" height="1440" />
     </state>
-    <state width="1525" height="528" key="GridCell.Tab.1.left/74.0.3366.1440@74.0.3366.1440" timestamp="1598907709547" />
-    <state width="1525" height="528" key="GridCell.Tab.1.right" timestamp="1598907709547">
+    <state width="1098" height="528" key="GridCell.Tab.1.left/74.0.3366.1440@74.0.3366.1440" timestamp="1599140713201" />
+    <state width="1098" height="528" key="GridCell.Tab.1.right" timestamp="1599140713201">
       <screen x="74" y="0" width="3366" height="1440" />
     </state>
-    <state width="1525" height="528" key="GridCell.Tab.1.right/74.0.3366.1440@74.0.3366.1440" timestamp="1598907709547" />
+    <state width="1098" height="528" key="GridCell.Tab.1.right/74.0.3366.1440@74.0.3366.1440" timestamp="1599140713201" />
     <state width="1525" height="528" key="GridCell.Tab.2.bottom" timestamp="1598907709548">
       <screen x="74" y="0" width="3366" height="1440" />
     </state>
