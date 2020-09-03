@@ -10,7 +10,6 @@ public class SpawnController : MonoBehaviour
     
     public void Spawn(float pitchX, float pitchZ, int count)
     {
-        
         for (int i = 0; i < count; i += 1)
         {
             float x = UnityEngine.Random.Range(-pitchX, pitchX);

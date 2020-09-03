@@ -13,6 +13,7 @@ public class OpponentController : MonoBehaviour
     private readonly float activeDistance = 10f;
     private readonly float maxSpeed = 3f;
     private readonly float maxAcceleration = 2000f;
+    private readonly float aheadness = 0.25f;
     
     private readonly Vector3 _deathOffset = new Vector3(0f, 0.75f, 0.5f);
     private readonly Vector3 _deathScale = new Vector3(1f, 1f, 1.5f) / 2.5f;
@@ -28,13 +29,13 @@ public class OpponentController : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 direction = target.position - transform.position;
-        direction.y = 0; // do not fly.
+        if (direction.y > 0) direction.y = 0; // do not fly.
         
         if (direction.magnitude > activeDistance) return;
-        if (direction.z < 0) return; // don't go backwards, for now
+        if (direction.z < aheadness) return; // don't go backwards, for now
         
         
-        if (direction.z > 0 && direction.magnitude < _deathScale.magnitude)
+        if (direction.z > aheadness && direction.magnitude < _deathScale.magnitude)
         {
             stick.SetTrigger("strike");
             // TODO: ATTACK!
@@ -62,7 +63,9 @@ public class OpponentController : MonoBehaviour
         }
         else
         {
+            float y = direction.y;
             direction = Vector3.ClampMagnitude(direction, 1f);
+            direction.y = y; // allow falling
             var targetVelocity = direction * maxSpeed;
             _rigidbody.velocity = Vector3.MoveTowards(_rigidbody.velocity, targetVelocity, maxAcceleration);   
         }

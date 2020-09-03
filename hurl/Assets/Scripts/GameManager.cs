@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     private readonly int _killWeight = 1;
     private readonly int _goalWeight = 10;
     private readonly int _outWeight = 10;
-    private readonly float _gameLength = 10;
+    private readonly float _gameLength = 60;
 
     private bool _ending;
     private bool _restarting = true;

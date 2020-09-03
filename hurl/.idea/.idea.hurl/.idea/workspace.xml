@@ -12,7 +12,13 @@
   <component name="ChangeListManager">
     <list default="true" id="ccaa77ac-b0a9-4ed0-b676-8280853e8d16" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.hurl/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.hurl/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/FredokaOne-Regular SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fonts/FredokaOne-Regular SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Monoton-Regular SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fonts/Monoton-Regular SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/OpponentController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/OpponentController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SpawnController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SpawnController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,11 +40,11 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/StickController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/BallController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ExplodeBehaviour.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/SpawnController.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/OpponentController.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GoalBehaviour.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/OpponentController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/SpawnController.cs" />
       </list>
     </option>
   </component>
@@ -97,7 +103,7 @@
       <workItem from="1598781974801" duration="10484000" />
       <workItem from="1598871466125" duration="4287000" />
       <workItem from="1599055050253" duration="11596000" />
-      <workItem from="1599129135894" duration="4904000" />
+      <workItem from="1599129135894" duration="5530000" />
     </task>
     <servers />
   </component>

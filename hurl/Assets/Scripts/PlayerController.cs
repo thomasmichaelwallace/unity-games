@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     private readonly Vector3 _ballOffset = new Vector3(0f, 0.15f, -0.5f);
     private readonly Vector3 _deathOffset = new Vector3(0f, 0.75f, -0.5f);
     private readonly Vector3 _deathScale = new Vector3(1f, 1f, 1.5f) / 2f;
-    private readonly float _effortRate = 8f;
+    private readonly float _effortRate = 4f;
     private readonly float _maxEffort = 4f;
     
     private float _effort;
@@ -110,7 +110,10 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         var targetVelocity = _inputs * maxSpeed;
-        _rigidbody.velocity = Vector3.MoveTowards(_rigidbody.velocity, targetVelocity, maxAcceleration);
+        float y = _rigidbody.velocity.y;
+        Vector3 velocity = Vector3.MoveTowards(_rigidbody.velocity, targetVelocity, maxAcceleration);
+        velocity.y = y;
+        _rigidbody.velocity = velocity; 
 
         if (_hasBall) ball.MovePosition(transform.position + _ballOffset);
     }
