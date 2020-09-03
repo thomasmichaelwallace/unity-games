@@ -15,7 +15,7 @@ public class OpponentController : MonoBehaviour
     private readonly float maxAcceleration = 2000f;
     
     private readonly Vector3 _deathOffset = new Vector3(0f, 0.75f, 0.5f);
-    private readonly Vector3 _deathScale = new Vector3(1f, 1f, 1.5f) / 3f;
+    private readonly Vector3 _deathScale = new Vector3(1f, 1f, 1.5f) / 2.5f;
 
     private Rigidbody _rigidbody;
     
@@ -31,21 +31,50 @@ public class OpponentController : MonoBehaviour
         direction.y = 0; // do not fly.
         
         if (direction.magnitude > activeDistance) return;
+        if (direction.z < 0) return; // don't go backwards, for now
         
         
-        // if (direction.z > 0 && direction.magnitude < _deathScale.magnitude)
-        // {
-        //     stick.SetTrigger("strike");
-        //     //attach
-        // }
-        // else
-        // {
+        if (direction.z > 0 && direction.magnitude < _deathScale.magnitude)
+        {
+            stick.SetTrigger("strike");
+            // TODO: ATTACK!
+            LayerMask layerMask = LayerMask.GetMask("Player");
+            var colliders = Physics.OverlapBox(transform.position + _deathOffset, _deathScale, Quaternion.identity, layerMask);
+            int i = 0;
+            while (i < colliders.Length)
+            {
+                Collider other = colliders[i];
+                PlayerController player = other.GetComponent<PlayerController>();
+                if (player)
+                {
+                    player.GetHit();
+                }
+                else
+                {
+                    if (other.CompareTag("Ball"))
+                    {
+                        HitBall(other.attachedRigidbody);
+                    }
+                }
+                
+                i += 1;
+            }
+        }
+        else
+        {
             direction = Vector3.ClampMagnitude(direction, 1f);
             var targetVelocity = direction * maxSpeed;
             _rigidbody.velocity = Vector3.MoveTowards(_rigidbody.velocity, targetVelocity, maxAcceleration);   
-        // }
+        }
+    }
 
-        // TODO: ATTACK!
+    private void HitBall(Rigidbody ball)
+    {
+        float angle = 0.5f;
+        float strength = 40;
+        float _effort = 1f;
+        var impact = new Vector3(0, angle * strength * _effort, strength * _effort);
+        ball.AddForce(impact);
     }
 
     public void GetHit()
@@ -66,11 +95,7 @@ public class OpponentController : MonoBehaviour
             }
             else
             {
-                float angle = 0.5f;
-                float strength = 40;
-                float _effort = 1f;
-                var impact = new Vector3(0, angle * strength * _effort, strength * _effort);
-                other.rigidbody.AddForce(impact);
+                HitBall(other.rigidbody);
             }
         }
     }

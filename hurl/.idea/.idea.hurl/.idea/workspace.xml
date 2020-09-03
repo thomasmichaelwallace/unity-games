@@ -12,13 +12,10 @@
   <component name="ChangeListManager">
     <list default="true" id="ccaa77ac-b0a9-4ed0-b676-8280853e8d16" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.hurl/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.hurl/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/Wood.controller" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/Wood.controller.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Explode.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Explode.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Opponent.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Opponent.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/OpponentController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/OpponentController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SpawnController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SpawnController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,10 +38,10 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/BallController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GoalBehaviour.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ExplodeBehaviour.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/SpawnController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/OpponentController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" />
       </list>
     </option>
   </component>
@@ -70,6 +67,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
@@ -102,7 +100,7 @@
       <workItem from="1598781974801" duration="10484000" />
       <workItem from="1598871466125" duration="4287000" />
       <workItem from="1599055050253" duration="11596000" />
-      <workItem from="1599129135894" duration="302000" />
+      <workItem from="1599129135894" duration="1400000" />
     </task>
     <servers />
   </component>
@@ -195,6 +193,10 @@
       <screen x="74" y="0" width="3366" height="1440" />
     </state>
     <state width="1525" height="528" key="GridCell.Tab.3.right/74.0.3366.1440@74.0.3366.1440" timestamp="1598907709549" />
+    <state x="159" y="364" key="SettingsEditor" timestamp="1599129555350">
+      <screen x="74" y="0" width="3366" height="1440" />
+    </state>
+    <state x="159" y="364" key="SettingsEditor/74.0.3366.1440@74.0.3366.1440" timestamp="1599129555350" />
     <state x="181" y="100" width="1308" height="1240" key="VCS.FileHistoryDialog" timestamp="1598796595492">
       <screen x="74" y="0" width="3366" height="1440" />
     </state>

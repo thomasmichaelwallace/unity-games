@@ -92,6 +92,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void GetHit()
+    {
+        if (_hasBall)
+        {
+            _hasBall = false;
+            ball.isKinematic = false;
+            ball.detectCollisions = true;
+            ball.constraints = RigidbodyConstraints.FreezePositionX;
+        }
+        Vector3 velocity = _rigidbody.velocity;
+        velocity.x = -velocity.x;
+        velocity.z = 100; // bounce!
+        _rigidbody.velocity = velocity;
+    }
+
     private void FixedUpdate()
     {
         var targetVelocity = _inputs * maxSpeed;
