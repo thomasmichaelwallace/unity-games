@@ -31,4 +31,9 @@ public class ControlledBehaviour : MonoBehaviour
     {
         if(context.performed) Move(1);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("dead");
+    }
 }
