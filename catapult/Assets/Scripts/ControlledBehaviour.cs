@@ -4,13 +4,18 @@ using UnityEngine.InputSystem;
 public class ControlledBehaviour : MonoBehaviour
 {
     private readonly float _acceleration = 10f;
-
+    private readonly float _bulletFactor = 2.5f;
+    
     private int _target;
     private float _to;
     private float _velocity;
 
     private void Update()
     {
+        float f = Time.timeScale < 1 ? _bulletFactor : 1;
+        float dt = Time.deltaTime * f;
+        Debug.Log(f);
+
         var x = transform.position.x;
         if (Mathf.Approximately(_to, x))
         {
@@ -19,7 +24,7 @@ public class ControlledBehaviour : MonoBehaviour
         }
 
         var delta = Mathf.Abs(x - _to);
-        var snap = _acceleration * Time.deltaTime;
+        var snap = _acceleration * dt;
         if (delta < snap) // && Mathf.Abs(_velocity) < _acceleration)
         {
             transform.position = new Vector3(_to, 0, 0f);
@@ -35,7 +40,7 @@ public class ControlledBehaviour : MonoBehaviour
 
         if (x > _to) sign *= -1; // heading right
         _velocity += sign * snap;
-        x += _velocity * Time.deltaTime;
+        x += _velocity * dt;
 
         if (x > 2.2 && _velocity > 0) _velocity = -_velocity;
         if (x < -2.2 && _velocity < 0) _velocity = -_velocity;
