@@ -501,7 +501,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1785764726}
         m_TargetAssemblyTypeName: BulletBheaviour, Assembly-CSharp
         m_MethodName: SlowInput
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -512,6 +512,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 1ce4ac87-a308-482c-92dc-10a5e24df165
     m_ActionName: Player/Slow[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 307603781}
+        m_TargetAssemblyTypeName: ControlledBehaviour, Assembly-CSharp
+        m_MethodName: Left
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6e5d9b0c-c8ca-49f4-ac38-957198d9ba26
+    m_ActionName: Player/Left[/Keyboard/leftArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 307603781}
+        m_TargetAssemblyTypeName: ControlledBehaviour, Assembly-CSharp
+        m_MethodName: Right
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 32fa6fbd-ddce-46a9-892c-c98233311069
+    m_ActionName: Player/Right[/Keyboard/rightArrow]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
