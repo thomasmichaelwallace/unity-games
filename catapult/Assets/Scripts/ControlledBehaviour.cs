@@ -5,6 +5,7 @@ public class ControlledBehaviour : MonoBehaviour
 {
     private readonly float _acceleration = 10f;
     private readonly float _bulletFactor = 2.5f;
+    private readonly float _minRotation = 5f;
     
     private int _target;
     private float _to;
@@ -14,7 +15,12 @@ public class ControlledBehaviour : MonoBehaviour
     {
         float f = Time.timeScale < 1 ? _bulletFactor : 1;
         float dt = Time.deltaTime * f;
-        Debug.Log(f);
+        
+        var rotation = transform.rotation.eulerAngles;
+        rotation.x += _velocity + _minRotation * Time.deltaTime;
+        rotation.y -= _velocity - _minRotation * Time.deltaTime;;
+        rotation.z += _minRotation * Time.deltaTime;
+        transform.rotation = Quaternion.Euler(rotation);
 
         var x = transform.position.x;
         if (Mathf.Approximately(_to, x))
