@@ -17,8 +17,8 @@ public class ControlledBehaviour : MonoBehaviour
         float dt = Time.deltaTime * f;
         
         var rotation = transform.rotation.eulerAngles;
-        rotation.x += _velocity + _minRotation * Time.deltaTime;
-        rotation.y -= _velocity - _minRotation * Time.deltaTime;;
+        rotation.x += (_velocity * Time.deltaTime) * 10f + _minRotation * Time.deltaTime;
+        rotation.y -= (_velocity * Time.deltaTime) * 10f - _minRotation * Time.deltaTime;;
         rotation.z += _minRotation * Time.deltaTime;
         transform.rotation = Quaternion.Euler(rotation);
 
