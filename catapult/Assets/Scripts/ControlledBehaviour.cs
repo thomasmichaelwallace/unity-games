@@ -1,8 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class ControlledBehaviour : MonoBehaviour
 {
+    private ScreenBehaviour _screen;
+    
     private readonly float _acceleration = 10f;
     private readonly float _bulletFactor = 2.5f;
     private readonly float _minRotation = 5f;
@@ -10,6 +13,11 @@ public class ControlledBehaviour : MonoBehaviour
     private int _target;
     private float _to;
     private float _velocity;
+
+    private void Start()
+    {
+        _screen = FindObjectOfType<ScreenBehaviour>();
+    }
 
     private void Update()
     {
@@ -56,7 +64,7 @@ public class ControlledBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("dead");
+        _screen.GameOver();
     }
 
     private void Move(int direction)
