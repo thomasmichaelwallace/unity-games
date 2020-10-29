@@ -8,7 +8,7 @@ public class TrackBehaviour : MonoBehaviour
     private readonly List<Transform> _obstacles = new List<Transform>();
     private readonly float _horizontalGap = 2f;
 
-    private readonly int _rows = 10;
+    private readonly int _rows = 20;
     private readonly float _speedIncrease = 0.2f;
     private readonly float _initialSpeed = 3f;
     private readonly float _verticalGap = 5f;
@@ -68,6 +68,6 @@ public class TrackBehaviour : MonoBehaviour
 
     private void Generate()
     {
-        for (var i = 1; i <= _rows; i += 1) AddRow(i);
+        for (var i = 5; i <= _rows; i += 1) AddRow(i);
     }
 }

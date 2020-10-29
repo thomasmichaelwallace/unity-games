@@ -12,7 +12,7 @@ public class ScreenBehaviour : MonoBehaviour
     private int _count = 3;
     private float _timer = 0;
 
-    private bool _isStart = false;
+    private bool _isStart = true;
     private bool _isEnd = false;
     
     void Start()
