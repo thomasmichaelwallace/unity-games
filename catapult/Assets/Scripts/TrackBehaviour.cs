@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TrackBehaviour : MonoBehaviour
 {
     public GameObject obstacle;
+    public TextMeshProUGUI score;
 
     private readonly List<Transform> _obstacles = new List<Transform>();
     private readonly float _horizontalGap = 2f;
@@ -14,7 +16,8 @@ public class TrackBehaviour : MonoBehaviour
     private readonly float _verticalGap = 5f;
     
     private float _speed;
-    private float _interval;    
+    private float _interval;
+    private float _total;
 
     private void Start()
     {
@@ -27,6 +30,7 @@ public class TrackBehaviour : MonoBehaviour
         _speed += _speedIncrease * Time.deltaTime;
         
         var distance = Time.deltaTime * _speed;
+        _total += distance;
 
         var clear = new List<Transform>();
 
@@ -51,6 +55,8 @@ public class TrackBehaviour : MonoBehaviour
             AddRow(_rows);
             _interval = 0;
         }
+
+        score.text = Mathf.RoundToInt(_total).ToString() + "m";
     }
 
     private void AddRow(int row)

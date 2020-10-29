@@ -1,9 +1,13 @@
 ﻿using System.Linq.Expressions;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class ScreenBehaviour : MonoBehaviour
 {
+    public TextMeshProUGUI score;
+    
     private TextMeshProUGUI _text;
     private readonly float _fadeRate = 3f;
     
@@ -52,7 +56,15 @@ public class ScreenBehaviour : MonoBehaviour
 
     public void GameOver()
     {
-        _text.text = "GAME OVER!";
+        if (_isEnd) return;
+        _text.text = "GAME OVER!" + "\n" + score.text + "\n" + "<size=25%>Press {space} to retry</size>";
         _isEnd = true;
+    }
+    
+    public void RestartInput(InputAction.CallbackContext context)
+    {
+        if (!_isEnd) return;
+        if (!context.performed) return;
+        SceneManager.LoadScene(0);
     }
 }
