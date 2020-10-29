@@ -8,20 +8,24 @@ public class TrackBehaviour : MonoBehaviour
     private readonly List<Transform> _obstacles = new List<Transform>();
     private readonly float _horizontalGap = 2f;
 
-    private float _interval;
-
     private readonly int _rows = 10;
-
-    private readonly float _speed = 3f;
+    private readonly float _speedIncrease = 0.2f;
+    private readonly float _initialSpeed = 3f;
     private readonly float _verticalGap = 5f;
+    
+    private float _speed;
+    private float _interval;    
 
     private void Start()
     {
         Generate();
+        _speed = _initialSpeed;
     }
 
     private void Update()
     {
+        _speed += _speedIncrease * Time.deltaTime;
+        
         var distance = Time.deltaTime * _speed;
 
         var clear = new List<Transform>();
