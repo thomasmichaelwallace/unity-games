@@ -1,0 +1,4 @@
+- ["Merry Bay [Upbeat Summer Lofi]"](<https://soundcloud.com/ghostrifter-official/merry-bay>) by [Ghostrifter Official](<https://soundcloud.com/ghostrifter-official>) is licensed under [CC BY-SA 3.0](<http://creativecommons.org/licenses/by-sa/3.0>)
+- ["thud.wav"](<https://freesound.org/people/OtisJames/sounds/215162/>) by [OtisJames](<https://freesound.org/people/OtisJames/>) is in the [Public Domain, CC0](<https://wiki.creativecommons.org/Public_domain>)
+- ["20080322.gust.3.wav"](<https://freesound.org/people/dobroide/sounds/51034/>) by [dobroide](<https://freesound.org/people/dobroide/>) is licensed under [CC BY 3.0](<http://creativecommons.org/licenses/by/3.0>)
+- Keijiro / UnitySkyboxShaders [https://github.com/keijiro/UnitySkyboxShaders](<https://github.com/keijiro/UnitySkyboxShaders>)
