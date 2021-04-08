@@ -1071,8 +1071,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boat: {fileID: 715849571}
-  jumpLength: 2
+  jumpLength: 5
   drownTime: 5
+  jumpHeight: 10
+  jumpSpeed: 2
 --- !u!23 &1691055019
 MeshRenderer:
   m_ObjectHideFlags: 0
