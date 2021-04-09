@@ -7,14 +7,15 @@ public class Guy : MonoBehaviour
     private const float DrownTime = 7f;
     private const float JumpHeight = 5f;
     private const float JumpSpeed = 4f;
-    private const float WaterJumpHeight = 0.5f;
-    private const float WaterJumpLength = 1f;
+    private const float WaterJumpHeight = 1f;
+    private const float WaterJumpLength = 1.5f;
 
     [SerializeField] private float jumpLength;
     private Transform _boat;
     private Quaternion _deadAngle;
     private float _drownSpeed;
     private float _jumpVelocity;
+    private Level _level;
     private float _sqrBoatLength;
     private float _sqrJumpLength;
     private float _sqrWaterJumpLength;
@@ -32,6 +33,7 @@ public class Guy : MonoBehaviour
         _drownSpeed = 90f / DrownTime;
 
         _boat = FindObjectOfType<BoatInput>().transform;
+        _level = FindObjectOfType<Level>();
     }
 
 
@@ -106,6 +108,7 @@ public class Guy : MonoBehaviour
             if (distance < _sqrBoatLength)
             {
                 _state = State.Saved;
+                _level.Score();
                 Destroy(gameObject);
             }
 
