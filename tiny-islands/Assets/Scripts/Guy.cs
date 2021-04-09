@@ -3,16 +3,15 @@ using UnityEngine;
 public class Guy : MonoBehaviour
 {
     private const float SinkPoint = -11;
+    private const float BoatRadius = 0.5f;
+    private const float DrownTime = 7f;
+    private const float JumpHeight = 5f;
+    private const float JumpSpeed = 4f;
+    private const float WaterJumpHeight = 0.5f;
+    private const float WaterJumpLength = 1f;
 
-    [SerializeField] private Transform boat;
     [SerializeField] private float jumpLength;
-    [SerializeField] private float drownTime = 2f;
-    [SerializeField] private float jumpHeight = 1f;
-    [SerializeField] private float jumpSpeed = 1f;
-    [SerializeField] private float boatRadius = 1f;
-    [SerializeField] private float waterJumpHeight = 0.5f;
-    [SerializeField] private float waterJumpLength = 1f;
-
+    private Transform _boat;
     private Quaternion _deadAngle;
     private float _drownSpeed;
     private float _jumpVelocity;
@@ -24,13 +23,15 @@ public class Guy : MonoBehaviour
     private void Awake()
     {
         _sqrJumpLength = Mathf.Pow(jumpLength, 2);
-        _sqrWaterJumpLength = Mathf.Pow(waterJumpLength, 2);
-        _sqrBoatLength = Mathf.Pow(boatRadius, 2);
+        _sqrWaterJumpLength = Mathf.Pow(WaterJumpLength, 2);
+        _sqrBoatLength = Mathf.Pow(BoatRadius, 2);
 
         var deadZ = Random.Range(0, 360);
         _deadAngle = Quaternion.Euler(90f, 0, deadZ);
 
-        _drownSpeed = 90f / drownTime;
+        _drownSpeed = 90f / DrownTime;
+
+        _boat = FindObjectOfType<BoatInput>().transform;
     }
 
 
@@ -44,15 +45,16 @@ public class Guy : MonoBehaviour
         // can be saved
         if (_state == State.Waiting || _state == State.Drowning)
         {
-            var distance = (position - boat.position).sqrMagnitude;
+            var distance = (position - _boat.position).sqrMagnitude;
             if (_state == State.Waiting && distance < _sqrJumpLength)
             {
-                _jumpVelocity = jumpHeight;
-                _state = State.Jumping;                
-            } else if (distance < _sqrWaterJumpLength)
+                _jumpVelocity = JumpHeight;
+                _state = State.Jumping;
+            }
+            else if (distance < _sqrWaterJumpLength)
             {
-                _jumpVelocity = waterJumpHeight;
-                _state = State.Jumping;               
+                _jumpVelocity = WaterJumpHeight;
+                _state = State.Jumping;
             }
         }
 
@@ -87,10 +89,10 @@ public class Guy : MonoBehaviour
         if (_state == State.Jumping)
         {
             var current = new Vector3(position.x, 0, position.z);
-            var target = boat.position;
+            var target = _boat.position;
             target.y = 0;
 
-            current = Vector3.MoveTowards(current, target, jumpSpeed * Time.deltaTime);
+            current = Vector3.MoveTowards(current, target, JumpSpeed * Time.deltaTime);
             _jumpVelocity -= 9.81f * Time.deltaTime;
             current.y = position.y + _jumpVelocity * Time.deltaTime;
 
@@ -100,7 +102,7 @@ public class Guy : MonoBehaviour
                 current.y = 0;
             }
 
-            var distance = (current - boat.position).sqrMagnitude;
+            var distance = (current - _boat.position).sqrMagnitude;
             if (distance < _sqrBoatLength)
             {
                 _state = State.Saved;
@@ -109,7 +111,6 @@ public class Guy : MonoBehaviour
 
             t.position = current;
         }
-        
     }
 
     private enum State
