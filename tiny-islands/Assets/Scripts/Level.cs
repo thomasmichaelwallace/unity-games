@@ -71,7 +71,7 @@ public class Level : MonoBehaviour
             var z = zn * gridSize + offset + Random.Range(-gridNoise, gridNoise);
 
             // prevent spawning on start position
-            if (x < 10 && x > -10 && z < 10 && z > -10) return;
+            if (x > -10 && x < 10 && z > -10 && z < 10) continue;
 
             var y = _y0S[i];
             var prefab = _prefabs[i];
