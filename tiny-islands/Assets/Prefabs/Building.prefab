@@ -5819,7 +5819,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3372341328734826361, guid: 30fdbfbb8fbb4f04aafe7bd515f43ca6, type: 3}
       propertyPath: jumpLength
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3372341328734826362, guid: 30fdbfbb8fbb4f04aafe7bd515f43ca6, type: 3}
       propertyPath: m_RootOrder
