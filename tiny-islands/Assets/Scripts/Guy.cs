@@ -18,7 +18,7 @@ public class Guy : MonoBehaviour
     private float _sqrBoatLength;
     private float _sqrJumpLength;
     private float _sqrWaterJumpLength;
-    private State _state = State.Waiting;
+    private State _state = State.Sleeping;
 
     private void Awake()
     {
@@ -37,7 +37,7 @@ public class Guy : MonoBehaviour
 
     private void Update()
     {
-        if (_state == State.Saved || _state == State.Dead) return;
+        if (_state == State.Sleeping || _state == State.Saved || _state == State.Dead) return;
 
         var t = transform;
         var position = t.position;
@@ -113,8 +113,14 @@ public class Guy : MonoBehaviour
         }
     }
 
+    public void StartSinking()
+    {
+        if (_state == State.Sleeping) _state = State.Waiting;
+    }
+
     private enum State
     {
+        Sleeping,
         Waiting,
         Jumping,
         Saved,
