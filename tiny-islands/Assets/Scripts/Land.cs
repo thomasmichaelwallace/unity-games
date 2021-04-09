@@ -46,8 +46,7 @@ public class Land : MonoBehaviour
     {
         if (_isSinking) return;
         _isSinking = true;
-
-        Debug.Log("Sinking!");
+        
         foreach (var guy in _guys) guy.StartSinking();
     }
 }
