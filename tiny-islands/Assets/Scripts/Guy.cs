@@ -10,17 +10,21 @@ public class Guy : MonoBehaviour
     [SerializeField] private float jumpHeight = 1f;
     [SerializeField] private float jumpSpeed = 1f;
     [SerializeField] private float boatRadius = 1f;
+    [SerializeField] private float waterJumpHeight = 0.5f;
+    [SerializeField] private float waterJumpLength = 1f;
 
     private Quaternion _deadAngle;
     private float _drownSpeed;
+    private float _jumpVelocity;
     private float _sqrBoatLength;
     private float _sqrJumpLength;
+    private float _sqrWaterJumpLength;
     private State _state = State.Waiting;
-    private float _jumpVelocity;
 
     private void Awake()
     {
         _sqrJumpLength = Mathf.Pow(jumpLength, 2);
+        _sqrWaterJumpLength = Mathf.Pow(waterJumpLength, 2);
         _sqrBoatLength = Mathf.Pow(boatRadius, 2);
 
         var deadZ = Random.Range(0, 360);
@@ -41,10 +45,14 @@ public class Guy : MonoBehaviour
         if (_state == State.Waiting || _state == State.Drowning)
         {
             var distance = (position - boat.position).sqrMagnitude;
-            if (distance < _sqrJumpLength)
+            if (_state == State.Waiting && distance < _sqrJumpLength)
             {
                 _jumpVelocity = jumpHeight;
-                _state = State.Jumping;
+                _state = State.Jumping;                
+            } else if (distance < _sqrWaterJumpLength)
+            {
+                _jumpVelocity = waterJumpHeight;
+                _state = State.Jumping;               
             }
         }
 
@@ -57,7 +65,6 @@ public class Guy : MonoBehaviour
             if (position.y <= 0f && _state == State.Waiting)
             {
                 _state = State.Drowning;
-                _sqrJumpLength = 1f;
             }
             else if (position.y <= SinkPoint && _state == State.Sinking)
             {
@@ -73,7 +80,7 @@ public class Guy : MonoBehaviour
             rotation = Quaternion.RotateTowards(rotation, _deadAngle, _drownSpeed * Time.deltaTime);
             t.rotation = rotation;
 
-            if (Quaternion.Angle(rotation, _deadAngle) <= 0.01f) _state = State.Sinking;
+            if (Mathf.Abs(Quaternion.Angle(rotation, _deadAngle)) <= 1f) _state = State.Sinking;
         }
 
         // jumping
@@ -102,6 +109,7 @@ public class Guy : MonoBehaviour
 
             t.position = current;
         }
+        
     }
 
     private enum State
