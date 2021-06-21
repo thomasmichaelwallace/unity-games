@@ -4,42 +4,58 @@ using UnityEngine.SceneManagement;
 public class FaderManager : MonoBehaviour
 {
     private CanvasGroup _canvas;
-    private bool _fadedIn;
-    private bool _fadingOut;
+    private FadeState _state;
     private int _target;
-    private bool _waiting;
 
     private void Start()
     {
         _canvas = GetComponent<CanvasGroup>();
-        Time.timeScale = 1; // restore time
+        // first state
+        _canvas.alpha = 1;
+        _state = FadeState.FadeToTrans;
+        // restore time (just in case)
+        Time.timeScale = 1;
     }
 
     private void Update()
     {
-        if (_waiting) return;
-
-        if (_fadingOut)
+        switch (_state)
         {
-            _canvas.alpha += Time.unscaledDeltaTime * 2f;
-            if (_canvas.alpha >= 1)
+            case FadeState.White:
+            case FadeState.Trans:
+                return; // static
+            case FadeState.FadeToTrans:
             {
-                _waiting = true;
-                SceneManager.LoadScene(_target);
+                _canvas.alpha -= Time.unscaledDeltaTime * 2f;
+                if (_canvas.alpha <= 0) _state = FadeState.Trans;
+                break;
             }
-        }
+            case FadeState.FadeToWhite:
+            {
+                _canvas.alpha += Time.unscaledDeltaTime * 2f;
+                if (_canvas.alpha >= 1)
+                {
+                    _state = FadeState.White;
+                    SceneManager.LoadScene(_target);
+                }
 
-        if (!_fadedIn)
-        {
-            _canvas.alpha -= Time.unscaledDeltaTime * 2f;
-            if (_canvas.alpha <= 0) _fadedIn = true;
+                break;
+            }
         }
     }
 
     public void GotoScene(int sceneIndex)
     {
-        if (_waiting) return;
+        if (_state != FadeState.Trans) return; // fading
         _target = sceneIndex;
-        _fadingOut = true;
+        _state = FadeState.FadeToWhite;
+    }
+
+    private enum FadeState
+    {
+        White,
+        FadeToTrans,
+        Trans,
+        FadeToWhite
     }
 }

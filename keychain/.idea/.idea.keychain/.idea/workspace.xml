@@ -10,10 +10,10 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/EndZone.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/AutoChainLinks.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/RestarButton.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ClickToStart.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/LevelText.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Forever.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ClickToStart.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/RestarButton.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
@@ -21,11 +21,11 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/AutoChainLinks.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/DragTarget.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/LevelText.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Forever.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/EndZone.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/RestarButton.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/FaderManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/ClickToStart.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/RestarButton.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Forever.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/FaderManager.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1tqn6pVPeoUFrYOjbENOorEHl8X" />
