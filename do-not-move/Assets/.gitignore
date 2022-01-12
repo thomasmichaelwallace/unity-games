@@ -1,0 +1,5 @@
+# exclude licenced from asset store
+/Thaleah_PixelFont
+/TextMesh Pro
+/Plugins/PlayMaker
+/Gizmos
