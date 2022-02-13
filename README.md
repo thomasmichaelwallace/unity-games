@@ -1,7 +1,6 @@
 # unity-games
 
-
-Games (mostly for [weekly-game-jam](http://www.weeklygamejam.com/)) written with Unity
+Games Jam games written with Unity.
 
 You can see most of these games in action at:
-  https://thomasmichaelwallace.itch.io/
+  https://tomputergames.itch.io/
