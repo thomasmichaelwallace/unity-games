@@ -1,0 +1,7 @@
+<ul>
+<li><a href="https://freesound.org/people/InspectorJ/sounds/394423/" target="_blank">"Bamboo Swing » Bamboo Swing, C8.wav"</a> by <a href="https://freesound.org/people/InspectorJ/" target="_blank">InspectorJ</a> is licensed under <a href="http://creativecommons.org/licenses/by/4.0" target="_blank">CC BY 4.0</a></li>
+<li><a href="https://soundcloud.com/mxxrebeat/coffee" target="_blank">"coffee"</a> by <a href="https://soundcloud.com/mxxrebeat" target="_blank">Mxxre</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0" target="_blank">CC BY 3.0</a></li>
+<li>The <a href="https://fonts.google.com/specimen/Heebo" target="_blank">Heebo</a> Font is licensed under SIL Open Font License 1.1</li>
+<li><a href="https://freesound.org/people/grunz/sounds/109663/" target="_blank">"success_low.wav"</a> by <a href="https://freesound.org/people/grunz/" target="_blank">grunz</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0" target="_blank">CC BY 3.0</a></li>
+<li><a href="https://freesound.org/people/LiamG_SFX/sounds/334238/" target="_blank">"Medieval Combat » Sword Slice"</a> by <a href="https://freesound.org/people/LiamG_SFX/" target="_blank">LiamG_SFX</a> is licensed under <a href="http://creativecommons.org/licenses/by/4.0" target="_blank">CC BY 4.0</a></li>
+</ul>
